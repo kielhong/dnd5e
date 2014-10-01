@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="net.kiel.dnd.repository.SavingThrowRepository">
+    <resultMap id="savingThrowMap" type="net.kiel.dnd.model.SavingThrow">
+        <id property="savingThrowId" column="saving_throw_id" />
+        <result property="abilityType" column="ability_type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result property="proficiency" column="proficiency"/>
+    </resultMap>
+    
+    <select id="selectByCharacter" parameterType="int" resultMap="savingThrowMap">
+        SELECT     saving_throw_id, ability.ability_type, proficiency 
+        FROM       saving_throw 
+        INNER JOIN ability ON saving_throw.ability_id = ability.ability_id
+        WHERE      character_id = #{caracterId}
+    </select>
+</mapper>

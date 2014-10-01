@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="net.kiel.dnd.repository.WeaponRepository">
+    <resultMap id="weaponMap" type="net.kiel.dnd.model.Weapon">
+        <id property="weaponId" column="weapon_id" />
+        <result property="name" column="name"/>
+        <result property="weaponType" column="type"/>
+        <result property="cost" column="cost"/>
+        <result property="damage" column="damage"/>
+        <result property="damageType" column="damage_type"/>
+        <result property="proficiency" column="proficiency"/>
+    </resultMap>
+    
+    <select id="selectByCharacter" parameterType="int" resultMap="weaponMap">
+        SELECT     weapon.weapon_id, name, type, cost, damage, damage_type, proficiency 
+        FROM       weapon
+        INNER JOIN character_weapon ON weapon.weapon_id=character_weapon.weapon_id
+        WHERE      character_weapon.character_id = #{caracterId}
+    </select>
+</mapper>
