@@ -3,6 +3,7 @@ package net.kiel.dnd.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.service.CharacterService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@Transactional
 public class CharacterController {
     @Inject private CharacterService characterService;
     

@@ -1,34 +1,27 @@
 package net.kiel.dnd.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.Data;
-import net.kiel.dnd.model.Ability.AbilityType;
-
 
 @Data
+@Entity
+@Table(name = "saving_throw")
 public class SavingThrow {
-    private Integer savingThrowId;
-    
-    @JsonIgnore
-    private Integer characterId;
-    
-    @JsonIgnore
-    private Character character;
+    @Id
+    private Integer id;
     
     private Boolean proficiency;
         
-    private AbilityType abilityType;
+    @OneToOne
+    private Ability ability;
     
-    
-    public Integer getValue() {        
-        return character.getAbility(abilityType).getModifier() + (proficiency ? character.getProficiencyBonus() : 0); 
-    }
-
-
-    @Override
-    public String toString() {
-        return "SavingThrow [savingThrowId=" + savingThrowId + ", characterId=" + characterId + ", proficiency="
-                + proficiency + ", abilityType=" + abilityType + "]";
-    }
+//    public Integer getValue() {        
+//        return getAbility().getModifier() + (proficiency ? getAbility().getCharacter().getProficiency().getBonus() : 0); 
+//    }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "net.kiel.dnd")
+@ComponentScan("net.kiel.dnd")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean

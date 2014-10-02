@@ -1,10 +1,13 @@
 package net.kiel.dnd.model;
 
+import javax.persistence.Entity;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
 @Data
+//@Entity(name = "weapon")
 public class Weapon {
     private Integer weaponId;
     
@@ -28,15 +31,15 @@ public class Weapon {
     
     private Boolean proficiency;
     
-    public Integer getAttackBonus() {
-        Ability.AbilityType abilityType = null;
-        if (weaponType == 2 || weaponType == 4) {
-            abilityType = Ability.AbilityType.DEXTERITY;
-        } else {
-            abilityType = Ability.AbilityType.STRENGTH;
-        }
-        
-        return character.getAbility(abilityType).getModifier() + (proficiency ? character.getProficiencyBonus() : 0); 
-    }
+//    public Integer getAttackBonus() {
+//        Ability.AbilityType abilityType = null;
+//        if (weaponType == 2 || weaponType == 4) {
+//            abilityType = Ability.AbilityType.DEXTERITY;
+//        } else {
+//            abilityType = Ability.AbilityType.STRENGTH;
+//        }
+//        
+//        return character.getAbility(abilityType).getModifier() + (proficiency ? character.getProficiencyBonus() : 0); 
+//    }
 
 }

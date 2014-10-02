@@ -1,76 +1,121 @@
 package net.kiel.dnd.model;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Transient;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.hibernate.annotations.Proxy;
 
 import net.kiel.dnd.model.Ability.AbilityType;
 import lombok.Data;
 
 @Data
+@Entity(name="character")
+@Proxy(lazy=false)
 public class Character {
-    Integer characterId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     
-    String playerName;
+    @Column(name="player_name")
+    private String playerName;
     
-    String name;
+    private String name;
     
-    String race;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "race_id", nullable = false)
+    private Race race;
     
-    @JsonProperty("class")
-    String characterClass;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "class_id", nullable = false)
+    private Class characterClass;
     
-    Integer level;
+    private Integer level;
     
-    Integer xp;
+    private Integer xp;
     
-    Integer proficiencyBonus;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "proficiency_id", nullable = false)
+    private Proficiency proficiency;
     
-    private List<Ability> abilities;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "character")
+    @OrderBy("ability_type")
+    private Set<Ability> abilities;
     
-    public Ability getAbility(AbilityType type) {
+    @Transient
+    private Map<AbilityType, Ability> abilitiesMap = new HashMap<>();
+    
+    private void initAbilityMap() {
         for (Ability ability : getAbilities()) {
-            if (ability.getType() == type) {
-                return ability;
-            }
+            abilitiesMap.put(ability.getType(), ability);
         }
-        
-        return null;
     }
     
-    private List<SavingThrow> savingThrows;
+    public Ability getAbility(AbilityType type) {
+        if (abilitiesMap.isEmpty()) {
+            initAbilityMap();
+        }
+        
+        return abilitiesMap.get(type);
+    }
     
-    private List<Skill> skills;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "character_id")
+//    private List<SavingThrow> savingThrows;
+//    
+//    private List<Skill> skills;
+//    
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "character_id")
+//    private Set<Weapon> weapons;
     
-    private List<Weapon> weapons;
+    private String background;
     
-    String background;
+    private String alignment;
     
-    String alignment;
-    
-    Integer armorClass;
+    @Column(name="armor_class")
+    private Integer armorClass;
     
     public Integer getInitiative() {
         return getAbility(AbilityType.DEXTERITY).getModifier();
     }
     
-    Integer speed;
+    private Integer speed;
     
-    Integer hpMax;
+    @Column(name="hp_max")
+    private Integer hpMax;
     
-    Integer hpCurrent;
+    @Column(name="hp_current")
+    private Integer hpCurrent;
     
-    Date createdDate;
+    @Column(name="created_date")
+    private Date createdDate;
 
     @Override
     public String toString() {
-        return "Character [characterId=" + characterId + ", playerName=" + playerName + ", name=" + name + ", race="
-                + race + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp
-                + ", proficiencyBonus=" + proficiencyBonus + ", background=" + background + ", alignment=" + alignment
-                + ", armorClass=" + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent
-                + ", createdDate=" + createdDate + "]";
+        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race
+                + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp + ", proficiency="
+                + proficiency + ", background=" + background + ", alignment=" + alignment + ", armorClass="
+                + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent + ", createdDate="
+                + createdDate + "]";
     }
+
+    
     
     
 }

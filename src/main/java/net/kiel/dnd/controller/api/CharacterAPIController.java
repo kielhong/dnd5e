@@ -14,7 +14,7 @@ import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 
-@RestController
+//@RestController
 @RequestMapping("/api/character")
 @Api(value="character", description="Character API")
 public class CharacterAPIController {

@@ -23,7 +23,7 @@ public class Skill {
     
     private Boolean proficiency;
     
-    public Integer getValue() {        
-        return character.getAbility(abilityType).getModifier() + (proficiency ? character.getProficiencyBonus() : 0); 
-    }
+//    public Integer getValue() {        
+//        return character.getAbility(abilityType).getModifier() + (proficiency ? character.getProficiencyBonus() : 0); 
+//    }
 }

@@ -4,7 +4,7 @@
 <mapper namespace="net.kiel.dnd.repository.ProficiencyRepository">
     <select id="selectBonus" parameterType="int" resultType="int">
         SELECT bonus
-        FROM   proficiency_table
+        FROM   proficiency
         WHERE  level = #{level}
     </select>
 </mapper>

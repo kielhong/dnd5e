@@ -1,7 +1,7 @@
 package net.kiel.dnd.service;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import net.kiel.dnd.config.WebConfig;
 import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.SavingThrow;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,19 +22,19 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class CharacterServiceTest {
     @Inject private CharacterService characterService;
     
+    @Test
+    public void testGetAll() {
+        List<Character> characters = characterService.getAll();
+        
+        assertNotNull(characters);
+        assertTrue(characters.size() > 0);
+    }
     
     @Test
     public void testGet() {
         final Integer characterId = 1;
         Character character = characterService.get(characterId);
         
-        System.out.print(character);
         assertNotNull(character);
-        
-        List<SavingThrow> savingThrows = character.getSavingThrows();
-        for (SavingThrow savingThrow : savingThrows) {
-            Integer expect = character.getAbility(savingThrow.getAbilityType()).getModifier() + (savingThrow.getProficiency() ? character.getProficiencyBonus() : 0);
-            assertEquals(expect, savingThrow.getValue());
-        }
     }
 }

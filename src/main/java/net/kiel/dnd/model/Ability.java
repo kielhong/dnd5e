@@ -1,19 +1,51 @@
 package net.kiel.dnd.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Proxy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.Getter;
 
 @Data
+@Entity(name = "ability")
+@Proxy(lazy=false)
 public class Ability {
-    private Integer abilityId;
+    @Id
+    private Integer id;
     
-    private Integer characterId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Character character;
     
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "ability_type")
     private AbilityType type;
     
-    private Integer score;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "score", nullable = false)
+    private AbilityModifier abilityModifier;
     
-    private Integer modifier;
+    public Integer getScore() {
+        return abilityModifier.getScore();
+    }
+    
+    public Integer getModifier() {
+        return abilityModifier.getModifier();
+    }
+    
+    @OneToOne(fetch = FetchType.LAZY, mappedBy="ability")
+    private SavingThrow savingThrow;
     
     public enum AbilityType {
         UNKNOWN(0, "UNKNOWN"), 
@@ -32,4 +64,10 @@ public class Ability {
             this.shorten = shorten;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Ability [id=" + id + ", type=" + type + ", abilityModifier=" + abilityModifier + "]";
+    }
+       
 }
