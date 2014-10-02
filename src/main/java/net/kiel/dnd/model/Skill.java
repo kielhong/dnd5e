@@ -7,10 +7,7 @@ import lombok.Data;
 
 @Data
 public class Skill {
-    private Integer skillId;
-    
-    @JsonIgnore
-    private Integer characterId;
+    private Integer id;
 
     @JsonIgnore
     private Character character;

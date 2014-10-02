@@ -42,7 +42,7 @@
               #foreach ($savingThrow in $character.savingThrows)
               <tr>
                 <td>$savingThrow.abilityType</td>
-                <td><c:choose><c:when test="$savingThrow.proficiency"><img src="/resources/images/checkbox_yes.png" /></c:when><c:otherwise><img src="/resources/images/checkbox_no.png" /></c:otherwise></c:choose></td>
+                <td>#if ( $savingThrow.proficiency )<img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
                 <td><b>$savingThrow.value</b></td>
               </tr>
               #end
@@ -56,8 +56,8 @@
             <tbody>
               #foreach ($skill in $character.skills)
               <tr>
-                <td>$skill.name ($skill.abilityType.shorten})</td>
-                <td><c:choose><c:when test="$skill.proficiency"><img src="/resources/images/checkbox_yes.png" /></c:when><c:otherwise><img src="/resources/images/checkbox_no.png" /></c:otherwise></c:choose></td>
+                <td>$skill.name ($skill.abilityType.shorten)</td>
+                <td>#if ( $skill.proficiency )<img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
                 <td><b>$skill.value</b></td>
               </tr>
               #end
@@ -96,6 +96,7 @@
               <tr>
                 <td>$weapon.name</td>
                 <td>$weapon.attackBonus</td>
+                <td>$weapon.damage $weapon.damageType</td>
               </tr>
               #end
             </tbody>

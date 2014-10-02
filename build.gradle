@@ -33,8 +33,6 @@ dependencies {
     // Json
     compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    // XML
-    compile "com.thoughtworks.xstream:xstream:1.4.5"
     // Validation
     compile "javax.validation:validation-api:1.1.0.Final"
     compile "org.hibernate:hibernate-validator:5.1.0.Final"
@@ -51,11 +49,8 @@ dependencies {
     compile "jstl:jstl:1.2"
     compile "log4j:log4j:1.2.17"
     
-    providedCompile "javax.servlet:javax.servlet-api:3.1.0"            
-    // for jetty plugin. to use CORS filter
-    runtime "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion"
-    
     // Test
+    testCompile "javax.servlet:javax.servlet-api:3.1.0"            
     testCompile "org.springframework:spring-test:$springVersion"
     testCompile "junit:junit:4.+"
     testCompile "com.jayway.jsonpath:json-path-assert:0.9.+"

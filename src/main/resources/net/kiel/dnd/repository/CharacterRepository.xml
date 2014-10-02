@@ -4,7 +4,7 @@
 <mapper namespace="net.kiel.dnd.repository.CharacterRepository">
 
     <resultMap id="characterMap" type="net.kiel.dnd.model.Character">
-        <id property="characterId" column="character_id" />
+        <id property="id" column="id" />
         <result property="playerName" column="player_name"/>
         <result property="name" column="name"/>
         <result property="race" column="race"/>
@@ -20,32 +20,31 @@
         <result property="createdDate" column="created_date" />
         
         <collection property="abilities" ofType="net.kiel.dnd.model.Ability">
-            <id property="abilityId" column="ability_id"/>
-            <result property="characterId" column="character_id"/>
+            <id property="id" column="ability_id"/>
             <result property="type" column="ability_type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
             <result property="score" column="score"/>
             <result property="modifier" column="modifier"/>
         </collection>
     </resultMap>
 
-    <sql id="characterColumns">character.character_id,player_name,character.name as name,race.name as race,class.name as class,level,xp,background,alignment,armor_class,speed,hp_max,hp_current,created_date</sql>
-    <sql id="abilityColumns">ability_id,ability.character_id,ability_type,ability.score,ability_table.modifier</sql>
+    <sql id="characterColumns">character.id,player_name,character.name as name,race.name as race,class.name as class,level,xp,background,alignment,armor_class,speed,hp_max,hp_current,created_date</sql>
+    <sql id="abilityColumns">ability.id as ability_id,ability.character_id,ability_type,ability.score,ability_table.modifier</sql>
     
     
     <select id="selectAll" resultMap="characterMap">
         SELECT     <include refid="characterColumns"/> 
         FROM       dnd.character
-        INNER JOIN race ON race.race_id = character.race_id
-        INNER JOIN class ON class.class_id = character.class_id
+        INNER JOIN race ON race.id = character.race_id
+        INNER JOIN class ON class.id = character.class_id
     </select>
     
     <select id="select" parameterType="int" resultMap="characterMap">
         SELECT <include refid="characterColumns"/>, <include refid="abilityColumns"/>
         FROM   dnd.character
-            LEFT OUTER JOIN ability ON character.character_id=ability.character_id
+            LEFT OUTER JOIN ability ON character.id=ability.character_id
             INNER JOIN ability_table ON ability.score=ability_table.score
-            INNER JOIN race ON race.race_id = character.race_id
-            INNER JOIN class ON class.class_id = character.class_id
-        WHERE  character.character_id = #{characterId}
+            INNER JOIN race ON race.id = character.race_id
+            INNER JOIN class ON class.id = character.class_id
+        WHERE  character.id = #{id}
     </select>
 </mapper>

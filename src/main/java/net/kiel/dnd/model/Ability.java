@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Data
 public class Ability {
-    private Integer abilityId;
+    private Integer id;
     
-    private Integer characterId;
+    //private Integer characterId;
     
     private AbilityType type;
     

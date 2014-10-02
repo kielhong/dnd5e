@@ -10,5 +10,5 @@ import net.kiel.dnd.model.Character;
 public interface CharacterRepository {
     public List<Character> selectAll();
     
-    public Character select(Integer characterId);
+    public Character select(Integer id);
 }

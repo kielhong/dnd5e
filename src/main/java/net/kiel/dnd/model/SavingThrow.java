@@ -8,10 +8,7 @@ import net.kiel.dnd.model.Ability.AbilityType;
 
 @Data
 public class SavingThrow {
-    private Integer savingThrowId;
-    
-    @JsonIgnore
-    private Integer characterId;
+    private Integer id;    
     
     @JsonIgnore
     private Character character;
@@ -28,7 +25,7 @@ public class SavingThrow {
 
     @Override
     public String toString() {
-        return "SavingThrow [savingThrowId=" + savingThrowId + ", characterId=" + characterId + ", proficiency="
+        return "SavingThrow [id=" + id + ", proficiency="
                 + proficiency + ", abilityType=" + abilityType + "]";
     }
 }

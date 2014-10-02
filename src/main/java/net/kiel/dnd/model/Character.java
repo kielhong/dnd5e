@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class Character {
-    Integer characterId;
+    Integer id;
     
     String playerName;
     
@@ -65,7 +65,7 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character [characterId=" + characterId + ", playerName=" + playerName + ", name=" + name + ", race="
+        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race="
                 + race + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp
                 + ", proficiencyBonus=" + proficiencyBonus + ", background=" + background + ", alignment=" + alignment
                 + ", armorClass=" + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent

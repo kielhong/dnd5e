@@ -9,7 +9,7 @@
 </head>
 <body>
 #foreach ($character in $characters)
-<h3><a href="/character/$character.characterId">$character.name</a></h3>
+<h3><a href="/character/$character.id">$character.name</a></h3>
 <h4>$character.characterClass, $character.level</h4>
 #end
 </body>
