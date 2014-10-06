@@ -13,42 +13,30 @@
       </div>   
     </div>
     <div class="row">
-      <div class="col-md-3">
-        <div class="row">
-          Proficiency Bonus : $character.proficiencyBonus
-        </div>
+      <div class="col-md-5">
         <div class="row">
           <table class="table table-condensed">
             <caption>Ability</caption>
             <thead>
               <tr>
-                <th>Ability</th><th>Score</th><th>Modifier</th>
+                <th>Ability</th><th>Score</th><th>Modifier</th><th>Saving Throw</th>
               </tr>
             <thead>
             <tbody>
-              #foreach ($ability in $character.abilities)
+            #foreach ($ability in $character.abilities)
+              #if ( $ability.savingThrowProficiency ) #set ($savingThrow = $ability.modifier + $character.proficiencyBonus) #else #set ($savingThrow = $ability.modifier) #end
               <tr>
-                <td>$ability.type</td><td>$ability.score</td><td><b>$ability.modifier</b></td>
+                <td>$ability.type</td>
+                <td>$ability.score</td>
+                <td><b>$ability.modifier</b></td>
+                <td><b>$savingThrow</b></td>
               </tr>
-              #end
+            #end
             </tbody>
           </table>
         </div>
         
-        <div class="row">
-          <table class="table table-condensed">
-            <caption>Saving Throws</caption> 
-            <tbody>
-              #foreach ($savingThrow in $character.savingThrows)
-              <tr>
-                <td>$savingThrow.abilityType</td>
-                <td>#if ( $savingThrow.proficiency )<img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
-                <td><b>$savingThrow.value</b></td>
-              </tr>
-              #end
-            </tbody>
-          </table>
-        </div>
+
         
         <div class="row">
           <table class="table table-condensed">
@@ -66,7 +54,10 @@
         </div>
       </div>
       <div class="col-md-1"></div>
-      <div class="col-md-3">
+      <div class="col-md-5">
+        <div class="row">
+          Proficiency Bonus : $character.proficiencyBonus
+        </div>
         <div class="row">
         AC : $character.armorClass
         </div>
@@ -82,31 +73,6 @@
         <div class="row">
         HP Current : $character.hpCurrent
         </div>
-        <div class="row">
-          <div class="row">
-          <table class="table table-condensed">
-            <caption>Atacks</caption>
-            <thead>
-              <tr>
-                <th>Name</th><th>Attack Bonus</th><th>Damage/Type</th>
-              </tr>
-            <thead>
-            <tbody>
-              #foreach ($weapon in $character.weapons)
-              <tr>
-                <td>$weapon.name</td>
-                <td>$weapon.attackBonus</td>
-                <td>$weapon.damage $weapon.damageType</td>
-              </tr>
-              #end
-            </tbody>
-
-          </table>
-        </div>
-        </div>
       </div>
-      <div class="col-md-4">
-        <h4>Features</h4>
-      </div>    
       <div class="col-md-1"></div>
     </div>

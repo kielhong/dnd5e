@@ -7,6 +7,12 @@
 <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css">
 <script src="/resources/js/jquery-2.1.1.min.js"></script>
 <script src="/resources/js/bootstrap.min.js"></script>
+<style>
+.container-fixed {
+  margin: 0 auto;
+  max-width: 1024px;
+}
+</style>
 <script>
 $('#characterTab a').click(function (e) {
       e.preventDefault()
@@ -15,22 +21,26 @@ $('#characterTab a').click(function (e) {
 </script>
 </head>
 
-<body class="container">
-<nav class="navbar navbar-default" role="navigation">
-<!-- Nav Tabs -->
-<ul class="nav nav-tabs" role="tablist" id="characterTab">
-  <li class="active"><a href="#character" role="tab" data-toggle="tab">Character</a></li>
-  <li><a href="#equipment" role="tab" data-toggle="tab">Equipment</a></li>
-  <li><a href="#spell" role="tab" data-toggle="tab">Spell</a></li>
-  <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-</ul>
-</nav>
+<body>
+<div class="container-fixed">
+  <nav class="navbar navbar-default" role="navigation">
+  <!-- Nav Tabs -->
+    <ul class="nav nav-tabs" role="tablist" id="characterTab">
+      <li class="active"><a href="#character" role="tab" data-toggle="tab">Character</a></li>
+      <li><a href="#attack" role="tab" data-toggle="tab">Attack</a></li>
+      <li><a href="#equipment" role="tab" data-toggle="tab">Equipment</a></li>
+      <li><a href="#spell" role="tab" data-toggle="tab">Spell</a></li>
+      <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+    </ul>
+  </nav>
 
-<div class="container">
   <!-- Tab panes -->
   <div class="tab-content">
     <div class="tab-pane active" id="character">
       #parse("character_character.vm")  
+    </div>
+    <div class="tab-pane active" id="attack">
+      #parse("character_attack.vm")  
     </div>
     <div class="tab-pane" id="equipment">
       #parse("character_equipment.vm")

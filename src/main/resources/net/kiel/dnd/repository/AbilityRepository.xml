@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="net.kiel.dnd.repository.AbilityRepository">
+    <resultMap id="abilityMap" type="net.kiel.dnd.model.Ability">
+        <id property="id" column="id" />
+        <result property="type" column="ability_type" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+        <result property="score" column="score"/>
+        <result property="modifier" column="modifier"/>
+        <result property="savingThrowProficiency" column="saving_throw_proficiency"/>
+    </resultMap>
+    
+    <select id="selectByCharacter" parameterType="int" resultMap="abilityMap">
+        SELECT     id, ability_type, ability.score, ability_table.modifier, saving_throw_proficiency
+        FROM       ability
+        INNER JOIN ability_table ON ability.score = ability_table.score
+        WHERE      character_id = #{caracterId}
+    </select>
+</mapper>

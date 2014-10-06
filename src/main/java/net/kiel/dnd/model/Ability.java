@@ -7,13 +7,13 @@ import lombok.Getter;
 public class Ability {
     private Integer id;
     
-    //private Integer characterId;
-    
     private AbilityType type;
     
     private Integer score;
     
     private Integer modifier;
+    
+    private Boolean savingThrowProficiency;
     
     public enum AbilityType {
         UNKNOWN(0, "UNKNOWN"), 

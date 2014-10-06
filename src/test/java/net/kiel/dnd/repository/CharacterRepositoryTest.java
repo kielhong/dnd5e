@@ -8,7 +8,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import net.kiel.dnd.config.RepositoryConfig;
-import net.kiel.dnd.model.Ability;
 import net.kiel.dnd.model.Character;
 
 import org.junit.Test;
@@ -34,12 +33,7 @@ public class CharacterRepositoryTest {
         Character character = characterRepository.select(characterId);
         
         assertNotNull(character);
-        assertNotNull(character.getAbilities());
-        assertEquals(6, character.getAbilities().size());
-        for (Ability ab : character.getAbilities()) {
-            System.out.println(ab.getType());
-        }
-        assertEquals(Ability.AbilityType.STRENGTH, character.getAbilities().get(0).getType());
+        assertEquals(characterId, character.getId());
     }
   
 }

@@ -3,10 +3,10 @@ package net.kiel.dnd.model;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import net.kiel.dnd.model.Ability.AbilityType;
 import lombok.Data;
+import net.kiel.dnd.model.Ability.AbilityType;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Data
 public class Character {
@@ -38,8 +38,6 @@ public class Character {
         
         return null;
     }
-    
-    private List<SavingThrow> savingThrows;
     
     private List<Skill> skills;
     

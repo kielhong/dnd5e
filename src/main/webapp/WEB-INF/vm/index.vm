@@ -6,11 +6,23 @@
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/bootstrap-theme.min.css">
 <script src="/resources/js/bootstrap.min.js"></script>
+<style>
+.container-fixed {
+  margin: 0 auto;
+  max-width: 1024px;
+}
+</style>
 </head>
 <body>
-#foreach ($character in $characters)
-<h3><a href="/character/$character.id">$character.name</a></h3>
-<h4>$character.characterClass, $character.level</h4>
-#end
+<div class="container-fixed">
+  <ul>
+    #foreach ($character in $characters)
+    <li>
+        <h3><a href="/character/$character.id">$character.name</a></h3>
+        <h4>($character.characterClass, Lv. $character.level)</h4>
+    </li>
+    #end
+  </ul>
+</div>
 </body>
 </html>

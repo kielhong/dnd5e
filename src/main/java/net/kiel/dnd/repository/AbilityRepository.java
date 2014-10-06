@@ -8,5 +8,5 @@ import net.kiel.dnd.model.Ability;
 
 @Repository
 public interface AbilityRepository {
-    public List<Ability> selectAll(Integer characterId);
+    public List<Ability> selectByCharacter(Integer characterId);
 }
