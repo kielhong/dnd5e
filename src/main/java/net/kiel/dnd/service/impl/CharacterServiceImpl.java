@@ -2,26 +2,20 @@ package net.kiel.dnd.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.SavingThrow;
-import net.kiel.dnd.model.Skill;
-import net.kiel.dnd.model.Weapon;
 import net.kiel.dnd.repository.CharacterRepository;
-import net.kiel.dnd.repository.ProficiencyRepository;
-import net.kiel.dnd.repository.SavingThrowRepository;
-import net.kiel.dnd.repository.SkillRepository;
-import net.kiel.dnd.repository.WeaponRepository;
 import net.kiel.dnd.service.CharacterService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
 public class CharacterServiceImpl implements CharacterService {
-    @Inject CharacterRepository characterRepository;
+    @Autowired 
+    CharacterRepository characterRepository;
 //    @Inject SkillRepository skillRepository;
 //    @Inject WeaponRepository weaponRepository;
     

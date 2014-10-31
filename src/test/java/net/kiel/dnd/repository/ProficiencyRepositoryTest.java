@@ -1,10 +1,5 @@
 package net.kiel.dnd.repository;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
-import javax.inject.Inject;
-
 import net.kiel.dnd.config.RepositoryConfig;
 import net.kiel.dnd.config.TestRepositoryConfig;
 

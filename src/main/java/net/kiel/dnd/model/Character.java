@@ -2,7 +2,6 @@ package net.kiel.dnd.model;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,43 +17,39 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Transient;
 
-import org.apache.commons.collections.map.HashedMap;
-import org.hibernate.annotations.Proxy;
-
-import net.kiel.dnd.model.Ability.AbilityType;
 import lombok.Data;
+import net.kiel.dnd.model.Ability.AbilityType;
 
+@Entity
 @Data
-@Entity(name="character")
-@Proxy(lazy=false)
 public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
-    @Column(name="player_name")
     private String playerName;
     
     private String name;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "race_id", nullable = false)
+    @JoinColumn(name = "raceId", nullable = false)
     private Race race;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "class_id", nullable = false)
+    @JoinColumn(name = "classId", nullable = false)
     private Class characterClass;
     
     private Integer level;
     
     private Integer xp;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "proficiency_id", nullable = false)
-    private Proficiency proficiency;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "level")
+//    private Proficiency proficiency;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "character")
-    @OrderBy("ability_type")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "characterId", nullable = false)
+    @OrderBy("abilityType")
     private Set<Ability> abilities;
     
     @Transient
@@ -88,7 +83,6 @@ public class Character {
     
     private String alignment;
     
-    @Column(name="armor_class")
     private Integer armorClass;
     
     public Integer getInitiative() {
@@ -97,25 +91,22 @@ public class Character {
     
     private Integer speed;
     
-    @Column(name="hp_max")
+    @Column(name="hpMax")
     private Integer hpMax;
     
-    @Column(name="hp_current")
+    @Column(name="hpCurrent")
     private Integer hpCurrent;
     
-    @Column(name="created_date")
-    private Date createdDate;
+    @Column(name="createdDateTime")
+    private Date createdDateTime;
 
     @Override
     public String toString() {
-        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race
-                + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp + ", proficiency="
-                + proficiency + ", background=" + background + ", alignment=" + alignment + ", armorClass="
-                + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent + ", createdDate="
-                + createdDate + "]";
+        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race;
+//        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race
+//                + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp + ", proficiency="
+//                + proficiency + ", background=" + background + ", alignment=" + alignment + ", armorClass="
+//                + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent + ", createdDate="
+//                + createdDateTime + "]";
     }
-
-    
-    
-    
 }

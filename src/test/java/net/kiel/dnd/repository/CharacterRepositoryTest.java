@@ -1,22 +1,19 @@
 package net.kiel.dnd.repository;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Iterator;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import net.kiel.dnd.config.RepositoryConfig;
 import net.kiel.dnd.config.TestRepositoryConfig;
-import net.kiel.dnd.model.Ability;
 import net.kiel.dnd.model.Character;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {RepositoryConfig.class, TestRepositoryConfig.class})
 @Transactional
 public class CharacterRepositoryTest {
-    @Inject 
+    @Autowired 
     private CharacterRepository characterRepository;
     
     @Test
@@ -37,8 +34,8 @@ public class CharacterRepositoryTest {
     
     @Test
     public void testSelect() {
-        final Integer characterId = 1;
-        Character character = characterRepository.select(characterId);
+        final Integer id = 1;
+        Character character = characterRepository.select(id);
         
         assertNotNull(character);
 //        assertNotNull(character.getAbilities());

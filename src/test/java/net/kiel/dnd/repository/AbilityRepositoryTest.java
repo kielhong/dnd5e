@@ -1,11 +1,9 @@
 package net.kiel.dnd.repository;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import net.kiel.dnd.config.RepositoryConfig;
@@ -13,9 +11,9 @@ import net.kiel.dnd.config.TestRepositoryConfig;
 import net.kiel.dnd.model.Ability;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(classes = {RepositoryConfig.class, TestRepositoryConfig.class})
 @Transactional
 public class AbilityRepositoryTest {
-    @Inject
+    @Autowired
     private SessionFactory sessionFactory;
     
     @Test
@@ -42,13 +40,13 @@ public class AbilityRepositoryTest {
 //        List<Ability> abilities = (List<Ability>)sessionFactory.getCurrentSession().createQuery("FROM net.kiel.dnd.model.Ability WHERE character_id = :characterId")
 //                                    .setParameter("characterId", characterId)
 //                                    .list();
-        @SuppressWarnings("unchecked")
-        List<Ability> abilities = (List<Ability>)sessionFactory.getCurrentSession().createCriteria(Ability.class)
-                                    .createCriteria("character")
-                                    .add(Restrictions.eq("id", characterId))
-                                    .list();
+//        @SuppressWarnings("unchecked")
+//        List<Ability> abilities = (List<Ability>)sessionFactory.getCurrentSession().createCriteria(Ability.class)
+//                                    .createCriteria("character")
+//                                    .add(Restrictions.eq("id", characterId))
+//                                    .list();
         
-        assertNotNull(abilities);
+//        assertNotNull(abilities);
 //        for (Ability ability : abilities) {
 //            System.out.println(ability.getType() + "," + ability.getSavingThrow().getProficiency() + "," + ability.getSavingThrow().getValue());
 //            assertNotNull(ability.getSavingThrow());

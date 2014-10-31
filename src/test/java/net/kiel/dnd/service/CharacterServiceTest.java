@@ -5,13 +5,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import net.kiel.dnd.config.WebConfig;
 import net.kiel.dnd.model.Character;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -20,7 +19,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 @ContextConfiguration(classes = { WebConfig.class })
 public class CharacterServiceTest {
-    @Inject private CharacterService characterService;
+    @Autowired 
+    private CharacterService characterService;
     
     @Test
     public void testGetAll() {

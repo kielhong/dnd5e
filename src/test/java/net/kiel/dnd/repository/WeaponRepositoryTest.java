@@ -1,14 +1,7 @@
 package net.kiel.dnd.repository;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import net.kiel.dnd.config.RepositoryConfig;
 import net.kiel.dnd.config.TestRepositoryConfig;
-import net.kiel.dnd.model.Weapon;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

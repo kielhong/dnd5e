@@ -1,14 +1,12 @@
 package net.kiel.dnd.controller.api;
 
-import javax.inject.Inject;
-
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.service.CharacterService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -18,7 +16,7 @@ import com.wordnik.swagger.annotations.ApiParam;
 @RequestMapping("/api/character")
 @Api(value="character", description="Character API")
 public class CharacterAPIController {
-    @Inject 
+    @Autowired
     private CharacterService characterService;
     
     @RequestMapping(value = "/{characterId}", method = RequestMethod.GET)

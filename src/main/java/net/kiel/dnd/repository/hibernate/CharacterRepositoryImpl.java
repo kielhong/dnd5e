@@ -1,22 +1,22 @@
-package net.kiel.dnd.repository.impl;
+package net.kiel.dnd.repository.hibernate;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.transaction.Transactional;
-
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Repository;
 
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.repository.CharacterRepository;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 @Repository
 @Transactional
 public class CharacterRepositoryImpl implements CharacterRepository {
-    @Inject
+    @Autowired
     private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")

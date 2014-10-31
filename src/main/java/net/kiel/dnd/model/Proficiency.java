@@ -9,7 +9,7 @@ import lombok.Data;
 @Entity(name = "proficiency")
 public class Proficiency {
     @Id
-    private Integer id;
+    private Integer level;
 
     private Integer bonus;
 }
