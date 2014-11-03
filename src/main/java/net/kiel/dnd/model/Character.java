@@ -1,13 +1,13 @@
 package net.kiel.dnd.model;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,98 +15,106 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.Transient;
+import javax.persistence.Table;
 
-import lombok.Data;
 import net.kiel.dnd.model.Ability.AbilityType;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import lombok.Data;
+
 @Entity
+@Table(name="character")
 @Data
 public class Character {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(name="player_name")
     private String playerName;
     
     private String name;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "raceId", nullable = false)
+    @ManyToOne
+    @JoinColumn(nullable = false)
     private Race race;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "classId", nullable = false)
+    @ManyToOne
+    @JoinColumn(name="class_id", nullable = false)
     private Class characterClass;
     
-    private Integer level;
+    private String background;
+  
+    private String alignment;
+  
+    @Column(name = "armor_class")
+    private Integer armorClass;
+    
+    // level
+    public Integer getLevel() {
+        return proficiency.getLevel();
+    }
     
     private Integer xp;
     
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "level")
-//    private Proficiency proficiency;
+    private Integer speed;
     
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "characterId", nullable = false)
-    @OrderBy("abilityType")
-    private Set<Ability> abilities;
+    @Column(name="hp_max")
+    private Integer hpMax;
     
-    @Transient
-    private Map<AbilityType, Ability> abilitiesMap = new HashMap<>();
-    
-    private void initAbilityMap() {
-        for (Ability ability : getAbilities()) {
-            abilitiesMap.put(ability.getType(), ability);
-        }
-    }
-    
-    public Ability getAbility(AbilityType type) {
-        if (abilitiesMap.isEmpty()) {
-            initAbilityMap();
-        }
-        
-        return abilitiesMap.get(type);
-    }
-    
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "character_id")
-//    private List<SavingThrow> savingThrows;
-//    
-//    private List<Skill> skills;
-//    
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "character_id")
-//    private Set<Weapon> weapons;
-    
-    private String background;
-    
-    private String alignment;
-    
-    private Integer armorClass;
-    
+    @Column(name="hp_current")
+    private Integer hpCurrent;
+
     public Integer getInitiative() {
         return getAbility(AbilityType.DEXTERITY).getModifier();
     }
+        
+    @ManyToOne
+    @JoinColumn(name="level", referencedColumnName="level", nullable = false)
+    private Proficiency proficiency;
     
-    private Integer speed;
+    @OneToMany
+    @JoinColumn(name = "character_id")
+    @OrderBy("ability_type")
+    private Set<Ability> abilities;
+
+    public List<Skill> getSkills() {
+        List<Skill> skills = new ArrayList<Skill>();
+        
+        for (Ability ability : abilities) {
+            CollectionUtils.addAll(skills, ability.getSkills().iterator());
+        }
+        
+        return skills;
+    }
     
-    @Column(name="hpMax")
-    private Integer hpMax;
+////    
+////    @OneToMany(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "character_id")
+////    private Set<Weapon> weapons;
+//    
+//    
+    private Ability getAbility(AbilityType type) {
+        for (Ability ability : abilities) {
+            if (type.equals(ability.getType())) {
+                return ability;
+            }
+        }
+        
+        return null;
+    }
     
-    @Column(name="hpCurrent")
-    private Integer hpCurrent;
     
-    @Column(name="createdDateTime")
+    @Column(name="created_datetime")
     private Date createdDateTime;
 
     @Override
     public String toString() {
-        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race;
-//        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race
-//                + ", characterClass=" + characterClass + ", level=" + level + ", xp=" + xp + ", proficiency="
-//                + proficiency + ", background=" + background + ", alignment=" + alignment + ", armorClass="
-//                + armorClass + ", speed=" + speed + ", hpMax=" + hpMax + ", hpCurrent=" + hpCurrent + ", createdDate="
-//                + createdDateTime + "]";
+        return "Character [id=" + id + ", playerName=" + playerName + ", name=" + name + ", race=" + race
+                + ", characterClass=" + characterClass + ", background=" + background + ", alignment=" + alignment
+                + ", armorClass=" + armorClass + ", xp=" + xp + ", speed=" + speed + ", hpMax=" + hpMax
+                + ", hpCurrent=" + hpCurrent + ", proficiency=" + proficiency + ", createdDateTime=" + createdDateTime
+                + "]";
     }
 }

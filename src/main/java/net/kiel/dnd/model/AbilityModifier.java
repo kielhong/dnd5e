@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity(name = "ability_modifier")
+@Entity
 @Table(name = "ability_table")
 public class AbilityModifier {
     @Id

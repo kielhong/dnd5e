@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity(name = "proficiency")
+@Entity
 public class Proficiency {
     @Id
     private Integer level;

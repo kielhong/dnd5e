@@ -1,5 +1,6 @@
 package net.kiel.dnd.repository;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -7,20 +8,21 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import net.kiel.dnd.config.RepositoryConfig;
-import net.kiel.dnd.config.TestRepositoryConfig;
+import net.kiel.dnd.Application;
+import net.kiel.dnd.model.Ability;
 import net.kiel.dnd.model.Character;
+import net.kiel.dnd.model.Ability.AbilityType;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {RepositoryConfig.class, TestRepositoryConfig.class})
+@SpringApplicationConfiguration(classes = Application.class)
 @Transactional
-public class CharacterRepositoryTest {
+public class CharacterRepositoryTest {    
     @Autowired 
     private CharacterRepository characterRepository;
     
@@ -38,18 +40,20 @@ public class CharacterRepositoryTest {
         Character character = characterRepository.select(id);
         
         assertNotNull(character);
-//        assertNotNull(character.getAbilities());
-        System.out.println(character.getAbilities());
-//        assertEquals(6, character.getAbilities().size());
-//        for (Ability ab : character.getAbilities()) {
-//            System.out.println(ab.getType() + "," + ab.getScore() + "," + ab.getModifier());
-//            if (ab.getScore() >= 10 && ab.getScore() <= 11) {
-//                assertEquals(Integer.valueOf(0), ab.getModifier());
-//            }
-//        }
-//        assertEquals(Ability.AbilityType.STRENGTH, character.getAbility(Ability.AbilityType.STRENGTH).getType()); // get 
-//        
-//        Iterator<Ability> iterAbility = character.getAbilities().iterator();
-//        assertEquals(Ability.AbilityType.STRENGTH, iterAbility.next().getType()); // order by test
+        assertEquals("Dwarf", character.getRace().getName());
+        assertEquals("Fighter", character.getCharacterClass().getName());
+        assertEquals(Integer.valueOf(1), character.getLevel());
+        assertEquals(Integer.valueOf(2), character.getProficiency().getBonus());
+        assertEquals(6, character.getAbilities().size());
+        assertEquals(18, character.getSkills().size());
+        
+        Ability ability = character.getAbilities().iterator().next();
+        assertEquals(AbilityType.STRENGTH, ability.getType());  // first ability must be STR
+        assertEquals(Integer.valueOf(17), ability.getScore());
+        assertEquals(Integer.valueOf(3), ability.getModifier());
+        assertEquals(5, ability.getModifier() + (ability.getSavingThrow().isProficiency() ? character.getProficiency().getBonus() : 0));
+        assertEquals(1, ability.getSkills().size());
+        
+        
     }  
 }

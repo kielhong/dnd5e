@@ -9,8 +9,8 @@ import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
 import com.wordnik.swagger.model.ApiInfo;
 
-@Configuration
-@EnableSwagger
+//@Configuration
+//@EnableSwagger
 public class SwaggerConfig {
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;

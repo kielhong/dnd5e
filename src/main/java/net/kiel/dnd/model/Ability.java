@@ -1,34 +1,37 @@
 package net.kiel.dnd.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
 import lombok.Getter;
 
-import org.hibernate.annotations.Proxy;
-
 @Data
-@Entity(name = "ability")
+@Entity
 public class Ability {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "ability_type")
     private AbilityType type;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "score", nullable = false)
     private AbilityModifier abilityModifier;
-    
+  
     public Integer getScore() {
         return abilityModifier.getScore();
     }
@@ -37,6 +40,12 @@ public class Ability {
         return abilityModifier.getModifier();
     }
     
+    @OneToOne(mappedBy = "ability")
+    private SavingThrow savingThrow;
+    
+    @OneToMany(mappedBy = "ability")
+    //@JoinColumn(name="ability_id")
+    private Set<Skill> skills;
     
     public enum AbilityType {
         UNKNOWN(0, "UNKNOWN"), 
@@ -60,5 +69,7 @@ public class Ability {
     public String toString() {
         return "Ability [id=" + id + ", type=" + type + ", abilityModifier=" + abilityModifier + "]";
     }
+    
+    
        
 }
