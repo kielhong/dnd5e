@@ -16,40 +16,17 @@ import org.springframework.stereotype.Service;
 public class CharacterServiceImpl implements CharacterService {
     @Autowired 
     CharacterRepository characterRepository;
-//    @Inject SkillRepository skillRepository;
-//    @Inject WeaponRepository weaponRepository;
     
     @Override
-    public List<Character> getAll() {
+    public List<Character> findAll() {
         List<Character> characters = characterRepository.selectAll();
         
         return characters;
     }
     
     @Override
-    public Character get(Integer characterId) {
+    public Character findById(Integer characterId) {
         Character character =  characterRepository.select(characterId);
-        if (character != null) {
-//            character.setProficiencyBonus(proficiencyRepository.selectBonus(character.getLevel()));
-            
-//            List<SavingThrow> savingThrows = savingThrowRepository.selectByCharacter(characterId);
-//            for (SavingThrow savingThrow : savingThrows) {
-//                savingThrow.setCharacter(character);
-//            }
-//            character.setSavingThrows(savingThrows);
-//            
-//            List<Skill> skills = skillRepository.selectByCharacter(characterId);
-//            for (Skill skill : skills) {
-//                skill.setCharacter(character);
-//            }
-//            character.setSkills(skills);
-//            
-//            List<Weapon> weapons = weaponRepository.selectByCharacter(characterId);
-//            for (Weapon weapon : weapons) {
-//                weapon.setCharacter(character);
-//            }
-//            character.setWeapons(weapons);
-        }
         
         return character;
     }

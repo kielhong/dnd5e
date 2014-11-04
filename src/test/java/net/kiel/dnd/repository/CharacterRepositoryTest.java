@@ -10,17 +10,19 @@ import javax.transaction.Transactional;
 
 import net.kiel.dnd.Application;
 import net.kiel.dnd.model.Ability;
-import net.kiel.dnd.model.Character;
 import net.kiel.dnd.model.Ability.AbilityType;
+import net.kiel.dnd.model.Character;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
 @Transactional
 public class CharacterRepositoryTest {    
     @Autowired 
@@ -54,6 +56,7 @@ public class CharacterRepositoryTest {
         assertEquals(5, ability.getModifier() + (ability.getSavingThrow().isProficiency() ? character.getProficiency().getBonus() : 0));
         assertEquals(1, ability.getSkills().size());
         
+        assertTrue(character.getWeapons().size() > 0);
         
     }  
 }

@@ -22,7 +22,7 @@ public class CharacterController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
-        List<Character> characters = characterService.getAll();        
+        List<Character> characters = characterService.findAll();        
         
         model.addAttribute("characters", characters);
         
@@ -33,7 +33,7 @@ public class CharacterController {
     public String detail(
             @PathVariable Integer characterId,
             Model model) {        
-        Character character = characterService.get(characterId);
+        Character character = characterService.findById(characterId);
         model.addAttribute("character", character);
 
         return "character";

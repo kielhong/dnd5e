@@ -24,7 +24,7 @@ public class CharacterAPIController {
     public Character detail(
             @ApiParam(value="Id of character", required=true)
             @PathVariable Integer characterId) {        
-        Character character = characterService.get(characterId);
+        Character character = characterService.findById(characterId);
 
 
         return character;

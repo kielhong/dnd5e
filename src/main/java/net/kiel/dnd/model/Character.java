@@ -2,7 +2,6 @@ package net.kiel.dnd.model;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import lombok.Data;
 import net.kiel.dnd.model.Ability.AbilityType;
 
 import org.apache.commons.collections.CollectionUtils;
-
-import lombok.Data;
 
 @Entity
 @Table(name="character")
@@ -88,13 +86,11 @@ public class Character {
         
         return skills;
     }
+        
+    @OneToMany
+    @JoinColumn(name = "character_id")
+    private Set<CharacterWeapon> weapons;
     
-////    
-////    @OneToMany(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "character_id")
-////    private Set<Weapon> weapons;
-//    
-//    
     private Ability getAbility(AbilityType type) {
         for (Ability ability : abilities) {
             if (type.equals(ability.getType())) {
