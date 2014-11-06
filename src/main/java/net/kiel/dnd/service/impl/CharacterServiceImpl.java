@@ -2,60 +2,31 @@ package net.kiel.dnd.service.impl;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.transaction.Transactional;
 
-import net.kiel.dnd.model.Ability;
 import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.Skill;
-import net.kiel.dnd.model.Weapon;
-import net.kiel.dnd.repository.AbilityRepository;
 import net.kiel.dnd.repository.CharacterRepository;
-import net.kiel.dnd.repository.ProficiencyRepository;
-import net.kiel.dnd.repository.SkillRepository;
-import net.kiel.dnd.repository.WeaponRepository;
 import net.kiel.dnd.service.CharacterService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class CharacterServiceImpl implements CharacterService {
-    @Inject CharacterRepository characterRepository;
-    @Inject ProficiencyRepository proficiencyRepository;
-    @Inject AbilityRepository abilityRepository;
-    @Inject SkillRepository skillRepository;
-    @Inject WeaponRepository weaponRepository;
+    @Autowired 
+    CharacterRepository characterRepository;
     
     @Override
-    public List<Character> getAll() {
+    public List<Character> findAll() {
         List<Character> characters = characterRepository.selectAll();
         
         return characters;
     }
     
     @Override
-    public Character get(Integer characterId) {
+    public Character findById(Integer characterId) {
         Character character =  characterRepository.select(characterId);
-        if (character != null) {
-            character.setProficiencyBonus(proficiencyRepository.selectBonus(character.getLevel()));
-            
-            List<Ability> abilities = abilityRepository.selectByCharacter(characterId);
-//            for (Abili savingThrow : abilities) {
-//                savingThrow.setCharacter(character);
-//            }
-            character.setAbilities(abilities);
-            
-            List<Skill> skills = skillRepository.selectByCharacter(characterId);
-            for (Skill skill : skills) {
-                skill.setCharacter(character);
-            }
-            character.setSkills(skills);
-            
-            List<Weapon> weapons = weaponRepository.selectByCharacter(characterId);
-            for (Weapon weapon : weapons) {
-                weapon.setCharacter(character);
-            }
-            character.setWeapons(weapons);
-        }
         
         return character;
     }

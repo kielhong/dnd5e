@@ -1,7 +1,6 @@
 package net.kiel.dnd.config;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,7 +12,7 @@ import com.wordnik.swagger.model.ApiInfo;
 @Configuration
 @EnableSwagger
 public class SwaggerConfig {
-    @Inject
+    @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
     
     @Bean   

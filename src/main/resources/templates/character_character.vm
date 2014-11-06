@@ -15,33 +15,7 @@
 <div class="row">
   <div class="col-md-3">
     <div class="row">
-<<<<<<< HEAD
-      <div class="col-md-5">
-        <div class="row">
-          <table class="table table-condensed">
-            <caption>Ability</caption>
-            <thead>
-              <tr>
-                <th>Ability</th><th>Score</th><th>Modifier</th><th>Saving Throw</th>
-              </tr>
-            <thead>
-            <tbody>
-            #foreach ($ability in $character.abilities)
-              #if ( $ability.savingThrowProficiency ) #set ($savingThrow = $ability.modifier + $character.proficiencyBonus) #else #set ($savingThrow = $ability.modifier) #end
-              <tr>
-                <td>$ability.type</td>
-                <td>$ability.score</td>
-                <td><b>$ability.modifier</b></td>
-                <td><b>$savingThrow</b></td>
-              </tr>
-            #end
-            </tbody>
-          </table>
-        </div>
-        
-
-=======
-          Proficiency Bonus : $character.proficiencyBonus
+          Proficiency Bonus : $character.proficiency.bonus
     </div>
     
     <div class="row">
@@ -53,7 +27,7 @@
           </tr>
         <thead>
         <tbody>
-              #foreach ($ability in $character.abilities)
+              #foreach ($ability in $character.abilities.iterator())
           <tr>
             <td>$ability.type</td><td>$ability.score</td><td><b>$ability.modifier</b></td>
           </tr>
@@ -66,45 +40,37 @@
       <table class="table table-condensed">
         <caption>Saving Throws</caption> 
         <tbody>
-              #foreach ($savingThrow in $character.savingThrows)
+              #foreach ($ability in $character.abilities)
+                #set ($savingThrow = $ability.savingThrow)
+                #if ($savingThrow.proficiency)
+                    #set ($savingThrowValue = $savingThrow.ability.modifier + $character.proficiency.bonus)
+                #else
+                    #set ($savingThrowValue = $savingThrow.ability.modifier)
+                #end
           <tr>
-            <td>$savingThrow.abilityType</td>
+            <td>$savingThrow.ability.type</td>
             <td>#if ( $savingThrow.proficiency ) <img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
-            <td><b>$savingThrow.value</b></td>
+            <td><b>$savingThrowValue</b></td>
           </tr>
               #end
         </tbody>
       </table>
     </div>
->>>>>>> hibernate
         
     <div class="row">
       <table class="table table-condensed">
         <caption>Skills</caption> 
         <tbody>
               #foreach ($skill in $character.skills)
-<<<<<<< HEAD
-              <tr>
-                <td>$skill.name ($skill.abilityType.shorten)</td>
-                <td>#if ( $skill.proficiency )<img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
-                <td><b>$skill.value</b></td>
-              </tr>
-              #end
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-      <div class="col-md-5">
-        <div class="row">
-          Proficiency Bonus : $character.proficiencyBonus
-        </div>
-        <div class="row">
-=======
+                #if ($skill.proficiency)
+                    #set ($skillValue = $skill.ability.modifier + $character.proficiency.bonus)
+                #else
+                    #set ($skillValue = $skill.ability.modifier)
+                #end
           <tr>
-            <td>$skill.name ($skill.abilityType.shorten})</td>
+            <td>$skill.skillType.name ($skill.ability.type.shorten)</td>
             <td>#if ( $skill.proficiency ) <img src="/resources/images/checkbox_yes.png" /> #else <img src="/resources/images/checkbox_no.png" /> #end</td>
-            <td><b>$skill.value</b></td>
+            <td><b>$skillValue</b></td>
           </tr>
               #end
         </tbody>
@@ -114,7 +80,6 @@
   <div class="col-md-1"></div>
   <div class="col-md-3">
     <div class="row">
->>>>>>> hibernate
         AC : $character.armorClass
     </div>
     <div class="row">
@@ -128,12 +93,6 @@
     </div>
     <div class="row">
         HP Current : $character.hpCurrent
-<<<<<<< HEAD
-        </div>
-      </div>
-      <div class="col-md-1"></div>
-    </div>
-=======
     </div>
     <div class="row">
       <div class="row">
@@ -145,14 +104,14 @@
           </tr>
         <thead>
         <tbody>
-              #foreach ($weapon in $character.weapons)
+              #foreach ($characterWeapon in $character.weapons)
           <tr>
-            <td>$weapon.name</td>
-            <td>$weapon.attackBonus</td>
+            <td>$characterWeapon.weapon.name</td>
+            <td>$characterWeapon.attackRoll</td>
+            <td>$characterWeapon.weapon.damage ($characterWeapon.weapon.damageType)</td>
           </tr>
               #end
         </tbody>
-
       </table>
     </div>
     </div>
@@ -162,4 +121,3 @@
   </div>    
   <div class="col-md-1"></div>
 </div>
->>>>>>> hibernate

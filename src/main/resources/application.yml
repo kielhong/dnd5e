@@ -1,0 +1,34 @@
+spring:
+    main:
+        show-banner: true
+    velocity:
+        charSet: UTF-8        
+        properties:
+            input:
+                encoding: UTF-8
+        output:
+            encoding: UTF-8
+---
+spring:
+    profiles: localhost
+spring:
+    main:
+        show-banner: false    
+datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dnd?autoReconnect=true&characterEncoding=UTF8
+    username: root
+    password: 123!@#
+hibernate:
+    dialect: org.hibernate.dialect.MySQLDialect
+    driverClass: com.mysql.jdbc.Driver
+    show_sql: true
+    format_sql: true
+logging:
+    level:
+        org:
+            springframework: WARN
+        com:
+            mangofactory: WARN
+        net:
+            kiel: INFO                

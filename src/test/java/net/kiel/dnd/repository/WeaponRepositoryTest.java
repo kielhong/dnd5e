@@ -1,30 +1,59 @@
 package net.kiel.dnd.repository;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.transaction.Transactional;
 
-import net.kiel.dnd.config.RepositoryConfig;
+import net.kiel.dnd.Application;
+import net.kiel.dnd.model.CharacterWeapon;
 import net.kiel.dnd.model.Weapon;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {RepositoryConfig.class})
+@SpringApplicationConfiguration(classes = Application.class)
+@WebAppConfiguration
+@Transactional
 public class WeaponRepositoryTest {
-    @Inject private WeaponRepository weaponRepository;
+    @Autowired
+    private SessionFactory sessionFactory;
+    
+    @Test
+    public void testSelectAll() {
+        Session session = sessionFactory.getCurrentSession();
+        
+        @SuppressWarnings("unchecked")
+        List<Weapon> weapons = session.createCriteria(Weapon.class).list();
+        
+        assertNotNull(weapons);
+        assertTrue(weapons.size() > 0);
+        
+
+    } 
     
     @Test
     public void testSelectByCharacter() {
-        final Integer characterId = 1;
+        Session session = sessionFactory.getCurrentSession();
         
-        List<Weapon> weapons = weaponRepository.selectByCharacter(characterId);
+        Query query = session.createQuery("from CharacterWeapon as cw where cw.character.id = :characterId")
+                                .setParameter("characterId", 1);
+
+        @SuppressWarnings("unchecked")
+        List<CharacterWeapon> weapons = (List<CharacterWeapon>)query.list();
         
-        assertNotNull(weapons);        
-    } 
+        assertNotNull(weapons);
+        
+        System.out.println(weapons);
+    }
 }
