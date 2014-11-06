@@ -1,12 +1,15 @@
 package net.kiel.dnd.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +23,8 @@ import lombok.Data;
 import net.kiel.dnd.model.Ability.AbilityType;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name="character")
@@ -72,7 +77,7 @@ public class Character {
     @JoinColumn(name="level", referencedColumnName="level", nullable = false)
     private Proficiency proficiency;
     
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     @JoinColumn(name = "character_id")
     @OrderBy("ability_type")
     private Set<Ability> abilities;
@@ -84,14 +89,22 @@ public class Character {
             CollectionUtils.addAll(skills, ability.getSkills().iterator());
         }
         
+        Collections.sort(skills, new Comparator<Skill>() {
+            @Override
+            public int compare(Skill arg1, Skill arg2) {
+                return arg1.getSkillType().getName().compareTo(arg2.getSkillType().getName());
+            }
+        });
+        
         return skills;
     }
         
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany
     @JoinColumn(name = "character_id")
     private Set<CharacterWeapon> weapons;
     
-    private Ability getAbility(AbilityType type) {
+    public Ability getAbility(AbilityType type) {
         for (Ability ability : abilities) {
             if (type.equals(ability.getType())) {
                 return ability;

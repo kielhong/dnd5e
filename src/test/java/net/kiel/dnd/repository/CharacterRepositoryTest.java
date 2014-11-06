@@ -46,6 +46,7 @@ public class CharacterRepositoryTest {
         assertEquals("Fighter", character.getCharacterClass().getName());
         assertEquals(Integer.valueOf(1), character.getLevel());
         assertEquals(Integer.valueOf(2), character.getProficiency().getBonus());
+        assertEquals(Integer.valueOf(1), character.getInitiative());
         assertEquals(6, character.getAbilities().size());
         assertEquals(18, character.getSkills().size());
         
@@ -57,6 +58,6 @@ public class CharacterRepositoryTest {
         assertEquals(1, ability.getSkills().size());
         
         assertTrue(character.getWeapons().size() > 0);
-        
+        assertEquals("Warhammer", character.getWeapons().iterator().next().getWeapon().getName());
     }  
 }

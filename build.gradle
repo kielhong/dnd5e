@@ -10,9 +10,11 @@ repositories {
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.1.8.RELEASE"
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
     }
 }
 
@@ -36,9 +38,6 @@ dependencies {
     // Json
     compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-    // Validation
-    //compile "javax.validation:validation-api:1.1.0.Final"
-    //compile "org.hibernate:hibernate-validator:5.1.0.Final"
     // Swagger integration with SpringMVC
     compile "com.mangofactory:swagger-springmvc:0.8.8"
     compile "org.ajar:swagger-spring-mvc-ui:0.2"

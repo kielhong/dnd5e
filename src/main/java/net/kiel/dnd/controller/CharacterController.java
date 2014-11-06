@@ -34,6 +34,7 @@ public class CharacterController {
             @PathVariable Integer characterId,
             Model model) {        
         Character character = characterService.findById(characterId);
+        
         model.addAttribute("character", character);
 
         return "character";

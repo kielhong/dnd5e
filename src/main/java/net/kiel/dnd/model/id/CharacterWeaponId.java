@@ -2,13 +2,16 @@ package net.kiel.dnd.model.id;
 
 import java.io.Serializable;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import net.kiel.dnd.model.Character;
 import net.kiel.dnd.model.Weapon;
 
-@Data
 @SuppressWarnings("serial")
 public class CharacterWeaponId implements Serializable {
+    @Getter @Setter
     private Character character;
     
+    @Getter @Setter
     private Weapon weapon;
 }

@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.kiel.dnd.model.Ability.AbilityType;
 import net.kiel.dnd.model.id.CharacterWeaponId;
 
 @Entity
@@ -26,10 +27,21 @@ public class CharacterWeapon {
     
     @Getter @Setter
     private boolean proficiency;
+    
+    public Integer getAttackRoll() {
+        Ability ability = null;
+        if (weapon.getType() == Weapon.WeaponType.SIMPLE_MEELE || weapon.getType() == Weapon.WeaponType.MARTIAL_MEELE ) {
+            ability = character.getAbility(AbilityType.STRENGTH);
+        } else {
+            ability = character.getAbility(AbilityType.DEXTERITY);
+        }
+        
+        return proficiency ? ability.getModifier() + character.getProficiency().getBonus() : ability.getModifier();
+    }
 
     
     @Override
     public String toString() {
-        return "CharacterWeapon [character.id=" + character.getId() + ", weapon.id=" + weapon.getId() + ", proficiency=" + proficiency + "]";
+        return "CharacterWeapon [proficiency=" + proficiency + "]";
     }
 }
