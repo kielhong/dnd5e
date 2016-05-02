@@ -19,14 +19,14 @@ public class CharacterServiceImpl implements CharacterService {
     
     @Override
     public List<Character> findAll() {
-        List<Character> characters = characterRepository.selectAll();
+        List<Character> characters = characterRepository.findAll();
         
         return characters;
     }
     
     @Override
     public Character findById(Integer characterId) {
-        Character character =  characterRepository.select(characterId);
+        Character character =  characterRepository.findOne(characterId);
         
         return character;
     }

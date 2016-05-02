@@ -30,7 +30,7 @@ public class CharacterRepositoryTest {
     
     @Test
     public void testSelectAll() {
-        List<Character> characters = characterRepository.selectAll();
+        List<Character> characters = characterRepository.findAll();
         
         assertNotNull(characters);
         assertTrue(characters.size() > 0);
@@ -39,7 +39,7 @@ public class CharacterRepositoryTest {
     @Test
     public void testSelect() {
         final Integer id = 1;
-        Character character = characterRepository.select(id);
+        Character character = characterRepository.findOne(id);
         
         assertNotNull(character);
         assertEquals("Dwarf", character.getRace().getName());
