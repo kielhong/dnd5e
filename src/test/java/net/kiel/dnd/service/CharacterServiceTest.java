@@ -35,7 +35,7 @@ public class CharacterServiceTest {
     
     @Test
     public void testGet() {
-        final Integer characterId = 1;
+        final Long characterId = 1L;
         Character character = characterService.findById(characterId);
         
         assertNotNull(character);

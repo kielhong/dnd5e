@@ -23,7 +23,7 @@ public class CharacterAPIController {
     @ApiOperation(value="character detail")
     public Character detail(
             @ApiParam(value="Id of character", required=true)
-            @PathVariable Integer characterId) {        
+            @PathVariable Long characterId) {
         Character character = characterService.findById(characterId);
 
 

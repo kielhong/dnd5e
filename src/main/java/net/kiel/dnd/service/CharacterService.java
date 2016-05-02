@@ -6,5 +6,5 @@ import net.kiel.dnd.model.Character;
 
 public interface CharacterService {
     List<Character> findAll();
-    Character findById(Integer id);
+    Character findById(Long id);
 }

@@ -25,7 +25,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
     
     @Override
-    public Character findById(Integer characterId) {
+    public Character findById(Long characterId) {
         Character character =  characterRepository.findOne(characterId);
         
         return character;

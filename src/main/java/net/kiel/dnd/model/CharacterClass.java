@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Race {
+public class CharacterClass {
     @Id
     @GeneratedValue
     private Integer id;

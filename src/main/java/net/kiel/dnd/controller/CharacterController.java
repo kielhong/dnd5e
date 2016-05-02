@@ -31,7 +31,7 @@ public class CharacterController {
     
     @RequestMapping(value = "/character/{characterId}", method = RequestMethod.GET)
     public String detail(
-            @PathVariable Integer characterId,
+            @PathVariable Long characterId,
             Model model) {        
         Character character = characterService.findById(characterId);
         

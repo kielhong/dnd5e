@@ -27,31 +27,28 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table(name="character")
 @Data
 public class Character {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    
-    @Column(name="player_name")
+    @GeneratedValue
+    private Long id;
+
     private String playerName;
     
     private String name;
     
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn
     private Race race;
     
     @ManyToOne
-    @JoinColumn(name="class_id", nullable = false)
-    private Class characterClass;
+    @JoinColumn(name = "class_id", referencedColumnName = "id")
+    private CharacterClass characterClass;
     
     private String background;
   
     private String alignment;
-  
-    @Column(name = "armor_class")
+
     private Integer armorClass;
     
     // level
@@ -74,10 +71,10 @@ public class Character {
     }
         
     @ManyToOne
-    @JoinColumn(name="level", referencedColumnName="level", nullable = false)
+    @JoinColumn(name="level", referencedColumnName="level")
     private Proficiency proficiency;
     
-    @OneToMany(fetch=FetchType.EAGER)
+    @OneToMany
     @JoinColumn(name = "character_id")
     @OrderBy("ability_type")
     private Set<Ability> abilities;
