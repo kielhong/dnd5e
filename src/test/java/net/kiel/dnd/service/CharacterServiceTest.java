@@ -31,6 +31,7 @@ public class CharacterServiceTest {
     private CharacterService characterService;
 
     Character character;
+
     @Before
     public void setUp() {
         character = new Character();
