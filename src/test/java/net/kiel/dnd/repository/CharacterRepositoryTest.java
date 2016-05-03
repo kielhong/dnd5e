@@ -1,18 +1,17 @@
 package net.kiel.dnd.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
+import lombok.extern.slf4j.Slf4j;
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.model.CharacterClass;
-import net.kiel.dnd.model.Proficiency;
 import net.kiel.dnd.model.Race;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -20,34 +19,32 @@ import javax.transaction.Transactional;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@DataJpaTest
 @Transactional
-public class CharacterRepositoryTest {    
+@Slf4j
+public class CharacterRepositoryTest {
+    @Autowired
+    TestEntityManager entityManager;
     @Autowired 
     private CharacterRepository characterRepository;
-    @Autowired
-    private RaceRepository raceRepository;
-    @Autowired
-    private CharacterClassRepository classRepository;
-    @Autowired
-    private ProficiencyRepository proficiencyRepository;
 
     Character givenCharacter;
+
     @Before
     public void setUp() {
-        Race race = new Race(1, "Dwarf");
-        raceRepository.save(race);
-        CharacterClass characterClass = new CharacterClass(1, "Fighter");
-        classRepository.save(characterClass);
-        Proficiency proficiency = new Proficiency(1, 2);
-        proficiencyRepository.save(proficiency);
+        Race race = new Race("Dwarf");
+        entityManager.persist(race);
+        CharacterClass characterClass = new CharacterClass("Fighter");
+        entityManager.persist(characterClass);
+//        Proficiency proficiency = new Proficiency(1, 2);
+//        proficiencyRepository.save(proficiency);
 
         givenCharacter = new Character();
-        givenCharacter.setName("character name");
-        givenCharacter.setPlayerName("character player name");
-//        character.setRace(race);
-//        character.setCharacterClass(characterClass);
-//        character.setProficiency(proficiency);
+        givenCharacter.setName("test name");
+        givenCharacter.setPlayerName("test player name");
+        givenCharacter.setRace(race);
+        givenCharacter.setCharacterClass(characterClass);
+        givenCharacter.setLevel(1);
 
         characterRepository.save(givenCharacter);
     }
@@ -66,10 +63,10 @@ public class CharacterRepositoryTest {
         Character character = characterRepository.findOne(givenCharacter.getId());
 
         assertThat(character).isNotNull();
+        assertThat(character.getRace().getName()).isEqualTo("Dwarf");
+        assertThat(character.getCharacterClass().getName()).isEqualTo("Fighter");
+        assertThat(character.getLevel()).isEqualTo(1);
 
-//        assertEquals("Dwarf", character.getRace().getName());
-//        assertEquals("Fighter", character.getCharacterClass().getName());
-//        assertEquals(Integer.valueOf(1), character.getLevel());
 //        assertEquals(Integer.valueOf(2), character.getProficiency().getBonus());
 //        assertEquals(Integer.valueOf(1), character.getInitiative());
 //        assertEquals(6, character.getAbilities().size());

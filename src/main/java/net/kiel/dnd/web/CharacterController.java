@@ -1,4 +1,4 @@
-package net.kiel.dnd.controller;
+package net.kiel.dnd.web;
 
 import java.util.List;
 

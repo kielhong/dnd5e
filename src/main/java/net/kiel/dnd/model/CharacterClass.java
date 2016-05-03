@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class CharacterClass {
+    public CharacterClass(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue
     private Integer id;

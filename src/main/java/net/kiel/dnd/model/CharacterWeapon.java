@@ -35,8 +35,9 @@ public class CharacterWeapon {
         } else {
             ability = character.getAbility(AbilityType.DEXTERITY);
         }
-        
-        return proficiency ? ability.getModifier() + character.getProficiency().getBonus() : ability.getModifier();
+
+        return 0;
+//        return proficiency ? ability.getModifier() + character.getProficiency().getBonus() : ability.getModifier();
     }
 
     

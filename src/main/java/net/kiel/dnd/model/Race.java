@@ -11,8 +11,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Race {
+    public Race(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue
     private Integer id;

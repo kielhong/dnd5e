@@ -1,4 +1,4 @@
-package net.kiel.dnd.controller.api;
+package net.kiel.dnd.web.api;
 
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.service.CharacterService;

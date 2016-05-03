@@ -1,4 +1,4 @@
-package net.kiel.dnd.controller;
+package net.kiel.dnd.web;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
