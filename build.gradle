@@ -35,6 +35,7 @@ dependencies {
     
     
     compile "org.springframework.boot:spring-boot-starter-velocity"
+    compile "com.google.guava:guava:19.0"
     // DB
     compile "mysql:mysql-connector-java:5.1.29"
     // Swagger integration with SpringMVC
