@@ -13,10 +13,9 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "weapon")
 public class Weapon {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
     
     private String name;
@@ -29,8 +28,7 @@ public class Weapon {
     private Integer cost;
     
     private String damage;
-    
-    @Column(name = "damage_type")
+
     private String damageType;
     
     public enum WeaponType {

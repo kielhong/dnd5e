@@ -14,11 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class CharacterServiceImpl implements CharacterService {
-    @Autowired 
+
     CharacterRepository characterRepository;
-    
+
+    @Autowired
+    public CharacterServiceImpl(CharacterRepository characterRepository) {
+        this.characterRepository = characterRepository;
+    }
+
     @Override
-    public List<Character> findAll() {
+    public List<Character> getList() {
         List<Character> characters = characterRepository.findAll();
         
         return characters;

@@ -14,12 +14,6 @@ buildscript {
 apply plugin: "java"
 apply plugin: "spring-boot"
 
-repositories {
-    mavenCentral()
-    jcenter()
-    maven { url "https://repo.spring.io/milestone" }
-}
-
 jar {
     baseName = 'dnd5e'
     version =  '1.0.0'
@@ -27,6 +21,12 @@ jar {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "https://repo.spring.io/milestone" }
+}
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
@@ -37,13 +37,13 @@ dependencies {
     // DB
     compile "mysql:mysql-connector-java:5.1.29"
     // Swagger integration with SpringMVC
-    compile "com.mangofactory:swagger-springmvc:0.8.8"
-    compile "org.ajar:swagger-spring-mvc-ui:0.2"
+    compile "com.mangofactory:swagger-springmvc:1.0.2"
+//    compile "org.ajar:swagger-spring-mvc-ui:0.2"
     // Velocity
 //    compile "org.apache.velocity:velocity:1.7"
 //    compile "org.apache.velocity:velocity-tools:2.0"
 //
-    compile "org.projectlombok:lombok"
+    compile('org.projectlombok:lombok')
     runtime('com.h2database:h2')
     
     // Test
