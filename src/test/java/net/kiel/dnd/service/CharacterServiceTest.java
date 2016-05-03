@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.timeout;
+import static org.mockito.Mockito.times;
 
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.model.CharacterClass;
@@ -65,10 +67,20 @@ public class CharacterServiceTest {
     }
 
     @Test
-    public void testLevelUp() {
-        characterService = new CharacterServiceImpl();
-        characterService.earnXp(character, 300);
+    public void earnEnoughXpShouldLevelUp() {
+        characterService  = new CharacterServiceImpl(characterRepository);
 
+        // xp = 10
+        characterService.earnXp(character, 10);
+        assertThat(character.getLevel()).isEqualTo(1);
+        then(characterRepository).should().save(character);
+
+        // xp = 300
+        characterService.earnXp(character, 290);
         assertThat(character.getLevel()).isEqualTo(2);
+
+        // xp = 910
+        characterService.earnXp(character, 610);
+        assertThat(character.getLevel()).isEqualTo(3);
     }
 }
