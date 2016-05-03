@@ -1,26 +1,28 @@
 package net.kiel.dnd.web;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import net.kiel.dnd.model.Character;
 import net.kiel.dnd.service.CharacterService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @Controller
-@Transactional
 public class CharacterController {
     @Autowired 
     private CharacterService characterService;
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+
+    /**
+     * index
+     * @param model Model
+     * @return index
+     */
+    @GetMapping(value = {"/", "/characters"})
     public String index(Model model) {
         List<Character> characters = characterService.getList();
         
@@ -28,12 +30,18 @@ public class CharacterController {
         
         return "index";
     }
-    
-    @RequestMapping(value = "/character/{characterId}", method = RequestMethod.GET)
+
+    /**
+     * one character info
+     * @param id character id
+     * @param model Model
+     * @return character one
+     */
+    @RequestMapping(value = "/characters/{id}", method = RequestMethod.GET)
     public String detail(
-            @PathVariable Long characterId,
+            @PathVariable Long id,
             Model model) {        
-        Character character = characterService.findById(characterId);
+        Character character = characterService.getCharacter(id);
         
         model.addAttribute("character", character);
 

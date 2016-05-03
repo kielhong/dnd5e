@@ -13,6 +13,7 @@ buildscript {
 
 apply plugin: "java"
 apply plugin: "spring-boot"
+apply plugin: "checkstyle"
 
 jar {
     baseName = 'dnd5e'
@@ -43,13 +44,22 @@ dependencies {
 //    compile "org.apache.velocity:velocity:1.7"
 //    compile "org.apache.velocity:velocity-tools:2.0"
 //
+
+
     compile('org.projectlombok:lombok')
     runtime('com.h2database:h2')
     
     // Test
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.0.RC1'
 }
 
 task wrapper(type: Wrapper) { 
     gradleVersion = "2.13" 
 }
+
+checkstyle {
+    toolVersion = '6.17'
+    sourceSets = [sourceSets.main, sourceSets.test]
+}
+

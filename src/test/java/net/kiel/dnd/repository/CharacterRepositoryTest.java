@@ -36,8 +36,6 @@ public class CharacterRepositoryTest {
         entityManager.persist(race);
         CharacterClass characterClass = new CharacterClass("Fighter");
         entityManager.persist(characterClass);
-//        Proficiency proficiency = new Proficiency(1, 2);
-//        proficiencyRepository.save(proficiency);
 
         givenCharacter = new Character();
         givenCharacter.setName("test name");
@@ -76,7 +74,8 @@ public class CharacterRepositoryTest {
 //        assertEquals(AbilityType.STRENGTH, ability.getType());  // first ability must be STR
 //        assertEquals(Integer.valueOf(17), ability.getScore());
 //        assertEquals(Integer.valueOf(3), ability.getModifier());
-//        assertEquals(5, ability.getModifier() + (ability.getSavingThrow().isProficiency() ? character.getProficiency().getBonus() : 0));
+//        assertEquals(5, ability.getModifier() +
+// (ability.getSavingThrow().isProficiency() ? character.getProficiency().getBonus() : 0));
 //        assertEquals(1, ability.getSkills().size());
 //
 //        assertTrue(character.getWeapons().size() > 0);

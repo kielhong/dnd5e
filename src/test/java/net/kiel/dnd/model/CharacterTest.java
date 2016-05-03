@@ -21,9 +21,5 @@ public class CharacterTest {
         character.setLevel(1);
     }
 
-    @Test
-    public void testLevelUp() {
-        character.earnXp(300);
-        assertThat(character.getLevel()).isEqualTo(2);
-    }
+
 }

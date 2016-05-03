@@ -1,32 +1,26 @@
 package net.kiel.dnd.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import net.kiel.dnd.model.Ability.AbilityType;
+import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import javax.persistence.Table;
-
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import net.kiel.dnd.model.Ability.AbilityType;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Getter
@@ -82,15 +76,19 @@ public class Character {
 
     private Integer charisma;
 
-//    @ManyToOne
-//    @JoinColumn(name="level", referencedColumnName="level")
-//    private Proficiency proficiency;
+    //    @ManyToOne
+    //    @JoinColumn(name="level", referencedColumnName="level")
+    //    private Proficiency proficiency;
     
     @OneToMany
     @JoinColumn(name = "character_id")
     @OrderBy("ability_type")
     private Set<Ability> abilities;
 
+    /**
+     * skills
+     * @return skill list
+     */
     public List<Skill> getSkills() {
         List<Skill> skills = new ArrayList<Skill>();
         
@@ -112,7 +110,12 @@ public class Character {
     @OneToMany
     @JoinColumn(name = "character_id")
     private Set<CharacterWeapon> weapons;
-    
+
+    /**
+     * ability
+     * @param type AbilityType
+     * @return Ability
+     */
     public Ability getAbility(AbilityType type) {
         for (Ability ability : abilities) {
             if (type.equals(ability.getType())) {
@@ -125,34 +128,4 @@ public class Character {
     
 
     private Date createDatetime;
-
-    public void earnXp(Integer newXp) {
-        xp += newXp;
-
-        if (xp >= 300) {
-            level++;
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Character{" +
-                "id=" + id +
-                ", playerName='" + playerName + '\'' +
-                ", name='" + name + '\'' +
-                ", race=" + race +
-                ", characterClass=" + characterClass +
-                ", background='" + background + '\'' +
-                ", alignment='" + alignment + '\'' +
-                ", armorClass=" + armorClass +
-                ", level=" + level +
-                ", xp=" + xp +
-                ", speed=" + speed +
-                ", hpMax=" + hpMax +
-                ", hpCurrent=" + hpCurrent +
-                ", abilities=" + abilities +
-                ", weapons=" + weapons +
-                ", createDatetime=" + createDatetime +
-                '}';
-    }
 }

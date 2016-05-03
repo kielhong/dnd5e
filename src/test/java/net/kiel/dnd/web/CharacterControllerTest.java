@@ -37,12 +37,12 @@ public class CharacterControllerTest {
         character.setCharacterClass(new CharacterClass("Fighter"));
         character.setXp(0);
         character.setLevel(1);
-        given(characterService.findById(1L)).willReturn(character);
+        given(characterService.getCharacter(1L)).willReturn(character);
     }
 
     @Test
     public void testDetail() throws Exception {
-        mockMvc.perform(get("/character/{characterId}", 1))
+        mockMvc.perform(get("/characters/{id}", 1))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(handler().handlerType(CharacterController.class))

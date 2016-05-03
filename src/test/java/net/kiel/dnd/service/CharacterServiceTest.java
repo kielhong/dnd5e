@@ -58,9 +58,17 @@ public class CharacterServiceTest {
         given(characterRepository.findOne(1L)).willReturn(character);
         characterService = new CharacterServiceImpl(characterRepository);
 
-        Character testCharacter = characterService.findById(1L);
+        Character testCharacter = characterService.getCharacter(1L);
 
         assertThat(testCharacter).isNotNull();
         assertThat(testCharacter.getRace().getName()).isEqualTo("Human");
+    }
+
+    @Test
+    public void testLevelUp() {
+        characterService = new CharacterServiceImpl();
+        characterService.earnXp(character, 300);
+
+        assertThat(character.getLevel()).isEqualTo(2);
     }
 }
