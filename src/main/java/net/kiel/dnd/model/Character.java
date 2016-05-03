@@ -51,6 +51,7 @@ public class Character {
     @Column(nullable = false)
     private Integer level;
 
+    @Column(length = 2000)
     private String background;
   
     private String alignment;
@@ -68,7 +69,19 @@ public class Character {
     public Integer getInitiative() {
         return getAbility(AbilityType.DEXTERITY).getModifier();
     }
-        
+
+    private Integer strength;
+
+    private Integer dexterity;
+
+    private Integer constitution;
+
+    private Integer intelligence;
+
+    private Integer wisdom;
+
+    private Integer charisma;
+
 //    @ManyToOne
 //    @JoinColumn(name="level", referencedColumnName="level")
 //    private Proficiency proficiency;
@@ -112,6 +125,14 @@ public class Character {
     
 
     private Date createDatetime;
+
+    public void earnXp(Integer newXp) {
+        xp += newXp;
+
+        if (xp >= 300) {
+            level++;
+        }
+    }
 
     @Override
     public String toString() {
