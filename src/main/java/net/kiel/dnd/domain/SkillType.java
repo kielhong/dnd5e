@@ -1,7 +1,7 @@
-package net.kiel.dnd.model;
+package net.kiel.dnd.domain;
 
 import lombok.Data;
-import net.kiel.dnd.model.Ability.AbilityType;
+import net.kiel.dnd.domain.Ability.AbilityType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

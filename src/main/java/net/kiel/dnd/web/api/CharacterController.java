@@ -3,7 +3,7 @@ package net.kiel.dnd.web.api;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
-import net.kiel.dnd.model.Character;
+import net.kiel.dnd.domain.Character;
 import net.kiel.dnd.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

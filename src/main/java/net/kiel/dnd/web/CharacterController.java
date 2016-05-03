@@ -1,6 +1,6 @@
 package net.kiel.dnd.web;
 
-import net.kiel.dnd.model.Character;
+import net.kiel.dnd.domain.Character;
 import net.kiel.dnd.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,9 +1,9 @@
-package net.kiel.dnd.model.id;
+package net.kiel.dnd.domain.id;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.Weapon;
+import net.kiel.dnd.domain.Character;
+import net.kiel.dnd.domain.Weapon;
 
 import java.io.Serializable;
 

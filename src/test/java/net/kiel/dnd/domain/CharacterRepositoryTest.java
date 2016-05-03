@@ -1,11 +1,8 @@
-package net.kiel.dnd.repository;
+package net.kiel.dnd.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import lombok.extern.slf4j.Slf4j;
-import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.CharacterClass;
-import net.kiel.dnd.model.Race;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
