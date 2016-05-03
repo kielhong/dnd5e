@@ -1,4 +1,4 @@
-package net.kiel.dnd.model;
+package net.kiel.dnd.domain;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -384,7 +384,7 @@ function program10(depth0,data) {
 function program12(depth0,data) {
   
   
-  return "\n          <h4>Response Class</h4>\n          <p><span class=\"model-signature\" /></p>\n          <br/>\n          <div class=\"response-content-type\" />\n        ";
+  return "\n          <h4>Response Class</h4>\n          <p><span class=\"domain-signature\" /></p>\n          <br/>\n          <div class=\"response-content-type\" />\n        ";
   }
 
 function program14(depth0,data) {
@@ -629,7 +629,7 @@ function program13(depth0,data) {
   if (stack1 = helpers.paramType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.paramType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</td>\n<td>\n	<span class=\"model-signature\"></span>\n</td>\n";
+  buffer += "</td>\n<td>\n	<span class=\"domain-signature\"></span>\n</td>\n";
   return buffer;
   });
 })();
@@ -755,7 +755,7 @@ function program16(depth0,data) {
   if (stack2 = helpers.paramType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.paramType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "</td>\n<td><span class=\"model-signature\"></span></td>";
+  buffer += "</td>\n<td><span class=\"domain-signature\"></span></td>";
   return buffer;
   });
 })();
@@ -823,7 +823,7 @@ function program6(depth0,data) {
   if (stack1 = helpers.paramType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.paramType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</td>\n<td><span class=\"model-signature\"></span></td>\n";
+  buffer += "</td>\n<td><span class=\"domain-signature\"></span></td>\n";
   return buffer;
   });
 })();
@@ -891,7 +891,7 @@ function program6(depth0,data) {
   if (stack1 = helpers.paramType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.paramType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</td>\n<td><span class=\"model-signature\"></span></td>\n";
+  buffer += "</td>\n<td><span class=\"domain-signature\"></span></td>\n";
   return buffer;
   });
 })();
@@ -1028,7 +1028,7 @@ function program15(depth0,data) {
   if (stack1 = helpers.paramType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.paramType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</td>\n<td><span class=\"model-signature\"></span></td>\n";
+  buffer += "</td>\n<td><span class=\"domain-signature\"></span></td>\n";
   return buffer;
   });
 })();
@@ -1236,7 +1236,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.message) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.message; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</td>\n<td width='50%'><span class=\"model-signature\" /></td>";
+  buffer += "</td>\n<td width='50%'><span class=\"domain-signature\" /></td>";
   return buffer;
   });
 })();
@@ -1739,10 +1739,10 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           model: signatureModel,
           tagName: 'div'
         });
-        $('.model-signature', $(this.el)).append(responseSignatureView.render().el);
+        $('.domain-signature', $(this.el)).append(responseSignatureView.render().el);
       } else {
         this.model.responseClassSignature = 'string';
-        $('.model-signature', $(this.el)).html(this.model.type);
+        $('.domain-signature', $(this.el)).html(this.model.type);
       }
       contentTypeModel = {
         isParam: false
@@ -2171,9 +2171,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           model: responseModel,
           tagName: 'div'
         });
-        $('.model-signature', this.$el).append(responseModelView.render().el);
+        $('.domain-signature', this.$el).append(responseModelView.render().el);
       } else {
-        $('.model-signature', this.$el).html('');
+        $('.domain-signature', this.$el).html('');
       }
       return this;
     };
@@ -2238,9 +2238,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
           model: signatureModel,
           tagName: 'div'
         });
-        $('.model-signature', $(this.el)).append(signatureView.render().el);
+        $('.domain-signature', $(this.el)).append(signatureView.render().el);
       } else {
-        $('.model-signature', $(this.el)).html(this.model.signature);
+        $('.domain-signature', $(this.el)).html(this.model.signature);
       }
       isParam = false;
       if (this.model.isBody) {

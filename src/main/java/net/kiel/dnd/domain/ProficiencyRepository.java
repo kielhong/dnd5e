@@ -1,6 +1,6 @@
-package net.kiel.dnd.repository;
+package net.kiel.dnd.domain;
 
-import net.kiel.dnd.model.Proficiency;
+import net.kiel.dnd.domain.Proficiency;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

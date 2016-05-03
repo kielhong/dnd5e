@@ -1,4 +1,4 @@
-package net.kiel.dnd.model;
+package net.kiel.dnd.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,8 +10,8 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor
-public class CharacterClass {
-    public CharacterClass(String name) {
+public class Race {
+    public Race(String name) {
         this.name = name;
     }
 

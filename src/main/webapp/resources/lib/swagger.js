@@ -22,7 +22,7 @@
     return value;
   }
 
-  // if you want to apply conditional formatting of model property values
+  // if you want to apply conditional formatting of domain property values
   var modelPropertyMacro = function (value) {
     return value;
   }

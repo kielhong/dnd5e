@@ -1,9 +1,9 @@
-package net.kiel.dnd.model;
+package net.kiel.dnd.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.kiel.dnd.model.Ability.AbilityType;
-import net.kiel.dnd.model.id.CharacterWeaponId;
+import net.kiel.dnd.domain.Ability.AbilityType;
+import net.kiel.dnd.domain.id.CharacterWeaponId;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -7,9 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-import net.kiel.dnd.model.Character;
-import net.kiel.dnd.model.CharacterClass;
-import net.kiel.dnd.model.Race;
+import net.kiel.dnd.domain.Character;
+import net.kiel.dnd.domain.CharacterClass;
+import net.kiel.dnd.domain.Race;
 import net.kiel.dnd.service.CharacterService;
 import org.junit.Before;
 import org.junit.Test;

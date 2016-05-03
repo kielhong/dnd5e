@@ -1,6 +1,6 @@
 package net.kiel.dnd.service;
 
-import net.kiel.dnd.model.Character;
+import net.kiel.dnd.domain.Character;
 
 import java.util.List;
 

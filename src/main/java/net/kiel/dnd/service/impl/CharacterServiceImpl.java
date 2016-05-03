@@ -3,8 +3,8 @@ package net.kiel.dnd.service.impl;
 import com.google.common.collect.ImmutableMap;
 
 import lombok.extern.slf4j.Slf4j;
-import net.kiel.dnd.model.Character;
-import net.kiel.dnd.repository.CharacterRepository;
+import net.kiel.dnd.domain.Character;
+import net.kiel.dnd.domain.CharacterRepository;
 import net.kiel.dnd.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,6 @@ import javax.transaction.Transactional;
 public class CharacterServiceImpl implements CharacterService {
     @Autowired
     CharacterRepository characterRepository;
-
-    public CharacterServiceImpl() {
-
-    }
-
-    @Autowired
-    public CharacterServiceImpl(CharacterRepository characterRepository) {
-        this.characterRepository = characterRepository;
-    }
 
     @Override
     public List<Character> getList() {

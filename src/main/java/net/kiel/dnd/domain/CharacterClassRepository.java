@@ -1,6 +1,5 @@
-package net.kiel.dnd.repository;
+package net.kiel.dnd.domain;
 
-import net.kiel.dnd.model.CharacterClass;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

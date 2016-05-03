@@ -1,8 +1,8 @@
-package net.kiel.dnd.model;
+package net.kiel.dnd.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.kiel.dnd.model.Ability.AbilityType;
+import net.kiel.dnd.domain.Ability.AbilityType;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
