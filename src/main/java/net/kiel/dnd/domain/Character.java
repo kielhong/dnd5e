@@ -3,17 +3,11 @@ package net.kiel.dnd.domain;
 import lombok.Getter;
 import lombok.Setter;
 import net.kiel.dnd.domain.Ability.AbilityType;
-import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
@@ -22,7 +16,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -75,22 +68,18 @@ public class Character {
 //        return getAbility(AbilityType.DEXTERITY).getModifier();
 //    }
 
-    private Integer strength;
-
-    private Integer dexterity;
-
-    private Integer constitution;
-
-    private Integer intelligence;
-
-    private Integer wisdom;
-
-    private Integer charisma;
-
-
     @OneToMany
     @OrderBy("ability_type")
     private List<Ability> abilities;
+
+    /**
+     * ability
+     * @param type AbilityType
+     * @return Ability
+     */
+    public Ability getAbility(AbilityType type) {
+        return abilities.stream().filter(a -> a.getType() == type).findFirst().get();
+    }
 
 //    /**
 //     * skills
@@ -119,20 +108,7 @@ public class Character {
     @ManyToMany(targetEntity =  CharacterWeapon.class)
     private Set<CharacterWeapon> weapons;
 
-    /**
-     * ability
-     * @param type AbilityType
-     * @return Ability
-     */
-    public Ability getAbility(AbilityType type) {
-        for (Ability ability : abilities) {
-            if (type.equals(ability.getType())) {
-                return ability;
-            }
-        }
-        
-        return null;
-    }
+
     
 
     @CreatedDate
