@@ -10,4 +10,6 @@ public interface CharacterService {
     Character getCharacter(Long id);
 
     void earnXp(Character character, Integer xp);
+
+    Character changeLevel(Character character, Integer level);
 }

@@ -2,20 +2,21 @@ package net.kiel.dnd.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Created by kiel on 2016. 5. 4..
+ */
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Proficiency {
+public class Level {
     @Id
-    @GeneratedValue
     private Integer level;
 
-    private Integer bonus;
+    private Integer xp;
+
+    private Integer proficiencyBonus;
 }

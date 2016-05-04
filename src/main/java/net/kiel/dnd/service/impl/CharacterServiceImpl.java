@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import net.kiel.dnd.domain.Character;
 import net.kiel.dnd.domain.CharacterRepository;
+import net.kiel.dnd.domain.Level;
+import net.kiel.dnd.domain.LevelRepository;
 import net.kiel.dnd.service.CharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import javax.transaction.Transactional;
 public class CharacterServiceImpl implements CharacterService {
     @Autowired
     CharacterRepository characterRepository;
+    @Autowired
+    LevelRepository levelRepository;
 
     @Override
     public List<Character> getList() {
@@ -37,13 +41,12 @@ public class CharacterServiceImpl implements CharacterService {
     public void earnXp(Character character, Integer xp) {
         character.setXp(character.getXp() + xp);
 
-        List<Integer> levels = xpTable.keySet().asList();
-        for (int i = 0; i < levels.size(); i++) {
-            Integer currentLevel = levels.get(i);
-            Integer nextLevel = levels.get(i + 1);
-            if (xpTable.get(currentLevel) <= character.getXp()
-                    && xpTable.get(nextLevel) > character.getXp()) {
-                character.setLevel(levels.get(i));
+        List<Level> levels = levelRepository.findAll();
+
+        for (int i = 0; i < levels.size() - 1; i++) {
+            if (levels.get(i).getXp() <= character.getXp()
+                    && character.getXp() < levels.get(i + 1).getXp()) {
+                character.setLevel(levels.get(i).getLevel());
                 break;
             }
         }
@@ -51,17 +54,13 @@ public class CharacterServiceImpl implements CharacterService {
         characterRepository.save(character);
     }
 
-    private static ImmutableMap<Integer, Integer> xpTable = new ImmutableMap.Builder<Integer, Integer>()
-            .put(1, 0)
-            .put(2, 300)
-            .put(3, 900)
-            .put(4, 2700)
-            .put(5, 6500)
-            .put(6, 14000)
-            .put(7, 23000)
-            .put(8, 34000)
-            .put(9, 48000)
-            .put(10, 64000)
-            .put(20, 355000)
-            .build();
+    @Override
+    public Character changeLevel(Character character, Integer level) {
+        character.setLevel(level);
+        Level levelTable = levelRepository.findOne(level);
+        character.setProficiencyBonus(levelTable.getProficiencyBonus());
+        characterRepository.save(character);
+
+        return character;
+    }
 }

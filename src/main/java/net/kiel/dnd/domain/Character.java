@@ -43,7 +43,7 @@ public class Character {
     private Race race;
     
     @ManyToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "class_id", nullable = false)
     private CharacterClass characterClass;
 
     @Column(nullable = false)
@@ -80,10 +80,8 @@ public class Character {
 
     private Integer charisma;
 
-    //    @ManyToOne
-    //    @JoinColumn(name="level", referencedColumnName="level")
-    //    private Proficiency proficiency;
-    
+    private Integer proficiencyBonus;
+
     @OneToMany
     @JoinColumn(name = "character_id")
     @OrderBy("ability_type")
