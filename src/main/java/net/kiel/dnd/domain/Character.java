@@ -64,9 +64,9 @@ public class Character {
 
     private Integer inspiration;
 
-//    public Integer getInitiative() {
-//        return getAbility(AbilityType.DEXTERITY).getModifier();
-//    }
+    public Integer getInitiative() {
+        return getAbility(AbilityType.DEXTERITY).getModifier();
+    }
 
     @OneToMany
     @OrderBy("ability_type")
@@ -107,9 +107,6 @@ public class Character {
 
     @ManyToMany(targetEntity =  CharacterWeapon.class)
     private Set<CharacterWeapon> weapons;
-
-
-    
 
     @CreatedDate
     private LocalDateTime createDatetime;

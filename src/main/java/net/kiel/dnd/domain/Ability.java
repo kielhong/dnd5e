@@ -45,12 +45,6 @@ public class Ability {
         return score / 2 - 5;
     }
 
-//    @OneToOne(mappedBy = "ability")
-//    private SavingThrow savingThrow;
-//
-//    @OneToMany(mappedBy = "ability")
-//    private Set<Skill> skills;
-    
     public enum AbilityType {
         STRENGTH(1, "STR"), 
         DEXTERITY(2, "DEX"), 
