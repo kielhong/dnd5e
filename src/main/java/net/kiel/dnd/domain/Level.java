@@ -3,6 +3,7 @@ package net.kiel.dnd.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,7 +17,9 @@ public class Level {
     @Id
     private Integer level;
 
+    @Column(updatable = false)
     private Integer xp;
 
+    @Column(updatable = false)
     private Integer proficiencyBonus;
 }

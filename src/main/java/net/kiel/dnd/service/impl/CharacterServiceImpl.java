@@ -1,7 +1,5 @@
 package net.kiel.dnd.service.impl;
 
-import com.google.common.collect.ImmutableMap;
-
 import lombok.extern.slf4j.Slf4j;
 import net.kiel.dnd.domain.Character;
 import net.kiel.dnd.domain.CharacterRepository;
@@ -46,12 +44,10 @@ public class CharacterServiceImpl implements CharacterService {
         for (int i = 0; i < levels.size() - 1; i++) {
             if (levels.get(i).getXp() <= character.getXp()
                     && character.getXp() < levels.get(i + 1).getXp()) {
-                character.setLevel(levels.get(i).getLevel());
+                this.changeLevel(character, levels.get(i).getLevel());
                 break;
             }
         }
-
-        characterRepository.save(character);
     }
 
     @Override

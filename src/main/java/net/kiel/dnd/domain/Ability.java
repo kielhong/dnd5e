@@ -1,5 +1,6 @@
 package net.kiel.dnd.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 
@@ -15,38 +16,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
-@Data
 @Entity
+@Data
+@AllArgsConstructor
 public class Ability {
+    public Ability(AbilityType type, Integer score) {
+        this.type = type;
+        this.score = score;
+    }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
     
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "ability_type")
     private AbilityType type;
-    
-    @ManyToOne
-    @JoinColumn(name = "score", nullable = false)
-    private AbilityModifier abilityModifier;
-  
-    public Integer getScore() {
-        return abilityModifier.getScore();
-    }
-    
+
+    @Min(0)
+    @Max(30)
+    private Integer score;
+
     public Integer getModifier() {
-        return abilityModifier.getModifier();
+        return score / 2 - 5;
     }
-    
-    @OneToOne(mappedBy = "ability")
-    private SavingThrow savingThrow;
-    
-    @OneToMany(mappedBy = "ability")
-    private Set<Skill> skills;
+
+//    @OneToOne(mappedBy = "ability")
+//    private SavingThrow savingThrow;
+//
+//    @OneToMany(mappedBy = "ability")
+//    private Set<Skill> skills;
     
     public enum AbilityType {
-        UNKNOWN(0, "UNKNOWN"), 
         STRENGTH(1, "STR"), 
         DEXTERITY(2, "DEX"), 
         CONSTITUTION(3, "CON"), 
@@ -63,11 +68,4 @@ public class Ability {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Ability [id=" + id + ", type=" + type + ", abilityModifier=" + abilityModifier + "]";
-    }
-    
-    
-       
 }

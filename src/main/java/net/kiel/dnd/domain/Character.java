@@ -7,6 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -21,6 +22,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -49,14 +52,16 @@ public class Character {
     @Column(nullable = false)
     private Integer level;
 
+    private Integer xp;
+
+    private Integer proficiencyBonus;
+
     @Column(length = 2000)
     private String background;
   
     private String alignment;
 
     private Integer armorClass;
-
-    private Integer xp;
     
     private Integer speed;
 
@@ -64,9 +69,11 @@ public class Character {
 
     private Integer hpCurrent;
 
-    public Integer getInitiative() {
-        return getAbility(AbilityType.DEXTERITY).getModifier();
-    }
+    private Integer inspiration;
+
+//    public Integer getInitiative() {
+//        return getAbility(AbilityType.DEXTERITY).getModifier();
+//    }
 
     private Integer strength;
 
@@ -80,37 +87,36 @@ public class Character {
 
     private Integer charisma;
 
-    private Integer proficiencyBonus;
 
     @OneToMany
-    @JoinColumn(name = "character_id")
     @OrderBy("ability_type")
-    private Set<Ability> abilities;
+    private List<Ability> abilities;
 
-    /**
-     * skills
-     * @return skill list
-     */
-    public List<Skill> getSkills() {
-        List<Skill> skills = new ArrayList<Skill>();
-        
-        for (Ability ability : abilities) {
-            CollectionUtils.addAll(skills, ability.getSkills().iterator());
-        }
-        
-        Collections.sort(skills, new Comparator<Skill>() {
-            @Override
-            public int compare(Skill arg1, Skill arg2) {
-                return arg1.getSkillType().getName().compareTo(arg2.getSkillType().getName());
-            }
-        });
-        
-        return skills;
-    }
-        
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OneToMany
-    @JoinColumn(name = "character_id")
+//    /**
+//     * skills
+//     * @return skill list
+//     */
+//    public List<Skill> getSkills() {
+//        List<Skill> skills = new ArrayList<Skill>();
+//
+//        for (Ability ability : abilities) {
+//            CollectionUtils.addAll(skills, ability.getSkills().iterator());
+//        }
+//
+//        Collections.sort(skills, new Comparator<Skill>() {
+//            @Override
+//            public int compare(Skill arg1, Skill arg2) {
+//                return arg1.getSkillType().getName().compareTo(arg2.getSkillType().getName());
+//            }
+//        });
+//
+//        return skills;
+//    }
+
+    @ManyToMany(targetEntity = CharacterItem.class)
+    private Set<Item> items;
+
+    @ManyToMany(targetEntity =  CharacterWeapon.class)
     private Set<CharacterWeapon> weapons;
 
     /**
@@ -131,4 +137,7 @@ public class Character {
 
     @CreatedDate
     private LocalDateTime createDatetime;
+
+    @LastModifiedDate
+    private LocalDateTime modifyDatetime;
 }

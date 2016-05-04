@@ -3,6 +3,7 @@ package net.kiel.dnd.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.atLeastOnce;
 
 import net.kiel.dnd.domain.Character;
 import net.kiel.dnd.domain.CharacterClass;
@@ -44,6 +45,15 @@ public class CharacterServiceTest {
         character.setCharacterClass(new CharacterClass("Fighter"));
         character.setXp(0);
         character.setLevel(1);
+
+        given(levelRepository.findAll()).willReturn(
+                Arrays.asList(new Level(1, 0, 2), new Level(2, 300, 2), new Level(3, 900, 2),
+                        new Level(4, 2700, 2), new Level(5, 65000, 3)));
+        given(levelRepository.findOne(1)).willReturn(new Level(1, 0, 2));
+        given(levelRepository.findOne(2)).willReturn(new Level(2, 300, 2));
+        given(levelRepository.findOne(3)).willReturn(new Level(3, 9000, 2));
+        given(levelRepository.findOne(3)).willReturn(new Level(4, 27000, 2));
+        given(levelRepository.findOne(5)).willReturn(new Level(5, 65000, 3));
     }
 
     @Test
@@ -69,9 +79,6 @@ public class CharacterServiceTest {
 
     @Test
     public void earnEnoughXpShouldLevelUp() {
-        given(levelRepository.findAll()).willReturn(
-                Arrays.asList(new Level(1, 0, 2), new Level(2, 300, 2), new Level(3, 900, 2), new Level(4, 2700, 2)));
-
         // xp = 10
         characterService.earnXp(character, 10);
         assertThat(character.getLevel()).isEqualTo(1);
@@ -92,9 +99,6 @@ public class CharacterServiceTest {
 
     @Test
     public void changeLevelShouldChangeProficiencyBonus() {
-        given(levelRepository.findOne(1)).willReturn(new Level(1, 0, 2));
-        given(levelRepository.findOne(5)).willReturn(new Level(5, 65000, 3));
-
         Character changedCharacter = characterService.changeLevel(character, 1);
         assertThat(changedCharacter.getProficiencyBonus()).isEqualTo(2);
         then(characterRepository).should().save(character);

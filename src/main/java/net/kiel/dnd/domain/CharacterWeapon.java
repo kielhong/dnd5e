@@ -33,8 +33,8 @@ public class CharacterWeapon {
      */
     public Integer getAttackRoll() {
         Ability ability = null;
-        if (weapon.getType() == Weapon.WeaponType.SIMPLE_MEELE
-                || weapon.getType() == Weapon.WeaponType.MARTIAL_MEELE ) {
+        if (weapon.getWeaponType() == Weapon.WeaponType.SIMPLE_MEELE
+                || weapon.getWeaponType() == Weapon.WeaponType.MARTIAL_MEELE ) {
             ability = character.getAbility(AbilityType.STRENGTH);
         } else {
             ability = character.getAbility(AbilityType.DEXTERITY);
