@@ -8,4 +8,8 @@ public class Character {
     private CharacterClass characterClass;
     private Race race;
     private Alignment alignment;
+    @Builder.Default
+    private Integer xp = 0;
+    @Builder.Default
+    private Integer level = 1;
 }

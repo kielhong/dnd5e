@@ -18,6 +18,8 @@ class CharacterTest {
                 .hasFieldOrPropertyWithValue("characterName", "Foo Bar")
                 .hasFieldOrPropertyWithValue("characterClass", CharacterClass.CLERIC)
                 .hasFieldOrPropertyWithValue("race", Race.HUMAN)
-                .hasFieldOrPropertyWithValue("alignment", Alignment.NEUTRAL_GOOD);
+                .hasFieldOrPropertyWithValue("alignment", Alignment.NEUTRAL_GOOD)
+                .hasFieldOrPropertyWithValue("xp", 0)
+                .hasFieldOrPropertyWithValue("level", 1);
     }
 }
