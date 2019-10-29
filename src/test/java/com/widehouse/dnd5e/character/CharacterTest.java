@@ -22,4 +22,25 @@ class CharacterTest {
                 .hasFieldOrPropertyWithValue("xp", 0)
                 .hasFieldOrPropertyWithValue("level", 1);
     }
+
+    @Test
+    void setAbility_ThenSetAbilities() {
+        // given
+        Character character = Character.builder()
+                .characterName("Foo Bar")
+                .characterClass(CharacterClass.BARD)
+                .race(Race.ELF)
+                .alignment(Alignment.LAWFUL_EVIL)
+                .create();
+        // when
+        character.setAbilities(15, 14, 13, 12, 10, 8);
+        // then
+        then(character)
+                .hasFieldOrPropertyWithValue("ability.strength.score", 15)
+                .hasFieldOrPropertyWithValue("ability.dexterity.score", 14)
+                .hasFieldOrPropertyWithValue("ability.constitution.score", 13)
+                .hasFieldOrPropertyWithValue("ability.intelligence.score", 12)
+                .hasFieldOrPropertyWithValue("ability.wisdom.score", 10)
+                .hasFieldOrPropertyWithValue("ability.charisma.score", 8);
+    }
 }
