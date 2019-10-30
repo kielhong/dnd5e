@@ -1,8 +1,8 @@
 package com.widehouse.dnd5e.character;
 
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.BDDAssertions.then;
+
+import org.junit.jupiter.api.Test;
 
 class AbilityTest {
 

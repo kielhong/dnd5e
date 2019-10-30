@@ -1,10 +1,9 @@
 package com.widehouse.dnd5e.character;
 
-import org.assertj.core.api.BDDAssertions;
+import static org.assertj.core.api.BDDAssertions.then;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import static org.assertj.core.api.BDDAssertions.then;
 
 class StatTest {
     @ParameterizedTest
