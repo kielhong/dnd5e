@@ -1,7 +1,8 @@
 package com.widehouse.dnd5e.character;
 
-import java.util.Arrays;
-import java.util.List;
+import static com.widehouse.dnd5e.character.Level.LV1;
+
+import java.util.Optional;
 
 import com.widehouse.dnd5e.dice.Dice;
 import lombok.Builder;
@@ -17,15 +18,31 @@ public class Character {
     @Builder.Default
     private Integer xp = 0;
     @Builder.Default
-    private Integer level = 1;
+    private Level level = LV1;
     @Builder.Default
     private Integer maxHitPoints = 0;
     private Ability ability;
 
-    public void setAbilities(int str, int dex, int con, int inte, int wis, int chr) {
-        this.ability = new Ability(Stat.of(str), Stat.of(dex), Stat.of(con), Stat.of(inte), Stat.of(wis), Stat.of(chr));
-
+    public void init() {
         updateMaxHp();
+    }
+
+    public static class CharacterBuilder {
+        public Optional<Character> buildOptional() {
+            return Optional.of(this.build());
+        }
+
+        public Character build() {
+            Character character = this.create();
+            character.init();
+            return character;
+        }
+    }
+
+    public void setAbilities(int str, int dex, int con, int intel, int wis, int cha) {
+        this.ability = new Ability(str, dex, con, intel, wis, cha);
+
+        init();
     }
 
     public void earnXp(int xp) {
@@ -34,38 +51,35 @@ public class Character {
         advanceLevel();
     }
 
-    private void advanceLevel() {
-        System.out.println("advance level");
-        List<Integer> table = Arrays.asList(0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000,
-                100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000);
-        for (int i = this.level; i < table.size(); i++) {
-            if (this.xp >= table.get(i)) {
-                this.level = i + 1;
-                updateMaxHp();
-            } else {
-                break;
-            }
-        }
-    }
-
     public Integer getMaxHitPoints() {
         return this.maxHitPoints;
     }
 
     public Integer getProficiency() {
-        return Level.of(this.level).getProficiency();
+        return this.level.getProficiency();
+    }
+
+    private void advanceLevel() {
+        if (this.xp <= this.level.getXp()) {
+            return;
+        }
+
+        this.level = Level.of(this.level.getLevel() + 1);
+        this.updateMaxHp();
+
+        advanceLevel();
     }
 
     private void updateMaxHp() {
-        this.maxHitPoints += getNextMaxHp(level) + this.ability.constitution.getModifier();
-        System.out.println("Hp=" + this.level + "," + this.maxHitPoints);
+        int conModifier = 0;
+        if (this.ability != null && this.ability.constitution != null) {
+            conModifier = this.ability.constitution.getModifier();
+        }
+        this.maxHitPoints += getNextMaxHp(this.level) + conModifier;
     }
 
-    private Integer getNextMaxHp(int level) {
-        if (level == 1) {
-            return characterClass.getHitDie().getSide();
-        } else {
-            return Dice.of(characterClass.getHitDie(), 1).rollSum();
-        }
+    private Integer getNextMaxHp(Level lv) {
+        return (lv == LV1)
+                ? characterClass.getHitDie().getSide() : Dice.of(characterClass.getHitDie(), 1).rollSum();
     }
 }

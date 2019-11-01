@@ -39,11 +39,11 @@ class CharacterTest {
         then(character)
                 .hasFieldOrPropertyWithValue("characterName", "Foo Bar")
                 .hasFieldOrPropertyWithValue("characterClass", CLERIC)
-                .hasFieldOrPropertyWithValue("race", HUMAN)
-                .hasFieldOrPropertyWithValue("alignment", Alignment.NEUTRAL_GOOD)
+                .hasFieldOrPropertyWithValue("race", DWARF)
+                .hasFieldOrPropertyWithValue("alignment", LAWFUL_GOOD)
                 .hasFieldOrPropertyWithValue("xp", 0)
-                .hasFieldOrPropertyWithValue("level", 1)
-                .hasFieldOrProperty("hp");
+                .hasFieldOrPropertyWithValue("level", Level.LV1)
+                .hasFieldOrProperty("maxHitPoints");
     }
 
     @Test
@@ -87,19 +87,20 @@ class CharacterTest {
 
     @DisplayName("XP가 특정값을 넘으면 Level 상승")
     @ParameterizedTest
-    @CsvSource({"300,2", "6500,5", "85000,11", "305000,19"})
-    void earnXp_thenAdvanceLevel(Integer xp, Integer level) {
+    @CsvSource({"200,LV1", "300,LV2", "305,LV2", "6500,LV5", "85000,LV11", "305000,LV19"})
+    void earnXp_thenAdvanceLevel(Integer xp, Level lv) {
         // given
         Character character = Character.builder()
                 .characterName("Foo Bar")
                 .characterClass(DRUID)
                 .race(HALFLING)
                 .alignment(NEUTRAL)
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
                 .create();
         // when
         character.earnXp(xp);
         // then
-        then(character.getLevel()).isEqualTo(level);
+        then(character.getLevel()).isEqualTo(lv);
     }
 
     @ParameterizedTest
