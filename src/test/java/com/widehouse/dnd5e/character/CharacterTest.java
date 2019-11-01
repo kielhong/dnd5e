@@ -1,5 +1,6 @@
 package com.widehouse.dnd5e.character;
 
+import static com.widehouse.dnd5e.character.Alignment.CHAOTIC_GOOD;
 import static com.widehouse.dnd5e.character.Alignment.LAWFUL_EVIL;
 import static com.widehouse.dnd5e.character.Alignment.LAWFUL_GOOD;
 import static com.widehouse.dnd5e.character.Alignment.NEUTRAL;
@@ -10,10 +11,12 @@ import static com.widehouse.dnd5e.character.CharacterClass.CLERIC;
 import static com.widehouse.dnd5e.character.CharacterClass.DRUID;
 import static com.widehouse.dnd5e.character.CharacterClass.FIGHTER;
 import static com.widehouse.dnd5e.character.CharacterClass.RANGER;
+import static com.widehouse.dnd5e.character.CharacterClass.ROGUE;
+import static com.widehouse.dnd5e.character.Race.DRAGONBORN;
 import static com.widehouse.dnd5e.character.Race.DWARF;
 import static com.widehouse.dnd5e.character.Race.ELF;
+import static com.widehouse.dnd5e.character.Race.GNOME;
 import static com.widehouse.dnd5e.character.Race.HALFLING;
-import static com.widehouse.dnd5e.character.Race.HALF_ORC;
 import static com.widehouse.dnd5e.character.Race.HUMAN;
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -29,7 +32,7 @@ class CharacterTest {
         Character character = Character.builder()
                 .characterName("Foo Bar")
                 .characterClass(CLERIC)
-                .race(HUMAN)
+                .race(DWARF)
                 .alignment(LAWFUL_GOOD)
                 .create();
 
@@ -106,7 +109,7 @@ class CharacterTest {
         Character character = Character.builder()
                 .characterName("Foo Bar")
                 .characterClass(characterClass)
-                .race(HALF_ORC)
+                .race(HUMAN)
                 .alignment(NEUTRAL_GOOD)
                 .create();
         character.setAbilities(15, 14, 13, 12, 10, 8);
@@ -123,7 +126,7 @@ class CharacterTest {
         Character character = Character.builder()
                 .characterName("Foo Bar")
                 .characterClass(RANGER)
-                .race(HALF_ORC)
+                .race(DRAGONBORN)
                 .alignment(NEUTRAL_EVIL)
                 .create();
         character.setAbilities(15, 14, 13, 12, 10, 8);
@@ -132,5 +135,20 @@ class CharacterTest {
         // then
         then(character.getMaxHitPoints())
                 .isBetween(10 + 1 + 1 + 1, 10 + 1 + 10 + 1);
+    }
+
+    @Test
+    void getProficiency_ThenReturnProficiencyBonus() {
+        // given
+        Character character = Character.builder()
+                .characterName("Foo Bar")
+                .characterClass(ROGUE)
+                .race(GNOME)
+                .alignment(CHAOTIC_GOOD)
+                .create();
+        // when
+        Integer bonus = character.getProficiency();
+        // then
+        then(bonus).isEqualTo(2);
     }
 }

@@ -52,6 +52,10 @@ public class Character {
         return this.maxHitPoints;
     }
 
+    public Integer getProficiency() {
+        return Level.of(this.level).getProficiency();
+    }
+
     private void updateMaxHp() {
         this.maxHitPoints += getNextMaxHp(level) + this.ability.constitution.getModifier();
         System.out.println("Hp=" + this.level + "," + this.maxHitPoints);
