@@ -5,9 +5,13 @@ import static org.assertj.core.api.BDDAssertions.then;
 import java.util.List;
 import java.util.Random;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class DiceTest {
     @ParameterizedTest
     @EnumSource(DieType.class)
@@ -32,5 +36,25 @@ class DiceTest {
         Integer result = dice.rollSum();
         // then
         then(result).isBetween(1 * count, dieType.getSide() * count);
+    }
+
+    @Test
+    void rollWithAdvantage_ThenRollTwoDiceAndReturnBetterResult() {
+        // given
+        Dice dice = new Dice(DieType.D20, 1);
+        // when
+        List<Integer> result = dice.roll(Dice.With.ADVANTAGE);
+        // then
+        then(result).hasSize(1);
+    }
+
+    @Test
+    void rollWithDisadvantage_ThenRollTwoDiceAndReturnBetterResult() {
+        // given
+        Dice dice = new Dice(DieType.D20, 1);
+        // when
+        List<Integer> result = dice.roll(Dice.With.DISADVANTAGE);
+        // then
+        then(result).hasSize(1);
     }
 }
