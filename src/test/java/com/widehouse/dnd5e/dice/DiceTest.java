@@ -18,7 +18,7 @@ class DiceTest {
     void rollDice_ThenReturnValueList(DieType dieType) {
         // given
         int count = new Random().nextInt(20);
-        Dice dice = new Dice(dieType, count);
+        Dice dice = new Dice(count, dieType);
         // when
         List<Integer> results = dice.roll();
         // then
@@ -31,7 +31,7 @@ class DiceTest {
     void rollSum_ThenSumRollResult(DieType dieType) {
         // given
         int count = new Random().nextInt(5);
-        Dice dice = new Dice(dieType, count);
+        Dice dice = new Dice(count, dieType);
         // when
         Integer result = dice.rollSum();
         // then
@@ -41,7 +41,7 @@ class DiceTest {
     @Test
     void rollWithAdvantage_ThenRollTwoDiceAndReturnBetterResult() {
         // given
-        Dice dice = new Dice(DieType.D20, 1);
+        Dice dice = new Dice(1, DieType.D20);
         // when
         List<Integer> result = dice.roll(Dice.With.ADVANTAGE);
         // then
@@ -51,7 +51,7 @@ class DiceTest {
     @Test
     void rollWithDisadvantage_ThenRollTwoDiceAndReturnBetterResult() {
         // given
-        Dice dice = new Dice(DieType.D20, 1);
+        Dice dice = new Dice(1, DieType.D20);
         // when
         List<Integer> result = dice.roll(Dice.With.DISADVANTAGE);
         // then

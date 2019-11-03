@@ -15,13 +15,13 @@ public class Dice {
     private DieType dieType;
     private Integer diceCount;
 
-    public Dice(DieType dieType, Integer diceCount) {
+    public Dice(Integer diceCount, DieType dieType) {
         this.dieType = dieType;
         this.diceCount = diceCount;
     }
 
-    public static Dice of(DieType dieType, Integer diceCount) {
-        return new Dice(dieType, diceCount);
+    public static Dice of(Integer diceCount, DieType dieType) {
+        return new Dice(diceCount, dieType);
     }
 
     public List<Integer> roll() {
