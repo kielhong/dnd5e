@@ -18,7 +18,17 @@ import static com.widehouse.dnd5e.character.Race.ELF;
 import static com.widehouse.dnd5e.character.Race.GNOME;
 import static com.widehouse.dnd5e.character.Race.HALFLING;
 import static com.widehouse.dnd5e.character.Race.HUMAN;
+import static com.widehouse.dnd5e.dice.DieType.D4;
+import static com.widehouse.dnd5e.equipment.Armor.ArmorType.LIGHT_ARMOR;
+import static com.widehouse.dnd5e.equipment.Weapon.WeaponCategory.SIMPLE;
 import static org.assertj.core.api.BDDAssertions.then;
+
+import com.widehouse.dnd5e.dice.Dice;
+import com.widehouse.dnd5e.equipment.Armor;
+import com.widehouse.dnd5e.equipment.Gear;
+import com.widehouse.dnd5e.equipment.Weapon;
+
+import java.util.Collections;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,6 +53,7 @@ class CharacterTest {
                 .hasFieldOrPropertyWithValue("alignment", LAWFUL_GOOD)
                 .hasFieldOrPropertyWithValue("xp", 0)
                 .hasFieldOrPropertyWithValue("level", Level.LV1)
+                .hasFieldOrPropertyWithValue("equipments", Collections.EMPTY_LIST)
                 .hasFieldOrProperty("maxHitPoints");
     }
 
@@ -151,5 +162,24 @@ class CharacterTest {
         Integer bonus = character.getProficiency();
         // then
         then(bonus).isEqualTo(2);
+    }
+
+    @Test
+    void equip_ThenAddItemToEquipmentList() {
+        // given
+        Character character = Character.builder()
+                .characterName("Foo Bar")
+                .characterClass(ROGUE)
+                .race(GNOME)
+                .alignment(CHAOTIC_GOOD)
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .create();
+        // when
+        character.equip(new Armor("Leather Armor", 500, 8, LIGHT_ARMOR));
+        character.equip(new Weapon("Dagger", 200, 1, Dice.of(1, D4), SIMPLE));
+        character.equip(new Gear("Pouch", 50, 1));
+        // then
+        then(character.getEquipments())
+                .hasSize(3);
     }
 }
