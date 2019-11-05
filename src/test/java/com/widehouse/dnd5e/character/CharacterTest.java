@@ -17,6 +17,7 @@ import static com.widehouse.dnd5e.character.Race.DWARF;
 import static com.widehouse.dnd5e.character.Race.ELF;
 import static com.widehouse.dnd5e.character.Race.GNOME;
 import static com.widehouse.dnd5e.character.Race.HALFLING;
+import static com.widehouse.dnd5e.character.Race.HALF_ELF;
 import static com.widehouse.dnd5e.character.Race.HUMAN;
 import static com.widehouse.dnd5e.dice.DieType.D4;
 import static com.widehouse.dnd5e.equipment.Armor.ArmorType.LIGHT_ARMOR;
@@ -170,7 +171,7 @@ class CharacterTest {
         Character character = Character.builder()
                 .characterName("Foo Bar")
                 .characterClass(ROGUE)
-                .race(GNOME)
+                .race(HALF_ELF)
                 .alignment(CHAOTIC_GOOD)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
                 .create();
