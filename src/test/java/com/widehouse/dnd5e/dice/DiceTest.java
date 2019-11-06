@@ -35,7 +35,7 @@ class DiceTest {
         // when
         Integer result = dice.rollSum();
         // then
-        then(result).isBetween(1 * count, dieType.getSide() * count);
+        then(result).isBetween(count, dieType.getSide() * count);
     }
 
     @Test

@@ -24,12 +24,20 @@ public class Dice {
         return new Dice(diceCount, dieType);
     }
 
+    /**
+     * diceCount 만큼 주사위를 굴린 결과를 반환.
+     * @return list of roll results
+     */
     public List<Integer> roll() {
         return IntStream.range(0, diceCount)
                 .mapToObj(i -> rollOnce())
                 .collect(Collectors.toList());
     }
 
+    /**
+     * roll with advantage or disadvantage.
+     * @param with Dice.With
+     */
     public List<Integer> roll(Dice.With with) {
         return IntStream.range(0, diceCount)
                 .mapToObj(i -> {
@@ -39,6 +47,9 @@ public class Dice {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * sum results of roll.
+     */
     public Integer rollSum() {
         return roll().stream()
                 .mapToInt(Integer::intValue)
