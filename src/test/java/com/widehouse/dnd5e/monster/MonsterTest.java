@@ -20,4 +20,18 @@ class MonsterTest {
                 .hasFieldOrPropertyWithValue("hitPoint", 7)
                 .hasFieldOrPropertyWithValue("xp", 50);
     }
+
+    @Test
+    void getDamage_ThenDecreaseHitPoint() {
+        Monster ghoul = Monster.builder()
+                .name("Ghoul")
+                .armorClass(12)
+                .hitPoint(22)
+                .build();
+        // when
+        ghoul.earnDamage(7);
+        // then
+        then(ghoul.getHitPoint())
+                .isEqualTo(15);
+    }
 }

@@ -7,7 +7,9 @@ import com.widehouse.dnd5e.character.Ability;
 import com.widehouse.dnd5e.character.Character;
 import com.widehouse.dnd5e.dice.Dice;
 import com.widehouse.dnd5e.equipment.Weapon;
+import com.widehouse.dnd5e.monster.Monster;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,19 +20,34 @@ class CombatTest {
     @Mock
     private Dice dice;
 
+    private Combat combat = new Combat();
+    private Monster goblin;
+
+    @BeforeEach
+    void setUp() {
+        goblin = Monster.builder()
+                .name("Goblin")
+                .armorClass(15)
+                .hitPoint(7)
+                .build();
+    }
+
     @Test
     void attackRoll_GreaterThanOrEqualArmorClass_ThenHitAndDamageResult() {
         // given
         Character character = Character.builder()
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
                 .create();
+        Monster goblin = Monster.builder()
+                .name("Goblin")
+                .armorClass(15)
+                .build();
         given(dice.rollSum())
                 .willReturn(12)   // attack roll
                 .willReturn(5);   // weapon damage
         // when
         Weapon weapon = new Weapon("Longsword", 1500, 3, dice, Weapon.WeaponCategory.MARTIAL);
-        Combat combat = new Combat();
-        CombatResult result = combat.attack(dice, character, weapon, 15);
+        CombatResult result = combat.attack(dice, character, weapon, goblin);
         // then
         then(result)
                 .hasFieldOrPropertyWithValue("hit", true)
@@ -48,8 +65,7 @@ class CombatTest {
                 .willReturn(5);   // weapon damage
         // when
         Weapon weapon = new Weapon("Longsword", 1500, 3, dice, Weapon.WeaponCategory.MARTIAL);
-        Combat combat = new Combat();
-        CombatResult result = combat.attack(dice, character, weapon, 15);
+        CombatResult result = combat.attack(dice, character, weapon, goblin);
         // then
         then(result)
                 .hasFieldOrPropertyWithValue("hit", false)
@@ -62,14 +78,17 @@ class CombatTest {
         Character character = Character.builder()
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
                 .create();
+        Monster boss = Monster.builder()
+                .name("Boss Mob")
+                .armorClass(30)
+                .build();
         given(dice.rollSum())
                 .willReturn(20)   // attack roll
                 .willReturn(3)    // weapon damage 1
                 .willReturn(4);   // weapon damage 2
         // when
         Weapon weapon = new Weapon("Longsword", 1500, 3, dice, Weapon.WeaponCategory.MARTIAL);
-        Combat combat = new Combat();
-        CombatResult result = combat.attack(dice, character, weapon, 30);
+        CombatResult result = combat.attack(dice, character, weapon, boss);
         // then
         then(result)
                 .hasFieldOrPropertyWithValue("hit", true)

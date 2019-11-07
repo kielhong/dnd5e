@@ -3,12 +3,13 @@ package com.widehouse.dnd5e.combat;
 import com.widehouse.dnd5e.character.Character;
 import com.widehouse.dnd5e.dice.Dice;
 import com.widehouse.dnd5e.equipment.Weapon;
+import com.widehouse.dnd5e.monster.Monster;
 
 public class Combat {
-    public CombatResult attack(Dice dice, Character character, Weapon weapon, Integer armorClass) {
+    public CombatResult attack(Dice dice, Character character, Weapon weapon, Monster monster) {
         Integer diceResult = dice.rollSum();
         Boolean critical = isCritical(diceResult);
-        Boolean hit = critical || diceResult + getAttackBonus(character) >= armorClass;
+        Boolean hit = critical || diceResult + getAttackBonus(character) >= monster.getArmorClass();
         Integer damage = hit ? getDamage(weapon, critical) : 0;
 
         return new CombatResult(hit, damage);
