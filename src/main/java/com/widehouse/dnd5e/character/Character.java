@@ -14,7 +14,7 @@ import lombok.Getter;
 
 @Getter
 @Builder(buildMethodName = "create")
-public class Character {
+public class Character implements Creature {
     private String characterName;
     private CharacterClass characterClass;
     private Race race;
@@ -28,6 +28,7 @@ public class Character {
     private Ability ability;
     @Builder.Default
     private List<Item> equipments = new ArrayList<>();
+    private Integer initiative;
 
     public void init() {
         updateMaxHp();
@@ -67,6 +68,21 @@ public class Character {
 
     public Integer getProficiency() {
         return this.level.getProficiency();
+    }
+
+    @Override
+    public String getName() {
+        return this.characterName;
+    }
+
+    @Override
+    public Integer getInitiative() {
+        return this.initiative;
+    }
+
+    @Override
+    public void setInitiative(Integer initiative) {
+        this.initiative = initiative;
     }
 
     private void advanceLevel() {
