@@ -45,7 +45,8 @@ class CharacterTest {
                 .characterClass(CLERIC)
                 .race(DWARF)
                 .alignment(LAWFUL_GOOD)
-                .create();
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
 
         then(character)
                 .hasFieldOrPropertyWithValue("characterName", "Foo Bar")
@@ -67,9 +68,8 @@ class CharacterTest {
                 .characterClass(BARD)
                 .race(ELF)
                 .alignment(Alignment.LAWFUL_NEUTRAL)
-                .create();
-        // when
-        character.setAbilities(15, 14, 13, 12, 10, 8);
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
         // then
         then(character)
                 .hasFieldOrPropertyWithValue("ability.strength.score", 15)
@@ -89,7 +89,8 @@ class CharacterTest {
                 .characterClass(FIGHTER)
                 .race(DWARF)
                 .alignment(LAWFUL_EVIL)
-                .create();
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
         // when
         character.earnXp(100);
         // then
@@ -108,7 +109,7 @@ class CharacterTest {
                 .race(HALFLING)
                 .alignment(NEUTRAL)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create();
+                .build();
         // when
         character.earnXp(xp);
         // then
@@ -124,8 +125,8 @@ class CharacterTest {
                 .characterClass(characterClass)
                 .race(HUMAN)
                 .alignment(NEUTRAL_GOOD)
-                .create();
-        character.setAbilities(15, 14, 13, 12, 10, 8);
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
         // when
         Integer hp = character.getMaxHitPoints();
         // then
@@ -141,8 +142,8 @@ class CharacterTest {
                 .characterClass(RANGER)
                 .race(DRAGONBORN)
                 .alignment(NEUTRAL_EVIL)
-                .create();
-        character.setAbilities(15, 14, 13, 12, 10, 8);
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
         // when level up to 2
         character.earnXp(300);
         // then
@@ -158,7 +159,8 @@ class CharacterTest {
                 .characterClass(ROGUE)
                 .race(GNOME)
                 .alignment(CHAOTIC_GOOD)
-                .create();
+                .ability(new Ability(15, 14, 13, 12, 10, 8))
+                .build();
         // when
         Integer bonus = character.getProficiency();
         // then
@@ -174,7 +176,7 @@ class CharacterTest {
                 .race(HALF_ELF)
                 .alignment(CHAOTIC_GOOD)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create();
+                .build();
         // when
         character.equip(new Armor("Leather Armor", 500, 8, LIGHT_ARMOR));
         character.equip(new Weapon("Dagger", 200, 1, Dice.of(1, D4), SIMPLE));

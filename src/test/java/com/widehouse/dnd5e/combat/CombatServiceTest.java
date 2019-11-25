@@ -42,14 +42,14 @@ class CombatServiceTest {
                 .race(HALF_ELF)
                 .alignment(CHAOTIC_GOOD)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create());
+                .build());
         characters.add(Character.builder()
                 .characterName("PC2")
                 .characterClass(SORCERER)
                 .race(HALF_ORC)
                 .alignment(CHAOTIC_EVIL)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create());
+                .build());
 
         monsters.add(Monster.builder()
                 .name("Goblin")

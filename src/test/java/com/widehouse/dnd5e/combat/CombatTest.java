@@ -5,6 +5,8 @@ import static org.mockito.BDDMockito.given;
 
 import com.widehouse.dnd5e.character.Ability;
 import com.widehouse.dnd5e.character.Character;
+import com.widehouse.dnd5e.character.CharacterClass;
+import com.widehouse.dnd5e.character.Race;
 import com.widehouse.dnd5e.dice.Dice;
 import com.widehouse.dnd5e.equipment.Weapon;
 import com.widehouse.dnd5e.monster.Monster;
@@ -36,8 +38,11 @@ class CombatTest {
     void attackRoll_GreaterThanOrEqualArmorClass_ThenHitAndDamageResult() {
         // given
         Character character = Character.builder()
+                .characterName("Player")
+                .characterClass(CharacterClass.FIGHTER)
+                .race(Race.HUMAN)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create();
+                .build();
         Monster goblin = Monster.builder()
                 .name("Goblin")
                 .armorClass(15)
@@ -58,8 +63,11 @@ class CombatTest {
     void attackRoll_UnderArmorClass_ThenMiss() {
         // given
         Character character = Character.builder()
+                .characterName("Player")
+                .characterClass(CharacterClass.FIGHTER)
+                .race(Race.HUMAN)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create();
+                .build();
         given(dice.rollSum())
                 .willReturn(10)   // attack roll
                 .willReturn(5);   // weapon damage
@@ -76,8 +84,11 @@ class CombatTest {
     void attackRoll_Given20_ThenHitWithCritical() {
         // given
         Character character = Character.builder()
+                .characterName("Player")
+                .characterClass(CharacterClass.FIGHTER)
+                .race(Race.HUMAN)
                 .ability(new Ability(15, 14, 13, 12, 10, 8))
-                .create();
+                .build();
         Monster boss = Monster.builder()
                 .name("Boss Mob")
                 .armorClass(30)
