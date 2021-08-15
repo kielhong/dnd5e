@@ -1,5 +1,6 @@
 package com.widehouse.dnd
 
+import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every

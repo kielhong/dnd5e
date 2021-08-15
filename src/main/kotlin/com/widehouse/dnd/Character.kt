@@ -1,5 +1,7 @@
 package com.widehouse.dnd
 
+import com.widehouse.dnd.dice.Dice
+
 class Character(
     val ability: Map<String, Ability>,
     val proficiency: Int,
