@@ -1,24 +1,21 @@
 package com.widehouse.dnd
 
 class Character(
-    private val ability: Ability,
+    val ability: Map<String, Ability>,
     val proficiency: Int,
     val weapon: Weapon = Weapon("", listOf(), ""),
+    val armor: Armor = Armor("", "", 0),
     private val dice: Dice = Dice()
 ) {
     fun attack(target: Character): AttackResult {
         return AttackResult(if (attackRoll(target)) damage() else 0)
     }
 
-    fun modifier(): Int {
-        return (ability.str - 10) / 2
-    }
-
     fun attackRoll(target: Character): Boolean {
-        return when(val diceRoll = dice.roll(20)) {
+        return when (val diceRoll = dice.roll(20)) {
             1 -> false
             20 -> true
-            else -> diceRoll + modifier() + proficiency >= target.getArmorClass()
+            else -> diceRoll + ability["str"]!!.modifier() + proficiency >= target.armorClass()
         }
     }
 
@@ -26,7 +23,11 @@ class Character(
         return weapon.damageRoll()
     }
 
-    fun getArmorClass(): Int {
-        return 16
+    fun armorClass(): Int {
+        return armor.ac + when (armor.category) {
+            "Light Armor" -> ability["dex"]!!.modifier()
+            "Medium Armor" -> ability["dex"]!!.modifier().coerceAtMost(2)
+            else -> 0
+        }
     }
 }
