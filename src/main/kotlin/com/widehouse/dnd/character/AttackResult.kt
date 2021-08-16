@@ -1,7 +1,7 @@
 package com.widehouse.dnd.character
 
-class AttackResult(private val damage: Int) {
-    fun resolve(): Int {
-        return damage
+class AttackResult(val target: Character, private val damage: Int) {
+    fun resolve() {
+        target.getDamage(damage)
     }
 }

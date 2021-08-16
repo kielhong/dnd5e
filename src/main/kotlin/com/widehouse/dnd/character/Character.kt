@@ -9,12 +9,13 @@ import com.widehouse.dnd.item.Weapon
 class Character(
     val ability: Map<String, Ability>,
     val level: Int,
+    var hitPoints: Int,
     val weapon: Weapon = Weapon("", listOf(), ""),
     val armor: Armor = Armor("", "", 0),
     private val dice: Dice = Dice()
 ) {
     fun attack(target: Character): AttackResult {
-        return AttackResult(if (attackRoll(target)) damage() else 0)
+        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
     }
 
     fun attackRoll(target: Character): Boolean {
@@ -25,8 +26,12 @@ class Character(
         }
     }
 
-    fun damage(): Int {
+    fun dealDamage(): Int {
         return weapon.damageRoll()
+    }
+
+    fun getDamage(damage: Int) {
+        hitPoints -= damage
     }
 
     fun armorClass(): Int {
@@ -39,5 +44,9 @@ class Character(
 
     fun proficiency(): Int {
         return (level - 1) / 4 + 2
+    }
+
+    fun hitPoints(): Int {
+        return hitPoints
     }
 }
