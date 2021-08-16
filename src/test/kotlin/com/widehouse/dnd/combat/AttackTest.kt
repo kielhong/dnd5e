@@ -1,6 +1,8 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.combat
 
-import com.widehouse.dnd.Strength
+import com.widehouse.dnd.character.AttackResult
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Strength
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die.D20
 import com.widehouse.dnd.item.Weapon
@@ -35,5 +37,17 @@ class AttackTest : FunSpec({
         every { sword.damageRoll() } returns 5
         val char = Character(ability = mapOf("str" to Strength(15)), 2, maxHitPoints = 20, weapon = sword)
         char.dealDamage() shouldBe 5
+    }
+
+    test("HitPoint minimum value is zero") {
+        val char = Character(ability = mapOf("str" to Strength(15)), 2, maxHitPoints = 5)
+        char.getDamage(10)
+        char.hitPoints() shouldBe 0
+    }
+
+    test("If get damage and hitPoint goes to 0 then character die") {
+        val char = Character(ability = mapOf("str" to Strength(15)), 2, maxHitPoints = 5)
+        char.getDamage(5)
+        char.dead() shouldBe true
     }
 })

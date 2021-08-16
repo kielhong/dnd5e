@@ -1,5 +1,6 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.combat
 
+import com.widehouse.dnd.character.Character
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 

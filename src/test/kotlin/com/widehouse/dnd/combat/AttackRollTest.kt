@@ -1,6 +1,7 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.combat
 
-import com.widehouse.dnd.Strength
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Strength
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die.D20
 import io.kotest.core.spec.style.FunSpec

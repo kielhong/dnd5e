@@ -1,6 +1,6 @@
-package com.widehouse.dnd
+package com.widehouse.dnd.character
 
-open class Ability(private val score: Int) {
+abstract class Ability(private val score: Int) {
     companion object {
         fun builder(str: Int, dex: Int, con: Int, int: Int, wis: Int, cha: Int): Map<String, Ability> {
             return mapOf(

@@ -1,10 +1,10 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.Ability
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.Weapon
+import java.lang.Math.max
 import kotlin.math.min
 
 class Character(
@@ -33,12 +33,12 @@ class Character(
         return weapon.damageRoll()
     }
 
-    fun getDamage(damage: Int) {
-        currentHitPoints -= damage
+    fun getDamage(point: Int) {
+        currentHitPoints = max(currentHitPoints - point, 0)
     }
 
-    fun removeDamage(number: Int) {
-        currentHitPoints = min(currentHitPoints + number, maxHitPoints)
+    fun removeDamage(point: Int) {
+        currentHitPoints = min(currentHitPoints + point, maxHitPoints)
     }
 
     fun armorClass(): Int {
@@ -55,5 +55,9 @@ class Character(
 
     fun hitPoints(): Int {
         return currentHitPoints
+    }
+
+    fun dead(): Boolean {
+        return currentHitPoints <= 0
     }
 }
