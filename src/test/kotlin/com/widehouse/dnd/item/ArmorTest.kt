@@ -5,9 +5,8 @@ import com.widehouse.dnd.character.Character
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
-class ArmorTest: FunSpec ({
+class ArmorTest : FunSpec({
     test("Light Armor, add dex modifier to base armor class") {
-        // Light Armor, add dex modifier
         val armor = Armor(name = "Padded", category = "Light Armor", ac = 11)
         val char = Character(ability = mapOf("dex" to Dexterity(14)), 2, armor = armor)
         char.armorClass() shouldBe armor.ac + char.ability["dex"]!!.modifier()
