@@ -5,16 +5,14 @@ import kotlin.math.min
 import kotlin.random.Random
 
 class Dice {
-    fun roll(number: Int): Int {
-        val result = Random.nextInt(1, number + 1)
-        println(result)
-        return result
+    fun roll(die: Die): Int {
+        return Random.nextInt(1, die.number + 1)
     }
 
-    fun roll(number: Int, rollCondition: RollCondition): Int {
+    fun roll(die: Die, rollCondition: RollCondition): Int {
         return when (rollCondition) {
-            RollCondition.ADVANTAGE -> max(roll(number), roll(number))
-            RollCondition.DISADVANTAGE -> min(roll(number), roll(number))
+            RollCondition.ADVANTAGE -> max(roll(die), roll(die))
+            RollCondition.DISADVANTAGE -> min(roll(die), roll(die))
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.widehouse.dnd
 
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.Die
 
 class Character(
     val ability: Map<String, Ability>,
@@ -14,7 +15,7 @@ class Character(
     }
 
     fun attackRoll(target: Character): Boolean {
-        return when (val diceRoll = dice.roll(20)) {
+        return when (val diceRoll = dice.roll(Die.D20)) {
             1 -> false
             20 -> true
             else -> diceRoll + ability["str"]!!.modifier() + proficiency >= target.armorClass()

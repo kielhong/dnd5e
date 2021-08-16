@@ -1,12 +1,13 @@
 package com.widehouse.dnd
 
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.Die.D20
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 
-class AttackTest: FunSpec ({
+class AttackTest : FunSpec({
     test("Character attack target then target get damage") {
         val char = mockk<Character>()
         val target = Character(ability = mapOf("str" to Strength(14)), 2)
@@ -18,7 +19,7 @@ class AttackTest: FunSpec ({
     test("Attack Roll then hit") {
         val dice = mockk<Dice>()
         val char = Character(ability = mapOf("str" to Strength(18)), 3, dice = dice)
-        every { dice.roll(20) }.returns(15)
+        every { dice.roll(D20) }.returns(15)
         val target = mockk<Character>()
         every { target.armorClass() }.returns(16)
 
