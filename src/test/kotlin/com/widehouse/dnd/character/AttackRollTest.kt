@@ -11,7 +11,7 @@ import io.mockk.mockk
 class AttackRollTest : FunSpec({
     test("Attack Roll then hit") {
         val dice = mockk<Dice>()
-        val char = Character(ability = mapOf("str" to Strength(18)), 3, hitPoints = 20, dice = dice)
+        val char = Character(ability = mapOf("str" to Strength(18)), 3, maxHitPoints = 20, dice = dice)
         every { dice.roll(D20) }.returns(15)
         val target = mockk<Character>()
         every { target.armorClass() }.returns(16)
@@ -21,7 +21,7 @@ class AttackRollTest : FunSpec({
 
     test("Roll Dice 1 then AttackRoll should fail") {
         val dice = mockk<Dice>()
-        val char = Character(ability = mapOf("str" to Strength(18)), 3, hitPoints = 20, dice = dice)
+        val char = Character(ability = mapOf("str" to Strength(18)), 3, maxHitPoints = 20, dice = dice)
         every { dice.roll(D20) }.returns(1)
         val target = mockk<Character>()
         every { target.armorClass() }.returns(2)
@@ -31,7 +31,7 @@ class AttackRollTest : FunSpec({
 
     test("Roll Dice 20 then AttackRoll should succeed") {
         val dice = mockk<Dice>()
-        val char = Character(ability = mapOf("str" to Strength(18)), 3, hitPoints = 20, dice = dice)
+        val char = Character(ability = mapOf("str" to Strength(18)), 3, maxHitPoints = 20, dice = dice)
         every { dice.roll(D20) }.returns(20)
         val target = mockk<Character>()
         every { target.armorClass() }.returns(30)
