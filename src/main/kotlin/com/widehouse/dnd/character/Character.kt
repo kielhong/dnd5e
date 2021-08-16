@@ -5,16 +5,20 @@ import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.Weapon
+import kotlin.math.min
 
 class Character(
     val ability: Map<String, Ability>,
     val level: Int,
+    var maxHitPoints: Int,
     val weapon: Weapon = Weapon("", listOf(), ""),
     val armor: Armor = Armor("", "", 0),
     private val dice: Dice = Dice()
 ) {
+    var currentHitPoints = maxHitPoints
+
     fun attack(target: Character): AttackResult {
-        return AttackResult(if (attackRoll(target)) damage() else 0)
+        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
     }
 
     fun attackRoll(target: Character): Boolean {
@@ -25,8 +29,16 @@ class Character(
         }
     }
 
-    fun damage(): Int {
+    fun dealDamage(): Int {
         return weapon.damageRoll()
+    }
+
+    fun getDamage(damage: Int) {
+        currentHitPoints -= damage
+    }
+
+    fun removeDamage(number: Int) {
+        currentHitPoints = min(currentHitPoints + number, maxHitPoints)
     }
 
     fun armorClass(): Int {
@@ -39,5 +51,9 @@ class Character(
 
     fun proficiency(): Int {
         return (level - 1) / 4 + 2
+    }
+
+    fun hitPoints(): Int {
+        return currentHitPoints
     }
 }
