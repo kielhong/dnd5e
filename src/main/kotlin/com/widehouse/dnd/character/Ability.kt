@@ -1,4 +1,4 @@
-package com.widehouse.dnd
+package com.widehouse.dnd.character
 
 open class Ability(private val score: Int) {
     companion object {

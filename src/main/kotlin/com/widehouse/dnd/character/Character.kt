@@ -1,6 +1,5 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.Ability
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
