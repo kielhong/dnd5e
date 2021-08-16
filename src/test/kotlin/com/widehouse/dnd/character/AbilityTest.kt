@@ -1,5 +1,12 @@
-package com.widehouse.dnd
+package com.widehouse.dnd.character
 
+import com.widehouse.dnd.Ability
+import com.widehouse.dnd.Charisma
+import com.widehouse.dnd.Constitution
+import com.widehouse.dnd.Dexterity
+import com.widehouse.dnd.Intelligence
+import com.widehouse.dnd.Strength
+import com.widehouse.dnd.Wisdom
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
