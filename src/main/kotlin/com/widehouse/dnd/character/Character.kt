@@ -3,6 +3,7 @@ package com.widehouse.dnd.character
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
+import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Weapon
 import java.lang.Math.max
 import kotlin.math.min
@@ -12,7 +13,7 @@ class Character(
     val level: Int,
     var maxHitPoints: Int,
     val weapon: Weapon = Weapon("", listOf(), ""),
-    val armor: Armor = Armor("", "", 0),
+    val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
 ) {
     var currentHitPoints = maxHitPoints
@@ -42,10 +43,10 @@ class Character(
     }
 
     fun armorClass(): Int {
-        return armor.ac + when (armor.category) {
-            "Light Armor" -> ability["dex"]!!.modifier()
-            "Medium Armor" -> ability["dex"]!!.modifier().coerceAtMost(2)
-            else -> 0
+        return armor.armorClass + when (armor.armorType) {
+            ArmorType.LightArmor -> ability["dex"]!!.modifier()
+            ArmorType.MediumArmor -> ability["dex"]!!.modifier().coerceAtMost(2)
+            ArmorType.HeavyArmor -> 0
         }
     }
 
