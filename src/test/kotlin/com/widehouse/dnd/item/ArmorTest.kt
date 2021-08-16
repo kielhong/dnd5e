@@ -1,5 +1,7 @@
-package com.widehouse.dnd
+package com.widehouse.dnd.item
 
+import com.widehouse.dnd.Dexterity
+import com.widehouse.dnd.character.Character
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 

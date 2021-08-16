@@ -1,4 +1,4 @@
-package com.widehouse.dnd
+package com.widehouse.dnd.item
 
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
