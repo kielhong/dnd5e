@@ -5,6 +5,8 @@ import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Weapon
+import com.widehouse.dnd.item.WeaponProperty.Finesse
+import com.widehouse.dnd.item.WeaponProperty.Thrown
 import java.lang.Math.max
 import kotlin.math.min
 
@@ -16,7 +18,7 @@ class Character(
     val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
 ) {
-    var currentHitPoints = maxHitPoints
+    private var currentHitPoints = maxHitPoints
 
     fun attack(target: Character): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -26,7 +28,7 @@ class Character(
         return when (val diceRoll = dice.roll(Die.D20)) {
             1 -> false
             20 -> true
-            else -> diceRoll + ability["str"]!!.modifier() + proficiency() >= target.armorClass()
+            else -> diceRoll + attackModifier(weapon) + proficiency() >= target.armorClass()
         }
     }
 
@@ -60,5 +62,13 @@ class Character(
 
     fun dead(): Boolean {
         return currentHitPoints <= 0
+    }
+
+    private fun attackModifier(weapon: Weapon): Int {
+        return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
+            ability["dex"]!!.modifier()
+        } else {
+            ability["str"]!!.modifier()
+        }
     }
 }
