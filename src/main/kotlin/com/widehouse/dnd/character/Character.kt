@@ -11,9 +11,12 @@ import java.lang.Math.max
 import kotlin.math.min
 
 class Character(
-    val ability: Map<String, Ability>,
+    val name: String,
+    val characterClass: CharacterClass,
     val level: Int,
+    val race: Race,
     var maxHitPoints: Int,
+    val ability: Map<String, Ability>,
     val weapon: Weapon = Weapon("", listOf(), ""),
     val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
