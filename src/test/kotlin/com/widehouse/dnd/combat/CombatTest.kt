@@ -17,7 +17,7 @@ class CombatTest : FunSpec({
     test("initiative step every participant roll then place in the Initiative order") {
         // participant
         val char1 = Character("foo1", Fighter, 1, Human, Abilities(10, 10, 10, 10, 10, 10), maxHitPoints = 20)
-        val char2 = Character("foo1", Fighter, 2, Human,  Abilities(10, 10, 10, 10, 10, 10), maxHitPoints = 20)
+        val char2 = Character("foo1", Fighter, 2, Human, Abilities(10, 10, 10, 10, 10, 10), maxHitPoints = 20)
         val mon1 = Character("goblin1", Monster, 1, Human, Abilities(10, 10, 10, 10, 10, 10), maxHitPoints = 20)
         val mon2 = Character("goblin2", Monster, 2, Human, Abilities(10, 10, 10, 10, 10, 10), maxHitPoints = 20)
         // combat
