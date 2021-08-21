@@ -9,7 +9,7 @@ class Combat(val characters: List<Character>, val monsters: List<Character>) {
 
     fun initiative() {
         roundOrder = characters + monsters
-            .associateWith { Dice().roll(Die.D20) + it.dexterity.modifier() }
+            .associateWith { Dice().roll(Die.D20) + it.dexterity.modifier }
             .toList()
             .sortedBy { (_, value) -> value }.reversed()
             .map { (key, _) -> key }

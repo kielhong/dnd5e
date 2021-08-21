@@ -18,11 +18,11 @@ class CharacterTest : FunSpec({
     test("Character ability init") {
         val char = Character("foo", Fighter, 1, Dwarf, Abilities(12, 13, 14, 15, 16, 17), maxHitPoints = 20)
 
-        char.strength.score() shouldBe 12
-        char.dexterity.score() shouldBe 13
-        char.constitution.score() shouldBe 14
-        char.intelligence.score() shouldBe 15
-        char.wisdom.score() shouldBe 16
-        char.charisma.score() shouldBe 17
+        char.strength.score shouldBe 12
+        char.dexterity.score shouldBe 13
+        char.constitution.score shouldBe 14
+        char.intelligence.score shouldBe 15
+        char.wisdom.score shouldBe 16
+        char.charisma.score shouldBe 17
     }
 })

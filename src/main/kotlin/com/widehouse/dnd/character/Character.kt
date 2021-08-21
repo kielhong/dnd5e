@@ -83,16 +83,16 @@ class Character(
 
     private fun attackModifier(weapon: Weapon): Int {
         return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
-            dexterity.modifier()
+            dexterity.modifier
         } else {
-            strength.modifier()
+            strength.modifier
         }
     }
 
     private fun armorModifier(): Int {
         return when (armor?.itemType) {
-            ArmorType.LightArmor -> dexterity.modifier()
-            ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
+            ArmorType.LightArmor -> dexterity.modifier
+            ArmorType.MediumArmor -> dexterity.modifier.coerceAtMost(2)
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
