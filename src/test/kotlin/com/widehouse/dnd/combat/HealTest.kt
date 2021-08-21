@@ -9,12 +9,12 @@ class HealTest : FunSpec({
         val char = cleric(hp = 15)
         char.getDamage(10)
         char.removeDamage(5)
-        char.hitPoints() shouldBe 10
+        char.hitPoints shouldBe char.maxHitPoints - 10 + 5
     }
 
     test("Heal cannot get hitPoints more than max hitPoints") {
         val char = cleric(hp = 15)
         char.removeDamage(5)
-        char.hitPoints() shouldBe 15
+        char.hitPoints shouldBe char.maxHitPoints
     }
 })

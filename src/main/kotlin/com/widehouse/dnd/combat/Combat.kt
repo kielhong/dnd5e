@@ -1,21 +1,23 @@
 package com.widehouse.dnd.combat
 
 import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Creature
+import com.widehouse.dnd.character.Monster
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 
-class Combat(val characters: List<Character>, val monsters: List<Character>) {
-    private lateinit var roundOrder: List<Character>
+class Combat(val characters: List<Character>, val monsters: List<Monster>) {
+    private lateinit var roundOrder: List<Creature>
 
     fun initiative() {
         roundOrder = characters + monsters
-            .associateWith { Dice().roll(Die.D20) + it.dexterity.modifier() }
+            .associateWith { Dice().roll(Die.D20) + it.dexterity.modifier }
             .toList()
             .sortedBy { (_, value) -> value }.reversed()
             .map { (key, _) -> key }
     }
 
-    fun roundOrder(): List<Character> {
+    fun roundOrder(): List<Creature> {
         return roundOrder
     }
 
@@ -35,7 +37,7 @@ class Combat(val characters: List<Character>, val monsters: List<Character>) {
         return RoundResult(roundOrder, characters, monsters)
     }
 
-    fun turn(character: Character): TurnResult {
+    fun turn(character: Creature): TurnResult {
         if (characters.contains(character)) {
             character.attack(monsters[0])
         }

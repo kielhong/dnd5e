@@ -9,7 +9,7 @@ class ArmorTest : FunSpec({
         val armor = ItemFixtures.padded
         val char = CharacterFixtures.rogue()
         char.equip(armor)
-        char.armorClass shouldBe armor.armorClass + char.dexterity.modifier()
+        char.armorClass shouldBe armor.armorClass + char.dexterity.modifier
     }
 
     test("Medium Armor, add dex modifier to base armor class") {

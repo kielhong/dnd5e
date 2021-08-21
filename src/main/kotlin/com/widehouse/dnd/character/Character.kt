@@ -17,29 +17,28 @@ class Character(
     val characterClass: CharacterClass,
     val level: Int,
     val race: Race,
-    val abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
+    abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     var maxHitPoints: Int,
     private val dice: Dice = Dice()
-) {
-    var strength = Strength(abilities.str)
-    var dexterity = Dexterity(abilities.dex)
-    var constitution = Constitution(abilities.con)
-    var intelligence = Intelligence(abilities.int)
-    var wisdom = Wisdom(abilities.wis)
-    var charisma = Charisma(abilities.cha)
-
-    private var currentHitPoints = maxHitPoints
-    var armorClass: Int = 0
-
+) : Creature(abilities) {
+    init {
+        hitPoints = maxHitPoints
+    }
     var weapon: Weapon = Weapon("", listOf(), "")
     var armor: Armor? = null
     var shield: Shield? = null
 
-    fun attack(target: Character): AttackResult {
+    override fun attack(target: Creature): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
     }
 
-    fun attackRoll(target: Character): Boolean {
+    override fun dead() = hitPoints <= 0
+
+    override fun getDamage(point: Int) {
+        hitPoints = max(hitPoints - point, 0)
+    }
+
+    fun attackRoll(target: Creature): Boolean {
         return when (val diceRoll = dice.roll(Die.D20)) {
             1 -> false
             20 -> true
@@ -51,23 +50,11 @@ class Character(
         return weapon.damageRoll()
     }
 
-    fun getDamage(point: Int) {
-        currentHitPoints = max(currentHitPoints - point, 0)
-    }
-
     fun removeDamage(point: Int) {
-        currentHitPoints = min(currentHitPoints + point, maxHitPoints)
+        hitPoints = min(hitPoints + point, maxHitPoints)
     }
 
     fun proficiency() = (level - 1) / 4 + 2
-
-    fun hitPoints() = currentHitPoints
-
-    fun maxHitPoints() = maxHitPoints
-
-    fun dead(): Boolean {
-        return currentHitPoints <= 0
-    }
 
     fun equip(item: Item) {
         when (item) {
@@ -83,16 +70,16 @@ class Character(
 
     private fun attackModifier(weapon: Weapon): Int {
         return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
-            dexterity.modifier()
+            dexterity.modifier
         } else {
-            strength.modifier()
+            strength.modifier
         }
     }
 
     private fun armorModifier(): Int {
         return when (armor?.itemType) {
-            ArmorType.LightArmor -> dexterity.modifier()
-            ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
+            ArmorType.LightArmor -> dexterity.modifier
+            ArmorType.MediumArmor -> dexterity.modifier.coerceAtMost(2)
             ArmorType.HeavyArmor -> 0
             else -> 0
         }

@@ -1,9 +1,8 @@
 package com.widehouse.dnd.character
 
-sealed class Ability(private val score: Int) {
-    fun score() = score
-
-    fun modifier() = (score - 10) / 2
+sealed class Ability(val score: Int) {
+    val modifier: Int
+        get() = (score - 10) / 2
 }
 
 class Strength(score: Int) : Ability(score)
