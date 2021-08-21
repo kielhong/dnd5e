@@ -16,7 +16,7 @@ class CharacterTest : FunSpec({
     }
 
     test("Character ability init") {
-        val char = Character("foo", Fighter, 1, Dwarf, Abilities(12, 13 , 14 ,15 ,16, 17), maxHitPoints = 20)
+        val char = Character("foo", Fighter, 1, Dwarf, Abilities(12, 13, 14, 15, 16, 17), maxHitPoints = 20)
 
         char.strength.score() shouldBe 12
         char.dexterity.score() shouldBe 13

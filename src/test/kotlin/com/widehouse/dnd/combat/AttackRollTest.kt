@@ -6,12 +6,8 @@ import com.widehouse.dnd.character.CharacterClass.Rogue
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
 import com.widehouse.dnd.character.Race.Halfling
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.dice.Die.D20
-import com.widehouse.dnd.item.Weapon
-import com.widehouse.dnd.item.WeaponProperty.Finesse
-import com.widehouse.dnd.item.WeaponProperty.Light
-import com.widehouse.dnd.item.WeaponProperty.Thrown
+import com.widehouse.dnd.item.ItemFixtures
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -53,8 +49,8 @@ class AttackRollTest : FunSpec({
         every { dice.roll(D20) } returns 10 andThen 8
         val target = mockk<Character>()
         every { target.armorClass() } returns 13
-        val dagger = Weapon("dagger", listOf(Die.D4), "Melee Weapon", properties = listOf(Finesse, Light, Thrown))
-        val char = Character("foo", Rogue, 2, Halfling, abilities = Abilities(10, 15, 10, 10, 10, 10), maxHitPoints = 5, weapon = dagger, dice = dice)
+        val char = Character("foo", Rogue, 2, Halfling, Abilities(10, 15, 10, 10, 10, 10), maxHitPoints = 5, dice = dice)
+        char.equip(ItemFixtures.dagger)
 
         char.attackRoll(target) shouldBe true
         char.attackRoll(target) shouldBe false

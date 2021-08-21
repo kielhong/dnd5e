@@ -17,7 +17,6 @@ class Character(
     val race: Race,
     val abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     var maxHitPoints: Int,
-    val weapon: Weapon = Weapon("", listOf(), ""),
     val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
 ) {
@@ -28,6 +27,8 @@ class Character(
     var intelligence = Intelligence(abilities.int)
     var wisdom = Wisdom(abilities.wis)
     var charisma = Charisma(abilities.cha)
+
+    private var weapon: Weapon = Weapon("", listOf(), "")
 
     fun attack(target: Character): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -79,5 +80,13 @@ class Character(
         } else {
             strength.modifier()
         }
+    }
+
+    fun equip(weapon: Weapon) {
+        this.weapon = weapon
+    }
+
+    fun weapon(): Weapon {
+        return weapon
     }
 }
