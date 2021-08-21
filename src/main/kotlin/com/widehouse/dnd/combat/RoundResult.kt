@@ -1,11 +1,13 @@
 package com.widehouse.dnd.combat
 
 import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Creature
+import com.widehouse.dnd.character.Monster
 
 class RoundResult(
-    private val roundOrder: List<Character>,
+    private val roundOrder: List<Creature>,
     private val characters: List<Character>,
-    private val monsters: List<Character>
+    private val monsters: List<Monster>
 ) {
     fun endCombat(): Boolean {
         var characterAllDead = true
