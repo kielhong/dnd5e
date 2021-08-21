@@ -20,5 +20,8 @@ class ItemFixtures {
         val padded = Armor("Padded Armor", LightArmor, 11)
         val breastplate = Armor("Breastplate", MediumArmor, 14)
         val chainMail = Armor("Chain Mail", HeavyArmor, 16)
+
+        // shield
+        val shield = Shield("Shield", 2)
     }
 }

@@ -4,9 +4,8 @@ import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
-import com.widehouse.dnd.item.ArmorType.HeavyArmor
-import com.widehouse.dnd.item.ArmorType.LightArmor
 import com.widehouse.dnd.item.Item
+import com.widehouse.dnd.item.Shield
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
@@ -31,7 +30,8 @@ class Character(
     var charisma = Charisma(abilities.cha)
 
     var weapon: Weapon = Weapon("", listOf(), "")
-    var armor: Armor = Armor("", HeavyArmor, 0)
+    var armor: Armor? = null
+    var shield: Shield? = null
 
     fun attack(target: Character): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -58,16 +58,10 @@ class Character(
     }
 
     fun armorClass(): Int {
-        return armor.armorClass + when (armor.itemType) {
-            LightArmor -> dexterity.modifier()
-            ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
-            ArmorType.HeavyArmor -> 0
-        }
+        return (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
     }
 
-    fun proficiency(): Int {
-        return (level - 1) / 4 + 2
-    }
+    fun proficiency() = (level - 1) / 4 + 2
 
     fun hitPoints() = currentHitPoints
 
@@ -75,6 +69,14 @@ class Character(
 
     fun dead(): Boolean {
         return currentHitPoints <= 0
+    }
+
+    fun equip(item: Item) {
+        when (item) {
+            is Weapon -> weapon = item
+            is Armor -> armor = item
+            is Shield -> shield = item
+        }
     }
 
     private fun attackModifier(weapon: Weapon): Int {
@@ -85,10 +87,12 @@ class Character(
         }
     }
 
-    fun equip(item: Item) {
-        when (item) {
-            is Weapon -> this.weapon = item
-            is Armor -> this.armor = item
+    private fun armorModifier(): Int {
+        return when (armor?.itemType) {
+            ArmorType.LightArmor -> dexterity.modifier()
+            ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
+            ArmorType.HeavyArmor -> 0
+            else -> 0
         }
     }
 }

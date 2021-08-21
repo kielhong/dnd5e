@@ -1,10 +1,12 @@
 package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.character.CharacterFixtures.Companion.rogue
 import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
 import com.widehouse.dnd.item.ItemFixtures.Companion.dagger
 import com.widehouse.dnd.item.ItemFixtures.Companion.longSword
+import com.widehouse.dnd.item.ItemFixtures.Companion.shield
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
@@ -38,5 +40,14 @@ class EquipmentTest : FunSpec({
         char.equip(chainMail)
 
         char.armor shouldBe chainMail
+    }
+
+    test("equip shield, then AC + 2") {
+        val char = rogue()
+        char.equip(chainMail)
+        char.equip(shield)
+
+        char.shield shouldBe shield
+        char.armorClass() shouldBe chainMail.armorClass + 2
     }
 })

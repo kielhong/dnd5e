@@ -1,3 +1,3 @@
 package com.widehouse.dnd.item
 
-abstract class Item(val name: String)
+sealed class Item(val name: String)
