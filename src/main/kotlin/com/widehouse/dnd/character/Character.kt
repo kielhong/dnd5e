@@ -15,13 +15,19 @@ class Character(
     val characterClass: CharacterClass,
     val level: Int,
     val race: Race,
+    val abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     var maxHitPoints: Int,
-    val ability: Map<String, Ability>,
     val weapon: Weapon = Weapon("", listOf(), ""),
     val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
 ) {
     private var currentHitPoints = maxHitPoints
+    var strength = Strength(abilities.str)
+    var dexterity = Dexterity(abilities.dex)
+    var constitution = Constitution(abilities.con)
+    var intelligence = Intelligence(abilities.int)
+    var wisdom = Wisdom(abilities.wis)
+    var charisma = Charisma(abilities.cha)
 
     fun attack(target: Character): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -49,8 +55,8 @@ class Character(
 
     fun armorClass(): Int {
         return armor.armorClass + when (armor.armorType) {
-            ArmorType.LightArmor -> ability["dex"]!!.modifier()
-            ArmorType.MediumArmor -> ability["dex"]!!.modifier().coerceAtMost(2)
+            ArmorType.LightArmor -> dexterity.modifier()
+            ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
             ArmorType.HeavyArmor -> 0
         }
     }
@@ -59,9 +65,9 @@ class Character(
         return (level - 1) / 4 + 2
     }
 
-    fun hitPoints(): Int {
-        return currentHitPoints
-    }
+    fun hitPoints() = currentHitPoints
+
+    fun maxHitPoints() = maxHitPoints
 
     fun dead(): Boolean {
         return currentHitPoints <= 0
@@ -69,9 +75,9 @@ class Character(
 
     private fun attackModifier(weapon: Weapon): Int {
         return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
-            ability["dex"]!!.modifier()
+            dexterity.modifier()
         } else {
-            ability["str"]!!.modifier()
+            strength.modifier()
         }
     }
 }
