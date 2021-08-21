@@ -4,6 +4,9 @@ import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
+import com.widehouse.dnd.item.ArmorType.HeavyArmor
+import com.widehouse.dnd.item.ArmorType.LightArmor
+import com.widehouse.dnd.item.Item
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
@@ -17,7 +20,6 @@ class Character(
     val race: Race,
     val abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     var maxHitPoints: Int,
-    val armor: Armor = Armor("", ArmorType.LightArmor, 0),
     private val dice: Dice = Dice()
 ) {
     private var currentHitPoints = maxHitPoints
@@ -28,7 +30,8 @@ class Character(
     var wisdom = Wisdom(abilities.wis)
     var charisma = Charisma(abilities.cha)
 
-    private var weapon: Weapon = Weapon("", listOf(), "")
+    var weapon: Weapon = Weapon("", listOf(), "")
+    var armor: Armor = Armor("", HeavyArmor, 0)
 
     fun attack(target: Character): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -55,8 +58,8 @@ class Character(
     }
 
     fun armorClass(): Int {
-        return armor.armorClass + when (armor.armorType) {
-            ArmorType.LightArmor -> dexterity.modifier()
+        return armor.armorClass + when (armor.itemType) {
+            LightArmor -> dexterity.modifier()
             ArmorType.MediumArmor -> dexterity.modifier().coerceAtMost(2)
             ArmorType.HeavyArmor -> 0
         }
@@ -82,11 +85,10 @@ class Character(
         }
     }
 
-    fun equip(weapon: Weapon) {
-        this.weapon = weapon
-    }
-
-    fun weapon(): Weapon {
-        return weapon
+    fun equip(item: Item) {
+        when (item) {
+            is Weapon -> this.weapon = item
+            is Armor -> this.armor = item
+        }
     }
 }
