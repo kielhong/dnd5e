@@ -27,10 +27,10 @@ class AttackTest : FunSpec({
 
     test("Attack Roll then hit") {
         val dice = mockk<Dice>()
-        val char = wizard(dice = dice)
         every { dice.roll(D20) }.returns(15)
         val target = mockk<Character>()
         every { target.armorClass() }.returns(16)
+        val char = fighter(dice = dice)
 
         char.attackRoll(target) shouldBe true
     }

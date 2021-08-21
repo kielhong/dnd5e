@@ -5,23 +5,12 @@ import io.kotest.matchers.shouldBe
 
 class AbilityTest : FunSpec({
     test("Ability modifier by score") {
-        val ability = mapOf("str" to Strength(15), "dex" to Dexterity(13))
-        val str = ability["str"]!!
+        val str = Strength(15)
         str.score() shouldBe 15
         str.modifier() shouldBe 2
 
-        val dex = ability["dex"]!!
+        val dex = Dexterity(13)
         dex.score() shouldBe 13
         dex.modifier() shouldBe 1
-    }
-
-    test("abilities test") {
-        val ability = Ability.builder(str = 15, dex = 13, con = 13, int = 12, wis = 11, cha = 10)
-        ability["str"] shouldBe Strength(15)
-        ability["dex"] shouldBe Dexterity(13)
-        ability["con"] shouldBe Constitution(13)
-        ability["int"] shouldBe Intelligence(12)
-        ability["wis"] shouldBe Wisdom(11)
-        ability["cha"] shouldBe Charisma(10)
     }
 })

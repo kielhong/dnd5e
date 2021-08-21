@@ -1,11 +1,10 @@
 package com.widehouse.dnd.combat
 
+import com.widehouse.dnd.character.Abilities
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.CharacterClass.Rogue
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
-import com.widehouse.dnd.character.Dexterity
 import com.widehouse.dnd.character.Race.Halfling
-import com.widehouse.dnd.character.Strength
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.dice.Die.D20
@@ -55,7 +54,7 @@ class AttackRollTest : FunSpec({
         val target = mockk<Character>()
         every { target.armorClass() } returns 13
         val dagger = Weapon("dagger", listOf(Die.D4), "Melee Weapon", properties = listOf(Finesse, Light, Thrown))
-        val char = Character("foo", Rogue, 2, Halfling, ability = mapOf("str" to Strength(10), "dex" to Dexterity(15)), maxHitPoints = 5, weapon = dagger, dice = dice)
+        val char = Character("foo", Rogue, 2, Halfling, abilities = Abilities(10, 15, 10, 10, 10, 10), maxHitPoints = 5, weapon = dagger, dice = dice)
 
         char.attackRoll(target) shouldBe true
         char.attackRoll(target) shouldBe false
