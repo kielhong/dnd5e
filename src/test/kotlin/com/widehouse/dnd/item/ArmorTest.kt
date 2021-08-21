@@ -9,20 +9,20 @@ class ArmorTest : FunSpec({
         val armor = ItemFixtures.padded
         val char = CharacterFixtures.rogue()
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass + char.dexterity.modifier()
+        char.armorClass shouldBe armor.armorClass + char.dexterity.modifier()
     }
 
     test("Medium Armor, add dex modifier to base armor class") {
         val armor = ItemFixtures.breastplate
         val char = CharacterFixtures.rogue()
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass + 2
+        char.armorClass shouldBe armor.armorClass + 2
     }
 
     test("Heavy Armor, does not add dex modifier to base armor class") {
         val armor = ItemFixtures.chainMail
         val char = CharacterFixtures.rogue()
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass
+        char.armorClass shouldBe armor.armorClass
     }
 })

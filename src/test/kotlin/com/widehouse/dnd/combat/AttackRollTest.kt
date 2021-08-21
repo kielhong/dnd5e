@@ -18,7 +18,7 @@ class AttackRollTest : FunSpec({
         val dice = mockk<Dice>()
         every { dice.roll(D20) }.returns(15)
         val target = mockk<Character>()
-        every { target.armorClass() }.returns(16)
+        every { target.armorClass }.returns(16)
         val char = fighter(dice = dice)
 
         char.attackRoll(target) shouldBe true
@@ -28,7 +28,7 @@ class AttackRollTest : FunSpec({
         val dice = mockk<Dice>()
         every { dice.roll(D20) }.returns(1)
         val target = mockk<Character>()
-        every { target.armorClass() }.returns(2)
+        every { target.armorClass }.returns(2)
         val char = fighter(dice = dice)
 
         char.attackRoll(target) shouldBe false
@@ -38,7 +38,7 @@ class AttackRollTest : FunSpec({
         val dice = mockk<Dice>()
         every { dice.roll(D20) }.returns(20)
         val target = mockk<Character>()
-        every { target.armorClass() }.returns(30)
+        every { target.armorClass }.returns(30)
         val char = fighter(dice = dice)
 
         char.attackRoll(target) shouldBe true
@@ -48,7 +48,7 @@ class AttackRollTest : FunSpec({
         val dice = mockk<Dice>()
         every { dice.roll(D20) } returns 10 andThen 8
         val target = mockk<Character>()
-        every { target.armorClass() } returns 13
+        every { target.armorClass } returns 13
         val char = Character("foo", Rogue, 2, Halfling, Abilities(10, 15, 10, 10, 10, 10), maxHitPoints = 5, dice = dice)
         char.equip(ItemFixtures.dagger)
 

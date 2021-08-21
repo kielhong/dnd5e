@@ -31,7 +31,7 @@ class EquipmentTest : FunSpec({
         char.equip(breastplate)
 
         char.armor shouldBe breastplate
-        char.armorClass() shouldBe breastplate.armorClass
+        char.armorClass shouldBe breastplate.armorClass
     }
 
     test("equip another armor, replace one") {
@@ -48,6 +48,6 @@ class EquipmentTest : FunSpec({
         char.equip(shield)
 
         char.shield shouldBe shield
-        char.armorClass() shouldBe chainMail.armorClass + 2
+        char.armorClass shouldBe chainMail.armorClass + 2
     }
 })

@@ -21,13 +21,15 @@ class Character(
     var maxHitPoints: Int,
     private val dice: Dice = Dice()
 ) {
-    private var currentHitPoints = maxHitPoints
     var strength = Strength(abilities.str)
     var dexterity = Dexterity(abilities.dex)
     var constitution = Constitution(abilities.con)
     var intelligence = Intelligence(abilities.int)
     var wisdom = Wisdom(abilities.wis)
     var charisma = Charisma(abilities.cha)
+
+    private var currentHitPoints = maxHitPoints
+    var armorClass: Int = 0
 
     var weapon: Weapon = Weapon("", listOf(), "")
     var armor: Armor? = null
@@ -41,7 +43,7 @@ class Character(
         return when (val diceRoll = dice.roll(Die.D20)) {
             1 -> false
             20 -> true
-            else -> diceRoll + attackModifier(weapon) + proficiency() >= target.armorClass()
+            else -> diceRoll + attackModifier(weapon) + proficiency() >= target.armorClass
         }
     }
 
@@ -55,10 +57,6 @@ class Character(
 
     fun removeDamage(point: Int) {
         currentHitPoints = min(currentHitPoints + point, maxHitPoints)
-    }
-
-    fun armorClass(): Int {
-        return (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
     }
 
     fun proficiency() = (level - 1) / 4 + 2
@@ -77,6 +75,10 @@ class Character(
             is Armor -> armor = item
             is Shield -> shield = item
         }
+
+        if (item is Armor || item is Shield) {
+            updateArmorClass()
+        }
     }
 
     private fun attackModifier(weapon: Weapon): Int {
@@ -94,5 +96,9 @@ class Character(
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
+    }
+
+    private fun updateArmorClass() {
+        armorClass = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
     }
 }
