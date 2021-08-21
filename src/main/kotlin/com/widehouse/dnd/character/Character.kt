@@ -12,25 +12,18 @@ import com.widehouse.dnd.item.WeaponProperty.Thrown
 import java.lang.Math.max
 import kotlin.math.min
 
-class Character (
+class Character(
     val name: String,
     val characterClass: CharacterClass,
     val level: Int,
     val race: Race,
-    val abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
+    abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     var maxHitPoints: Int,
     private val dice: Dice = Dice()
-) : Creature() {
-    var strength = Strength(abilities.str)
-    var dexterity = Dexterity(abilities.dex)
-    var constitution = Constitution(abilities.con)
-    var intelligence = Intelligence(abilities.int)
-    var wisdom = Wisdom(abilities.wis)
-    var charisma = Charisma(abilities.cha)
-
-    var hitPoints = maxHitPoints
-    override var armorClass: Int = 0
-
+) : Creature(abilities) {
+    init {
+        hitPoints = maxHitPoints
+    }
     var weapon: Weapon = Weapon("", listOf(), "")
     var armor: Armor? = null
     var shield: Shield? = null
@@ -62,8 +55,6 @@ class Character (
     }
 
     fun proficiency() = (level - 1) / 4 + 2
-
-    fun hitPoints() = hitPoints
 
     fun equip(item: Item) {
         when (item) {

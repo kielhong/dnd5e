@@ -22,7 +22,7 @@ class AttackTest : FunSpec({
         val result = char.attack(target)
         result.resolve()
 
-        target.hitPoints() shouldBe 15
+        target.hitPoints shouldBe 15
     }
 
     test("Attack Roll then hit") {
@@ -46,7 +46,7 @@ class AttackTest : FunSpec({
     test("HitPoint minimum value is zero") {
         val char = rogue(hp = 5)
         char.getDamage(10)
-        char.hitPoints() shouldBe 0
+        char.hitPoints shouldBe 0
     }
 
     test("If get damage and hitPoint goes to 0 then character die") {
