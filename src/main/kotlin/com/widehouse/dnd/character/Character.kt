@@ -8,7 +8,8 @@ import com.widehouse.dnd.character.AbilityType.Strength
 import com.widehouse.dnd.character.AbilityType.Wisdom
 import com.widehouse.dnd.character.action.AttackResult
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die
+import com.widehouse.dnd.dice.Die.D20
+import com.widehouse.dnd.dice.RollCondition
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Item
@@ -44,8 +45,8 @@ class Character(
         hitPoints = (hitPoints - point).coerceAtLeast(0)
     }
 
-    fun attackRoll(target: Creature): Boolean {
-        return when (val diceRoll = dice.roll(Die.D20)) {
+    fun attackRoll(target: Creature, condition: RollCondition? = null): Boolean {
+        return when (val diceRoll = dice.roll(D20, condition)) {
             1 -> false
             20 -> true
             else -> diceRoll + attackModifier(weapon) + proficiency() >= target.armorClass

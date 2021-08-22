@@ -6,6 +6,7 @@ import com.widehouse.dnd.dice.Die.D8
 import com.widehouse.dnd.item.DamageType.Bludgeoning
 import com.widehouse.dnd.item.DamageType.Piercing
 import com.widehouse.dnd.item.DamageType.Slashing
+import com.widehouse.dnd.item.ItemFixtures.Companion.longBow
 import com.widehouse.dnd.item.WeaponCategory.Simple
 import com.widehouse.dnd.item.WeaponType.Melee
 import io.kotest.core.spec.style.FunSpec
@@ -30,5 +31,12 @@ class WeaponTest : FunSpec({
         sword = Weapon("sword", damage = listOf(D6, D6), damageType = Bludgeoning)
         sword.damageRoll() shouldBeGreaterThanOrEqual 2
         sword.damageRoll() shouldBeLessThanOrEqual 12
+    }
+
+    test("Range Weapon in Normal Range") {
+        val weapon = longBow
+        weapon.damageRoll()
+            .shouldBeGreaterThanOrEqual(1)
+            .shouldBeLessThanOrEqual(8)
     }
 })
