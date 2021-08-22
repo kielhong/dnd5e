@@ -9,7 +9,6 @@ import com.widehouse.dnd.item.Shield
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
-import java.lang.Math.max
 import kotlin.math.min
 
 class Character(
@@ -18,8 +17,7 @@ class Character(
     val level: Int,
     val race: Race,
     abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
-    var maxHitPoints: Int,
-    private val dice: Dice = Dice()
+    var maxHitPoints: Int
 ) : Creature(abilities) {
     init {
         hitPoints = maxHitPoints
@@ -27,6 +25,7 @@ class Character(
     var weapon: Weapon = Weapon("", listOf(), "")
     var armor: Armor? = null
     var shield: Shield? = null
+    private val dice = Dice()
 
     override fun attack(target: Creature): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -35,7 +34,7 @@ class Character(
     override fun dead() = hitPoints <= 0
 
     override fun getDamage(point: Int) {
-        hitPoints = max(hitPoints - point, 0)
+        hitPoints = (hitPoints - point).coerceAtLeast(0)
     }
 
     fun attackRoll(target: Creature): Boolean {
