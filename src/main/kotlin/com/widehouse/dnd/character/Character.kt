@@ -6,6 +6,7 @@ import com.widehouse.dnd.character.AbilityType.Dexterity
 import com.widehouse.dnd.character.AbilityType.Intelligence
 import com.widehouse.dnd.character.AbilityType.Strength
 import com.widehouse.dnd.character.AbilityType.Wisdom
+import com.widehouse.dnd.character.action.AttackResult
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor

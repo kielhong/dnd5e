@@ -2,6 +2,7 @@ package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.MonsterFixtures.Companion.goblin
 import com.widehouse.dnd.character.Size.Small
+import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die.D20
 import io.kotest.core.spec.style.FunSpec

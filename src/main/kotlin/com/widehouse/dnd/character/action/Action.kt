@@ -1,4 +1,4 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.item.Weapon
 

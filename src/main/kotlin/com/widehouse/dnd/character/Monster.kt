@@ -1,5 +1,7 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.character.action.Action
+import com.widehouse.dnd.character.action.AttackResult
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Weapon
