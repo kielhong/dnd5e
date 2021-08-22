@@ -22,7 +22,7 @@ class AbilityCheckTest : FunSpec({
     test("Survival checks") {
         every { dice.roll(Die.D20) }.returns(14)
         every { char.wisdom }.returns(Wisdom(16))
-        val challenge = Challenge(char, Survival, 15)
+        val challenge = AbilityCheck(char, Survival, 15)
         val f = challenge::class.java.getDeclaredField("dice")
         f.isAccessible = true
         f.set(challenge, dice)
@@ -35,7 +35,7 @@ class AbilityCheckTest : FunSpec({
     test("Athletic checks") {
         every { dice.roll(Die.D20) }.returns(14)
         every { char.strength }.returns(Strength(14))
-        val challenge = Challenge(char, Athletics, 10)
+        val challenge = AbilityCheck(char, Athletics, 10)
         val f = challenge::class.java.getDeclaredField("dice")
         f.isAccessible = true
         f.set(challenge, dice)
