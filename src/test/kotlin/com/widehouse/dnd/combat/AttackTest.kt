@@ -6,13 +6,15 @@ import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
 import com.widehouse.dnd.character.CharacterFixtures.Companion.rogue
 import com.widehouse.dnd.character.CharacterFixtures.Companion.wizard
-import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die.D20
+import com.widehouse.dnd.character.Monster
+import com.widehouse.dnd.item.ItemFixtures
 import com.widehouse.dnd.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
 
 class AttackTest : FunSpec({
     test("Character attack target then target get damage") {
@@ -26,13 +28,17 @@ class AttackTest : FunSpec({
     }
 
     test("Attack Roll then hit") {
-        val dice = mockk<Dice>()
-        every { dice.roll(D20) }.returns(15)
-        val target = mockk<Character>()
+        val target = mockk<Monster>()
         every { target.armorClass }.returns(16)
-        val char = fighter(dice = dice)
-
-        char.attackRoll(target) shouldBe true
+        val char = spyk(fighter(), recordPrivateCalls = true)
+        val weapon = ItemFixtures.longSword
+        char.equip(weapon)
+        // when
+        char.attackRoll(target)
+        // then
+        verify { char["attackModifier"](weapon) }
+        verify { char.proficiency() }
+        verify { target.armorClass }
     }
 
     test("Damage Roll") {
