@@ -1,4 +1,4 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
@@ -9,6 +9,7 @@ import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -64,8 +65,8 @@ class AttackRollTest : FunSpec({
         val weapon = mockk<Weapon>()
         char.equip(weapon)
 
-        for (property in listOf(Finesse, Thrown)) {
-            every { weapon.properties }.returns(listOf(property))
+        listOf(Finesse, Thrown).forAll {
+            every { weapon.properties }.returns(listOf(it))
             char.attackRoll(target)
 
             verify { char.dexterity }

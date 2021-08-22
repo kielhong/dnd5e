@@ -1,4 +1,4 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
 import io.kotest.core.spec.style.FunSpec

@@ -1,11 +1,10 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
 import com.widehouse.dnd.character.CharacterFixtures.Companion.rogue
 import com.widehouse.dnd.character.CharacterFixtures.Companion.wizard
-import com.widehouse.dnd.character.action.AttackResult
 import com.widehouse.dnd.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
