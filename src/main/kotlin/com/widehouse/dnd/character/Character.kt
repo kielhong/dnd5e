@@ -1,5 +1,11 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.character.AbilityType.Charisma
+import com.widehouse.dnd.character.AbilityType.Constitution
+import com.widehouse.dnd.character.AbilityType.Dexterity
+import com.widehouse.dnd.character.AbilityType.Intelligence
+import com.widehouse.dnd.character.AbilityType.Strength
+import com.widehouse.dnd.character.AbilityType.Wisdom
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import com.widehouse.dnd.item.Armor
@@ -67,22 +73,30 @@ class Character(
         }
     }
 
-    private fun attackModifier(weapon: Weapon): Int {
-        return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
+    fun abilityByType(type: AbilityType) =
+        when (type) {
+            is Strength -> strength
+            is Dexterity -> dexterity
+            is Constitution -> constitution
+            is Intelligence -> intelligence
+            is Wisdom -> wisdom
+            is Charisma -> charisma
+        }
+
+    private fun attackModifier(weapon: Weapon) =
+        if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
             dexterity.modifier
         } else {
             strength.modifier
         }
-    }
 
-    private fun armorModifier(): Int {
-        return when (armor?.itemType) {
+    private fun armorModifier() =
+        when (armor?.itemType) {
             ArmorType.LightArmor -> dexterity.modifier
             ArmorType.MediumArmor -> dexterity.modifier.coerceAtMost(2)
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
-    }
 
     private fun updateArmorClass() {
         armorClass = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)

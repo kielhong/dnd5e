@@ -13,3 +13,12 @@ class Wisdom(score: Int) : Ability(score)
 class Charisma(score: Int) : Ability(score)
 
 class Abilities(val str: Int, val dex: Int, val con: Int, val int: Int, val wis: Int, val cha: Int)
+
+sealed class AbilityType {
+    object Strength : AbilityType()
+    object Dexterity : AbilityType()
+    object Constitution : AbilityType()
+    object Intelligence : AbilityType()
+    object Wisdom : AbilityType()
+    object Charisma : AbilityType()
+}
