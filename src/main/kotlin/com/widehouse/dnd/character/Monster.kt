@@ -11,9 +11,8 @@ class Monster(
     abilities: Abilities,
     override var hitPoints: Int,
     override var armorClass: Int,
-    private var action: Action = Action(0, Weapon("", listOf(), ""))
+    private var action: Action = Action(0, Weapon(""))
 ) : Creature(abilities) {
-    val weapon: Weapon = Weapon("", listOf(), "")
     val dice = Dice()
 
     override fun attack(target: Creature): AttackResult {

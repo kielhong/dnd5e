@@ -6,17 +6,22 @@ import com.widehouse.dnd.dice.Die.D8
 import com.widehouse.dnd.item.ArmorType.HeavyArmor
 import com.widehouse.dnd.item.ArmorType.LightArmor
 import com.widehouse.dnd.item.ArmorType.MediumArmor
+import com.widehouse.dnd.item.DamageType.Piercing
+import com.widehouse.dnd.item.DamageType.Slashing
+import com.widehouse.dnd.item.WeaponCategory.Martial
+import com.widehouse.dnd.item.WeaponCategory.Simple
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Light
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import com.widehouse.dnd.item.WeaponProperty.Versatile
+import com.widehouse.dnd.item.WeaponType.Melee
 
 class ItemFixtures {
     companion object {
         // Weapon
-        val dagger = Weapon("Dagger", listOf(D4), "Melee Weapon", listOf(Finesse, Light, Thrown))
-        val longSword = Weapon("LongSword", listOf(D8), "Melee Weapon", listOf(Versatile))
-        val scimitar = Weapon("Scimitar", listOf(D6), "Melee Weapon", listOf(Finesse, Light))
+        val dagger = Weapon("Dagger", Simple, Melee, listOf(D4), Piercing, listOf(Finesse, Light, Thrown))
+        val longSword = Weapon("LongSword", Martial, Melee, listOf(D8), Slashing, listOf(Versatile))
+        val scimitar = Weapon("Scimitar", Martial, Melee, listOf(D6), Slashing, listOf(Finesse, Light))
 
         // Armor
         val padded = Armor("Padded Armor", LightArmor, 11)
