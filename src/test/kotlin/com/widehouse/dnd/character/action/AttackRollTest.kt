@@ -1,14 +1,16 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
 import com.widehouse.dnd.character.Monster
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die.D20
+import com.widehouse.dnd.dice.RollCondition.DISADVANTAGE
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
 import io.mockk.every
@@ -64,12 +66,22 @@ class AttackRollTest : FunSpec({
         val weapon = mockk<Weapon>()
         char.equip(weapon)
 
-        for (property in listOf(Finesse, Thrown)) {
-            every { weapon.properties }.returns(listOf(property))
+        listOf(Finesse, Thrown).forAll {
+            every { weapon.properties }.returns(listOf(it))
             char.attackRoll(target)
 
             verify { char.dexterity }
             verify(exactly = 0) { char.strength }
         }
+    }
+
+    test("Ranged Attack in Long range") {
+        every { dice.roll(D20, DISADVANTAGE) }.returns(5)
+        every { target.armorClass }.returns(13)
+        val weapon = mockk<Weapon>()
+        every { weapon.properties }.returns(emptyList())
+        char.equip(weapon)
+
+        char.attackRoll(target, DISADVANTAGE) shouldBe false
     }
 })

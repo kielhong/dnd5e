@@ -10,9 +10,9 @@ class Weapon(
     override val name: String,
     val category: WeaponCategory = Simple,
     val type: WeaponType = Melee,
-    val damage: List<Die> = listOf(),
+    val damage: List<Die> = emptyList(),
     val damageType: DamageType = Bludgeoning,
-    val properties: List<WeaponProperty> = listOf()
+    val properties: List<WeaponProperty> = emptyList()
 ) : Item(name) {
     fun damageRoll() = damage.stream()
         .mapToInt { Dice().roll(it) }
@@ -36,6 +36,7 @@ sealed class DamageType {
 }
 
 enum class WeaponProperty {
+    Ammunition,
     Finesse,
     Light,
     Heavy,

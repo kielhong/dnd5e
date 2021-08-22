@@ -1,6 +1,5 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.AttackResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
