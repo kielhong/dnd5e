@@ -22,7 +22,7 @@ class Character(
     init {
         hitPoints = maxHitPoints
     }
-    var weapon: Weapon = Weapon("", listOf(), "")
+    var weapon: Weapon = Weapon("")
     var armor: Armor? = null
     var shield: Shield? = null
     private val dice = Dice()
