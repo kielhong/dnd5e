@@ -12,6 +12,7 @@ import com.widehouse.dnd.dice.Die.D20
 import com.widehouse.dnd.dice.RollCondition
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
+import com.widehouse.dnd.item.Coin
 import com.widehouse.dnd.item.Item
 import com.widehouse.dnd.item.Shield
 import com.widehouse.dnd.item.Weapon
@@ -33,6 +34,7 @@ class Character(
     var weapon: Weapon = Weapon("")
     var armor: Armor? = null
     var shield: Shield? = null
+    var coin: Coin = Coin(0)
     private val dice = Dice()
 
     override fun attack(target: Creature): AttackResult {
@@ -102,5 +104,13 @@ class Character(
 
     private fun updateArmorClass() {
         armorClass = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
+    }
+
+    fun addCoin(coin: Coin) {
+        this.coin.add(coin)
+    }
+
+    fun subtractCoin(coin: Coin) {
+        this.coin.subtract(coin)
     }
 }

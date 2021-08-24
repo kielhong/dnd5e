@@ -1,6 +1,7 @@
 package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.item.Coin
 import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
 import com.widehouse.dnd.item.ItemFixtures.Companion.dagger
@@ -54,5 +55,18 @@ class EquipmentTest : FunSpec({
 
     test("equip non armor, then AC is 0") {
         char.armorClass shouldBe 0
+    }
+
+    test("add Coin then add coin") {
+        char.addCoin(Coin(100))
+
+        char.coin.value shouldBe Coin(100).value
+    }
+
+    test("subtract Coin then loose coin") {
+        char.addCoin(Coin(100))
+        char.subtractCoin(Coin(50))
+
+        char.coin.value shouldBe Coin(50).value
     }
 })
