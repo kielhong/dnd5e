@@ -32,8 +32,11 @@ class Character(
         hitPoints = maxHitPoints
     }
     var weapon: Weapon = Weapon("")
+        private set
     var armor: Armor? = null
+        private set
     var shield: Shield? = null
+        private set
     override val armorClass: Int
         get() = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
     var coin: Coin = Coin(0)
@@ -99,12 +102,4 @@ class Character(
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
-
-    fun plusCoin(coin: Coin) {
-        this.coin += coin
-    }
-
-    fun minusCoin(coin: Coin) {
-        this.coin -= coin
-    }
 }

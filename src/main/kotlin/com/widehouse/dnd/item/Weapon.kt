@@ -12,8 +12,10 @@ class Weapon(
     val type: WeaponType = Melee,
     val damage: List<Die> = emptyList(),
     val damageType: DamageType = Bludgeoning,
-    val properties: List<WeaponProperty> = emptyList()
-) : Item(name) {
+    val properties: List<WeaponProperty> = emptyList(),
+    override val cost: Coin = Coin(0),
+    override val weight: Int = 0
+) : Item(name, cost, weight) {
     fun damageRoll() = damage.stream()
         .mapToInt { Dice().roll(it) }
         .sum()
