@@ -13,7 +13,7 @@ abstract class Creature(
     val charisma = Charisma(abilities.cha)
 
     open var hitPoints: Int = 0
-    open var armorClass: Int = 0
+    open val armorClass: Int = 0
 
     abstract fun attack(target: Creature): AttackResult
 
