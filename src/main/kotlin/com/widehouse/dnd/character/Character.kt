@@ -34,6 +34,8 @@ class Character(
     var weapon: Weapon = Weapon("")
     var armor: Armor? = null
     var shield: Shield? = null
+    override val armorClass: Int
+        get() = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
     var coin: Coin = Coin(0)
     private val dice = Dice()
 
@@ -71,10 +73,6 @@ class Character(
             is Armor -> armor = item
             is Shield -> shield = item
         }
-
-        if (item is Armor || item is Shield) {
-            updateArmorClass()
-        }
     }
 
     fun abilityByType(type: AbilityType) =
@@ -102,15 +100,11 @@ class Character(
             else -> 0
         }
 
-    private fun updateArmorClass() {
-        armorClass = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
+    fun plusCoin(coin: Coin) {
+        this.coin += coin
     }
 
-    fun addCoin(coin: Coin) {
-        this.coin.add(coin)
-    }
-
-    fun subtractCoin(coin: Coin) {
-        this.coin.subtract(coin)
+    fun minusCoin(coin: Coin) {
+        this.coin -= coin
     }
 }

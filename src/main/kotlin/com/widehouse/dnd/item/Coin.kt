@@ -1,16 +1,16 @@
 package com.widehouse.dnd.item
 
-class Coin(var value: Int, unit: CoinUnit = CP) {
+data class Coin(var value: Int, val unit: CoinUnit = CP) {
     init {
         value *= unit.rate
     }
 
-    fun add(coin: Coin) {
-        value += coin.value
+    operator fun plus(increment: Coin): Coin {
+        return Coin(value + increment.value)
     }
 
-    fun subtract(coin: Coin) {
-        value -= coin.value
+    operator fun minus(decrement: Coin): Coin {
+        return Coin(value - decrement.value)
     }
 
     fun exchange(unit: CoinUnit): Int {
