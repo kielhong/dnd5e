@@ -12,7 +12,7 @@ class Monster(
     val type: String,
     abilities: Abilities,
     override var hitPoints: Int,
-    override var armorClass: Int,
+    override val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
 ) : Creature(abilities) {
     val dice = Dice()

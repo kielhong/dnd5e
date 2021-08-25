@@ -58,15 +58,15 @@ class EquipmentTest : FunSpec({
     }
 
     test("add Coin then add coin") {
-        char.addCoin(Coin(100))
+        char.plusCoin(Coin(100))
 
-        char.coin.value shouldBe Coin(100).value
+        char.coin shouldBe Coin(100)
     }
 
     test("subtract Coin then loose coin") {
-        char.addCoin(Coin(100))
-        char.subtractCoin(Coin(50))
+        char.plusCoin(Coin(100))
+        char.minusCoin(Coin(50))
 
-        char.coin.value shouldBe Coin(50).value
+        char.coin shouldBe Coin(50)
     }
 })

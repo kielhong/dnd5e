@@ -4,29 +4,17 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class CoinTest : FunSpec({
-    test("add value") {
-        val coin = Coin(5, CP)
-        coin.add(Coin(2, CP))
-
-        coin.value shouldBe Coin(7, CP).value
+    test("plus test") {
+        Coin(5) + Coin(10) shouldBe Coin(15)
+        Coin(10) + Coin(10, SP) shouldBe Coin(110)
     }
 
-    test("subtract value") {
-        val coin = Coin(100, CP)
-        coin.subtract(Coin(20, CP))
-
-        coin.value shouldBe Coin(80, CP).value
+    test("minus test") {
+        Coin(10) - Coin(4) shouldBe Coin(6)
+        Coin(10) - Coin(1, SP) shouldBe Coin(0)
     }
 
-    test("add different unit coin") {
-        val coin = Coin(5, SP)
-        coin.add(Coin(10, CP))
-
-        coin.value shouldBe Coin(60, CP).value
-        coin.value shouldBe Coin(6, SP).value
-    }
-
-    test("exchange another unit") {
+    test("exchange by another unit") {
         val coin = Coin(10, GP)
 
         coin.exchange(CP) shouldBe 1000
