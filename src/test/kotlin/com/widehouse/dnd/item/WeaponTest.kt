@@ -9,6 +9,7 @@ import com.widehouse.dnd.item.DamageType.Slashing
 import com.widehouse.dnd.item.ItemFixtures.Companion.longBow
 import com.widehouse.dnd.item.WeaponCategory.Simple
 import com.widehouse.dnd.item.WeaponType.Melee
+import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.ints.shouldBeLessThanOrEqual
@@ -16,12 +17,15 @@ import io.kotest.matchers.shouldBe
 
 class WeaponTest : FunSpec({
     test("Weapon property") {
-        val weapon = Weapon("dagger", Simple, Melee, listOf(D4), Piercing)
-
-        weapon.name shouldBe "dagger"
-        weapon.category shouldBe Simple
-        weapon.type shouldBe Melee
-        weapon.damageType shouldBe Piercing
+        val weapon = Weapon("dagger", Simple, Melee, listOf(D4), Piercing, cost = Coin(2, GP), weight = 1)
+        assertSoftly(weapon) {
+            name shouldBe "dagger"
+            category shouldBe Simple
+            type shouldBe Melee
+            damageType shouldBe Piercing
+            cost shouldBe Coin(2, GP)
+            weight shouldBe 1
+        }
     }
 
     test("Weapon damage roll") {

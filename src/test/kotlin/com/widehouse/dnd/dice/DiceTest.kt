@@ -11,6 +11,10 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.ints.shouldBeLessThanOrEqual
+import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.spyk
+import io.mockk.verify
 
 class DiceTest : FunSpec({
     test("Roll Dice and its result is between 1 and number(include)") {
@@ -23,16 +27,18 @@ class DiceTest : FunSpec({
     }
 
     test("Roll with Advantage then roll twice and get max value") {
-        val dice = Dice()
-        dice.roll(D20, RollCondition.ADVANTAGE)
-            .shouldBeGreaterThanOrEqual(1)
-            .shouldBeLessThanOrEqual(20)
+        val dice = spyk(Dice(), recordPrivateCalls = true)
+        every { dice["roll"](20) } returns 5 andThen 10
+
+        dice.roll(D20, RollCondition.ADVANTAGE) shouldBe 10
+        verify(exactly = 2) { dice["roll"](20) }
     }
 
     test("Roll with Disadvantage then roll twice and get min value") {
-        val dice = Dice()
-        dice.roll(D20, RollCondition.DISADVANTAGE)
-            .shouldBeGreaterThanOrEqual(1)
-            .shouldBeLessThanOrEqual(20)
+        val dice = spyk(Dice(), recordPrivateCalls = true)
+        every { dice["roll"](20) } returns 5 andThen 10
+
+        dice.roll(D20, RollCondition.DISADVANTAGE) shouldBe 5
+        verify(exactly = 2) { dice["roll"](20) }
     }
 })

@@ -6,6 +6,7 @@ import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
 import com.widehouse.dnd.item.ItemFixtures.Companion.padded
 import com.widehouse.dnd.item.ItemFixtures.Companion.shield
+import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.spyk
@@ -41,5 +42,13 @@ class ArmorTest : FunSpec({
         char.equip(armor)
         char.equip(shield)
         char.armorClass shouldBe armor.armorClass + shield.armorClass
+    }
+
+    test("Padded Armor cost is 5gp, weight 8 lb") {
+        assertSoftly(padded) {
+            name shouldBe "Padded Armor"
+            cost shouldBe Coin(5, GP)
+            weight shouldBe 8
+        }
     }
 })

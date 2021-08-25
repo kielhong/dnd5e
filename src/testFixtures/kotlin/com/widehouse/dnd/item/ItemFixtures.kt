@@ -22,16 +22,16 @@ import com.widehouse.dnd.item.WeaponType.Melee
 class ItemFixtures {
     companion object {
         // Weapon
-        val dagger = Weapon("Dagger", Simple, Melee, listOf(D4), Piercing, listOf(Finesse, Light, Thrown))
-        val longSword = Weapon("LongSword", Martial, Melee, listOf(D8), Slashing, listOf(Versatile))
-        val longBow = Weapon("LongBow", WeaponCategory.Martial, WeaponType.Range, listOf(D8), Piercing, listOf(Ammunition, Heavy, Range, TwoHanded))
+        val dagger = Weapon("Dagger", Simple, Melee, listOf(D4), Piercing, listOf(Finesse, Light, Thrown), Coin(2, GP), 1)
+        val longSword = Weapon("LongSword", Martial, Melee, listOf(D8), Slashing, listOf(Versatile), Coin(15, GP), 3)
+        val longBow = Weapon("LongBow", Martial, WeaponType.Range, listOf(D8), Piercing, listOf(Ammunition, Heavy, Range, TwoHanded), Coin(50, GP), 2)
 
         // Armor
-        val padded = Armor("Padded Armor", LightArmor, 11)
-        val breastplate = Armor("Breastplate", MediumArmor, 14)
-        val chainMail = Armor("Chain Mail", HeavyArmor, 16)
+        val padded = Armor("Padded Armor", LightArmor, 11, Coin(5, GP), 8)
+        val breastplate = Armor("Breastplate", MediumArmor, 14, Coin(400, GP), 20)
+        val chainMail = Armor("Chain Mail", HeavyArmor, 16, Coin(75, GP), 55)
 
         // shield
-        val shield = Shield("Shield", 2)
+        val shield = Shield("Shield", 2, Coin(10, GP), 6)
     }
 }
