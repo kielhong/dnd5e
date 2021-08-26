@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterClass.Fighter
+import com.widehouse.dnd.character.Class.Fighter
 import com.widehouse.dnd.character.Race.Dwarf
 import com.widehouse.dnd.character.Race.Human
 import io.kotest.core.spec.style.FunSpec
@@ -8,9 +8,9 @@ import io.kotest.matchers.shouldBe
 
 class CharacterTest : FunSpec({
     test("Character has name, class, level, race") {
-        val char = Character(name = "foo", characterClass = Fighter, level = 1, race = Human, maxHitPoints = 20)
+        val char = Character(name = "foo", aClass = Fighter, level = 1, race = Human, maxHitPoints = 20)
         char.name shouldBe "foo"
-        char.characterClass shouldBe Fighter
+        char.aClass shouldBe Fighter
         char.level shouldBe 1
         char.race shouldBe Human
     }

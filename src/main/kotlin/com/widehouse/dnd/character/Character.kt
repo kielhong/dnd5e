@@ -22,7 +22,7 @@ import kotlin.math.min
 
 class Character(
     val name: String,
-    val characterClass: CharacterClass,
+    val aClass: Class,
     val level: Int,
     val race: Race,
     abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),

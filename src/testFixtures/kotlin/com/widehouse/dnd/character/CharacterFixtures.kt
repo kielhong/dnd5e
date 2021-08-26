@@ -1,9 +1,9 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterClass.Cleric
-import com.widehouse.dnd.character.CharacterClass.Fighter
-import com.widehouse.dnd.character.CharacterClass.Rogue
-import com.widehouse.dnd.character.CharacterClass.Wizard
+import com.widehouse.dnd.character.Class.Cleric
+import com.widehouse.dnd.character.Class.Fighter
+import com.widehouse.dnd.character.Class.Rogue
+import com.widehouse.dnd.character.Class.Wizard
 import com.widehouse.dnd.character.Race.Dwarf
 import com.widehouse.dnd.character.Race.Elf
 import com.widehouse.dnd.character.Race.Halfling
