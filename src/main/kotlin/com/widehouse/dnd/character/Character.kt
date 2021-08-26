@@ -33,15 +33,15 @@ class Character(
     init {
         hitPoints = maxHitPoints
     }
-    var weapon: Weapon = Weapon("")
-        private set
+    var weapon: Weapon? = null
     var armor: Armor? = null
-        private set
     var shield: Shield? = null
-        private set
+
     override val armorClass: Int
         get() = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
+
     var coin: Coin = Coin(0)
+    val inventory: MutableList<Item> = mutableListOf()
     private val dice = Dice()
 
     override fun attack(target: Creature): AttackResult {
@@ -63,7 +63,7 @@ class Character(
     }
 
     fun dealDamage(): Int {
-        return weapon.damageRoll()
+        return weapon?.damageRoll() ?: 0
     }
 
     fun removeDamage(point: Int) {
@@ -74,10 +74,20 @@ class Character(
 
     fun equip(item: Item) {
         when (item) {
-            is Weapon -> weapon = item
-            is Armor -> armor = item
-            is Shield -> shield = item
+            is Weapon -> {
+                weapon?.let { unequip(it) }
+                weapon = item
+            }
+            is Armor -> {
+                armor?.let { unequip(it) }
+                armor = item
+            }
+            is Shield -> {
+                shield?.let { unequip(it) }
+                shield = item
+            }
         }
+        inventory.remove(item)
     }
 
     fun abilityByType(type: AbilityType) =
@@ -100,12 +110,23 @@ class Character(
         }
     }
 
-    private fun attackModifier(weapon: Weapon) =
-        if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
+    fun getItem(item: Item) {
+        inventory.add(item)
+    }
+
+    fun dropItem(item: Item) {
+        inventory.remove(item)
+    }
+
+    private fun attackModifier(weapon: Weapon?): Int {
+        if (weapon == null) return 0
+
+        return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
             dexterity.modifier
         } else {
             strength.modifier
         }
+    }
 
     private fun armorModifier() =
         when (armor?.itemType) {
@@ -114,4 +135,13 @@ class Character(
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
+
+    private fun unequip(item: Item) {
+        when (item) {
+            is Weapon -> weapon = null
+            is Armor -> armor = null
+            is Shield -> shield = null
+        }
+        inventory.add(item)
+    }
 }
