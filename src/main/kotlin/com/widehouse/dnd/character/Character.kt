@@ -22,11 +22,13 @@ import kotlin.math.min
 
 class Character(
     val name: String,
-    val characterClass: CharacterClass,
-    val level: Int,
+    val `class`: Class,
+    var level: Int,
     val race: Race,
+    var experiencePoints: Int = 0,
     abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
-    var maxHitPoints: Int
+    var maxHitPoints: Int,
+
 ) : Creature(abilities) {
     init {
         hitPoints = maxHitPoints
@@ -87,6 +89,16 @@ class Character(
             is Wisdom -> wisdom
             is Charisma -> charisma
         }
+
+    fun earnExperiencePoints(xp: Int) {
+        experiencePoints += xp
+
+        for (table in LevelTable.values()) {
+            if (level < table.level && experiencePoints >= table.xp) {
+                level = table.level
+            }
+        }
+    }
 
     private fun attackModifier(weapon: Weapon) =
         if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {

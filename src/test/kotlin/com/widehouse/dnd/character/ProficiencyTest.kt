@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterClass.Wizard
+import com.widehouse.dnd.character.Class.Wizard
 import com.widehouse.dnd.character.Race.Elf
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
