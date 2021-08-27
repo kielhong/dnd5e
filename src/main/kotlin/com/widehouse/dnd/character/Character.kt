@@ -27,8 +27,9 @@ class Character(
     val race: Race,
     var experiencePoints: Int = 0,
     abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
+    val proficiencySavingThrow: List<AbilityType> = emptyList(),
+    val proficiencySkill: List<Skill> = emptyList(),
     var maxHitPoints: Int,
-
 ) : Creature(abilities) {
     init {
         hitPoints = maxHitPoints
@@ -39,7 +40,8 @@ class Character(
 
     override val armorClass: Int
         get() = (armor?.armorClass ?: 0) + armorModifier() + (shield?.armorClass ?: 0)
-
+    val proficiencyBonus
+        get() = (level - 1) / 4 + 2
     var coin: Coin = Coin(0)
     val inventory: MutableList<Item> = mutableListOf()
     private val dice = Dice()
@@ -58,7 +60,7 @@ class Character(
         return when (val diceRoll = dice.roll(D20, condition)) {
             1 -> false
             20 -> true
-            else -> diceRoll + attackModifier(weapon) + proficiency() >= target.armorClass
+            else -> diceRoll + attackModifier(weapon) + proficiencyBonus >= target.armorClass
         }
     }
 
@@ -69,8 +71,6 @@ class Character(
     fun removeDamage(point: Int) {
         hitPoints = min(hitPoints + point, maxHitPoints)
     }
-
-    fun proficiency() = (level - 1) / 4 + 2
 
     fun equip(item: Item) {
         when (item) {

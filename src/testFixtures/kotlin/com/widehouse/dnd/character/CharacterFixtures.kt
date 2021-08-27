@@ -12,12 +12,12 @@ import com.widehouse.dnd.character.Race.Human
 class CharacterFixtures {
     companion object {
         fun cleric(hp: Int = 20) =
-            Character("cleric", Cleric, 1, Dwarf, 0, Abilities(16, 18, 10, 10, 10, 10), maxHitPoints = hp)
+            Character("cleric", Cleric, 1, Dwarf, 0, Abilities(16, 18, 10, 10, 10, 10), emptyList(), maxHitPoints = hp)
         fun fighter(hp: Int = 20) =
-            Character("fighter", Fighter, 1, Human, 0, Abilities(18, 10, 10, 10, 10, 10), maxHitPoints = hp)
+            Character("fighter", Fighter, 1, Human, 0, Abilities(18, 10, 10, 10, 10, 10), emptyList(), maxHitPoints = hp)
         fun rogue(hp: Int = 20) =
-            Character("rogue", Rogue, 1, Halfling, 0, Abilities(10, 18, 10, 10, 10, 10), maxHitPoints = hp)
+            Character("rogue", Rogue, 1, Halfling, 0, Abilities(10, 18, 10, 10, 10, 10), emptyList(), maxHitPoints = hp)
         fun wizard(hp: Int = 20) =
-            Character("wizard", Wizard, 1, Elf, 0, Abilities(16, 18, 10, 10, 10, 10), maxHitPoints = hp)
+            Character("wizard", Wizard, 1, Elf, 0, Abilities(16, 18, 10, 10, 10, 10), emptyList(), maxHitPoints = hp)
     }
 }

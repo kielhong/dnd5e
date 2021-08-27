@@ -1,4 +1,4 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.AbilityType
 import com.widehouse.dnd.character.Character
@@ -9,7 +9,10 @@ class SavingThrow(private val character: Character, private val abilityType: Abi
     private val dice = Dice()
 
     fun result(): Boolean {
-        return dice.roll(Die.D20) + character.abilityByType(abilityType).modifier >= difficultClass
+        return dice.roll(Die.D20) + bonus(character, abilityType) >= difficultClass
     }
+
+    private fun bonus(character: Character, abilityType: AbilityType) =
+        character.abilityByType(abilityType).modifier +
+            if (character.proficiencySavingThrow.contains(abilityType)) character.proficiencyBonus else 0
 }
-// TODO : add proficiency bonus, if character has saving throw proficiency

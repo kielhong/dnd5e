@@ -40,7 +40,7 @@ class AttackRollTest : FunSpec({
         char.attackRoll(target)
 
         verify { char["attackModifier"](allAny<Weapon>()) }
-        verify { char.proficiency() }
+        verify { char.proficiencyBonus }
         verify { target.armorClass }
     }
 
@@ -49,7 +49,7 @@ class AttackRollTest : FunSpec({
 
         char.attackRoll(target) shouldBe false
         verify(exactly = 0) { char["attackModifier"](allAny<Weapon>()) }
-        verify(exactly = 0) { char.proficiency() }
+        verify(exactly = 0) { char.proficiencyBonus }
     }
 
     test("Roll Dice 20 then AttackRoll should succeed") {
@@ -57,7 +57,7 @@ class AttackRollTest : FunSpec({
 
         char.attackRoll(target) shouldBe true
         verify(exactly = 0) { char["attackModifier"](allAny<Weapon>()) }
-        verify(exactly = 0) { char.proficiency() }
+        verify(exactly = 0) { char.proficiencyBonus }
     }
 
     test("Attack with Finesse or Thrown weapon uses dex modifier") {
