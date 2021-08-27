@@ -28,6 +28,7 @@ class Character(
     var experiencePoints: Int = 0,
     abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
     val proficiencySavingThrow: List<AbilityType> = emptyList(),
+    val proficiencySkill: List<Skill> = emptyList(),
     var maxHitPoints: Int,
 ) : Creature(abilities) {
     init {

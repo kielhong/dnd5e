@@ -9,7 +9,10 @@ class AbilityCheck(private val character: Character, private val skill: Skill, p
     private val dice = Dice()
 
     fun result(): Boolean {
-        return dice.roll(Die.D20) + character.abilityByType(skill.abilityType).modifier >= difficultClass
+        return dice.roll(Die.D20) + bonus(character, skill) >= difficultClass
     }
+
+    private fun bonus(character: Character, skill: Skill) =
+        character.abilityByType(skill.abilityType).modifier +
+            if (character.proficiencySkill.contains(skill)) character.proficiencyBonus else 0
 }
-// TODO : add proficiency bonus, if character has skill proficiency

@@ -51,5 +51,6 @@ class SavingThrowTest : FunSpec({
         savingThrow.result() shouldBe false
         verify { dice.roll(Die.D20) }
         verify { char.dexterity }
+        verify(exactly = 0) { char.proficiencyBonus }
     }
 })
