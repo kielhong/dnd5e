@@ -1,5 +1,7 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.challenge
 
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 

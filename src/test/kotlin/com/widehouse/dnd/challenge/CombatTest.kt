@@ -1,4 +1,4 @@
-package com.widehouse.dnd.combat
+package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
 import com.widehouse.dnd.character.MonsterFixtures.Companion.goblin

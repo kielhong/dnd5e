@@ -1,6 +1,11 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.challenge
 
+import com.widehouse.dnd.character.Athletics
 import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
+import com.widehouse.dnd.character.History
+import com.widehouse.dnd.character.Strength
+import com.widehouse.dnd.character.Survival
+import com.widehouse.dnd.character.Wisdom
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.Die
 import io.kotest.core.spec.style.FunSpec
@@ -32,7 +37,7 @@ class AbilityCheckTest : FunSpec({
         verify { char.wisdom }
     }
 
-    test("Athletic checks") {
+    test("Athletic checks with proficiency skill") {
         every { dice.roll(Die.D20) }.returns(14)
         every { char.strength }.returns(Strength(14))
         val challenge = AbilityCheck(char, Athletics, 10)
