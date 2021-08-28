@@ -33,5 +33,8 @@ class ItemFixtures {
 
         // shield
         val shield = Shield("Shield", 2, Coin(10, GP), 6)
+
+        // accessory
+        val ring = Ring("ring", Coin(10), 1)
     }
 }

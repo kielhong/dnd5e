@@ -7,6 +7,7 @@ import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
 import com.widehouse.dnd.item.ItemFixtures.Companion.dagger
 import com.widehouse.dnd.item.ItemFixtures.Companion.longBow
 import com.widehouse.dnd.item.ItemFixtures.Companion.longSword
+import com.widehouse.dnd.item.ItemFixtures.Companion.ring
 import com.widehouse.dnd.item.ItemFixtures.Companion.shield
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
@@ -25,13 +26,14 @@ class EquipmentTest : FunSpec({
         char.getItem(breastplate)
         char.getItem(chainMail)
         char.getItem(shield)
+        char.getItem(ring)
     }
 
     test("equip weapon in inventory") {
         char.equip(dagger)
 
         assertSoftly(char) {
-            weapon shouldBe dagger
+            equipment.mainHand shouldBe dagger
             inventory shouldNotContain dagger
         }
     }
@@ -41,7 +43,7 @@ class EquipmentTest : FunSpec({
         char.equip(longSword)
 
         assertSoftly(char) {
-            weapon shouldBe longSword
+            equipment.mainHand shouldBe longSword
             inventory shouldContain dagger
             inventory shouldNotContain longSword
         }
@@ -51,7 +53,7 @@ class EquipmentTest : FunSpec({
         char.equip(breastplate)
 
         assertSoftly(char) {
-            armor shouldBe breastplate
+            equipment.armor shouldBe breastplate
             inventory shouldNotContain breastplate
             armorClass shouldBe breastplate.armorClass
         }
@@ -62,7 +64,7 @@ class EquipmentTest : FunSpec({
         char.equip(chainMail)
 
         assertSoftly(char) {
-            armor shouldBe chainMail
+            equipment.armor shouldBe chainMail
             inventory shouldContain breastplate
             inventory shouldNotContain chainMail
         }
@@ -72,12 +74,40 @@ class EquipmentTest : FunSpec({
         char.equip(chainMail)
         char.equip(shield)
 
-        char.shield shouldBe shield
-        char.armorClass shouldBe chainMail.armorClass + 2
+        assertSoftly(char) {
+            equipment.offHand shouldBe shield
+            inventory shouldNotContain shield
+            armorClass shouldBe chainMail.armorClass + 2
+        }
+    }
+
+    test("equip ring to accessory") {
+        char.equip(ring)
+
+        char.equipment.accessory shouldContain ring
+        char.inventory shouldNotContain ring
     }
 
     test("equip non armor, then AC is 0") {
         char.armorClass shouldBe 0
+    }
+
+    test("unequip item") {
+        char.equip(dagger)
+        char.unequip(dagger)
+        char.equipment.mainHand shouldBe null
+
+        char.equip(shield)
+        char.unequip(shield)
+        char.equipment.offHand shouldBe null
+
+        char.equip(chainMail)
+        char.unequip(chainMail)
+        char.equipment.armor shouldBe null
+
+        char.equip(ring)
+        char.unequip(ring)
+        char.equipment.accessory shouldNotContain ring
     }
 
     test("add Coin then add coin") {
