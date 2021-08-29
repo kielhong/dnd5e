@@ -18,6 +18,16 @@ class ArmorTest : FunSpec({
         char = spyk(rogue())
     }
 
+    test("Shield item test") {
+        val shield = shield
+        assertSoftly(shield) {
+            it.name shouldBe "Shield"
+            it.armorClass shouldBe 2
+            it.cost shouldBe Coin(10, GP)
+            it.weight shouldBe 6
+        }
+    }
+
     test("Light Armor, add dex modifier to base armor class") {
         val armor = padded
         char.equip(armor)
