@@ -153,4 +153,16 @@ class Character(
         var armor: Armor? = null
         var accessory: MutableList<Item> = mutableListOf()
     }
+
+    companion object {
+        fun create(
+            name: String,
+            race: Race,
+            `class`: Class,
+            abilities: Abilities
+        ): Character {
+            val hitPoint = `class`.hitDice.number + Constitution(abilities.con).modifier
+            return Character(name, `class`, 1, race, 0, abilities, `class`.proficiencySavingThrow, emptyList(), hitPoint)
+        }
+    }
 }
