@@ -10,16 +10,17 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
 
 class AttackTest : FunSpec({
     test("Character attack target then target get damage") {
         val char = mockk<Character>()
-        val target = wizard()
+        val target = spyk(wizard())
         every { char.attack(target) }.returns(AttackResult(target, 5))
         val result = char.attack(target)
         result.resolve()
 
-        target.hitPoints shouldBe 15
+        target.hitPoints shouldBe 3
     }
 
     test("Damage Roll") {
@@ -31,14 +32,14 @@ class AttackTest : FunSpec({
     }
 
     test("HitPoint minimum value is zero") {
-        val char = rogue(hp = 5)
-        char.getDamage(10)
+        val char = rogue()
+        char.getDamage(20)
         char.hitPoints shouldBe 0
     }
 
     test("If get damage and hitPoint goes to 0 then character die") {
-        val char = cleric(hp = 5)
-        char.getDamage(5)
+        val char = cleric()
+        char.getDamage(20)
         char.dead() shouldBe true
     }
 })
