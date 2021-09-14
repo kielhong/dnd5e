@@ -9,10 +9,16 @@ class SavingThrow(private val character: Character, private val abilityType: Abi
     private val dice = Dice()
 
     fun result(): Boolean {
-        return dice.roll(Die.D20) + bonus(character, abilityType) >= difficultClass
+        return Challenge.challenge(dice.roll(Die.D20), modifiers(), difficultClass)
     }
 
-    private fun bonus(character: Character, abilityType: AbilityType) =
-        character.abilityByType(abilityType).modifier +
-            if (character.proficiencySavingThrow.contains(abilityType)) character.proficiencyBonus else 0
+    private fun modifiers(): List<Int> {
+        val modifiers = mutableListOf<Int>()
+        modifiers.add(character.abilityByType(abilityType).modifier)
+        if (character.proficiencySavingThrow.contains(abilityType)) {
+            modifiers.add(character.proficiencyBonus)
+        }
+
+        return modifiers
+    }
 }

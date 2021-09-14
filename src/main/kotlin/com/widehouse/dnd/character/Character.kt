@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.challenge.Challenge
 import com.widehouse.dnd.character.AbilityType.Charisma
 import com.widehouse.dnd.character.AbilityType.Constitution
 import com.widehouse.dnd.character.AbilityType.Dexterity
@@ -58,7 +59,7 @@ class Character(
         return when (val diceRoll = dice.roll(D20, condition)) {
             1 -> false
             20 -> true
-            else -> diceRoll + attackModifier(equipment.mainHand as? Weapon) + proficiencyBonus >= target.armorClass
+            else -> Challenge.challenge(diceRoll, listOf(proficiencyBonus, attackModifier(equipment.mainHand as? Weapon)), target.armorClass)
         }
     }
 
