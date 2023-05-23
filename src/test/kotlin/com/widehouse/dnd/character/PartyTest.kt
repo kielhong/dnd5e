@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.character.CharacterFixtures.fighter
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotContain

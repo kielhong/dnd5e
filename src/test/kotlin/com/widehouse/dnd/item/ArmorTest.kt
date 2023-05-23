@@ -1,7 +1,7 @@
 package com.widehouse.dnd.item
 
 import com.widehouse.dnd.character.CharacterOld
-import com.widehouse.dnd.character.CharacterFixtures.Companion.rogue
+import com.widehouse.dnd.character.CharacterFixtures.rogue
 import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
 import com.widehouse.dnd.item.ItemFixtures.Companion.padded

@@ -1,6 +1,6 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.character.MonsterFixtures.Companion.goblin
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContainAll

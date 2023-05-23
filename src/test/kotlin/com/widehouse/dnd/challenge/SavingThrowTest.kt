@@ -1,7 +1,7 @@
 package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.AbilityType
-import com.widehouse.dnd.character.CharacterFixtures.Companion.wizard
+import com.widehouse.dnd.character.CharacterFixtures.wizard
 import com.widehouse.dnd.character.Constitution
 import com.widehouse.dnd.character.Dexterity
 import com.widehouse.dnd.dice.Dice

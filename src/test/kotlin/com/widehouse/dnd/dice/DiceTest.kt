@@ -6,8 +6,8 @@ import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.ints.shouldBeLessThanOrEqual
 
 class DiceTest : FunSpec({
-    test("Roll Dice and its result is between 1 and number(include)") {
-        listOf(Dice.D100, Dice.D20, Dice.D12, Dice.D10, Dice.D8, Dice.D6, Dice.D4).forAll {
+    test("Roll Dice and its result is between 1 and side") {
+        Dice.values().forAll {
             it.roll()
                 .shouldBeGreaterThanOrEqual(1)
                 .shouldBeLessThanOrEqual(it.side)

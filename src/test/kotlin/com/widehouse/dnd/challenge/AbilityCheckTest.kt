@@ -1,25 +1,13 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Acrobatics
-import com.widehouse.dnd.character.Athletics
-import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
-import com.widehouse.dnd.character.Dexterity
-import com.widehouse.dnd.character.History
-import com.widehouse.dnd.character.Strength
-import com.widehouse.dnd.character.Survival
-import com.widehouse.dnd.character.Wisdom
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
 
 class AbilityCheckTest : FunSpec({
     val dice = mockk<Dice>()
-    val char = spyk(cleric(), recordPrivateCalls = true)
+    //val char = spyk(cleric(), recordPrivateCalls = true)
 
     afterEach {
         clearAllMocks()

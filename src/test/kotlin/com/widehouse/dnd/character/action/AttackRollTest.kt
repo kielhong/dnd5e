@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.Monster
 import com.widehouse.dnd.dice.Dice

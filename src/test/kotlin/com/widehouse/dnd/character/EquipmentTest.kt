@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterFixtures.Companion.fighter
+import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.item.Coin
 import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail

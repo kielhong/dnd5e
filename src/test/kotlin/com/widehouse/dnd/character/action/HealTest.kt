@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.CharacterFixtures.Companion.cleric
+import com.widehouse.dnd.character.CharacterFixtures.cleric
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
