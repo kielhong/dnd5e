@@ -12,7 +12,7 @@ import io.mockk.spyk
 
 class CharacterTest : FunSpec({
     test("Character has name, class, level, race, xp") {
-        val char = Character(name = "foo", `class` = Fighter, level = 1, race = Human, experiencePoints = 10, maxHitPoints = 20)
+        val char = CharacterOld(name = "foo", `class` = Fighter, level = 1, race = Human, experiencePoints = 10, maxHitPoints = 20)
         char.name shouldBe "foo"
         char.`class` shouldBe Fighter
         char.level shouldBe 1
@@ -22,7 +22,7 @@ class CharacterTest : FunSpec({
     }
 
     test("Character ability init") {
-        val char = Character("foo", Fighter, 1, Dwarf, 0, Abilities(12, 13, 14, 15, 16, 17), maxHitPoints = 20)
+        val char = CharacterOld("foo", Fighter, 1, Dwarf, 0, Abilities(12, 13, 14, 15, 16, 17), maxHitPoints = 20)
 
         char.strength.score shouldBe 12
         char.dexterity.score shouldBe 13
@@ -47,7 +47,7 @@ class CharacterTest : FunSpec({
     }
 
     test("character creation test") {
-        val char = Character.create(name = "foo", race = Human, `class` = Fighter, abilities = Abilities(15, 14, 13, 12, 10, 8))
+        val char = CharacterOld.create(name = "foo", race = Human, `class` = Fighter, abilities = Abilities(15, 14, 13, 12, 10, 8))
 
         assertSoftly(char) {
             it.name shouldBe "foo"

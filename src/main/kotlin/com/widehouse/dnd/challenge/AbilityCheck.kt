@@ -1,22 +1,19 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die
 
-class AbilityCheck(private val character: Character, private val skill: Skill, private val difficultyClass: Int) {
-    private val dice = Dice()
-
+class AbilityCheck(private val characterOld: CharacterOld, private val skill: Skill, private val difficultyClass: Int) {
     fun result(): Boolean {
-        return Challenge.challenge(dice.roll(Die.D20), modifiers(), difficultyClass)
+        return Challenge.challenge(Dice.D20.roll(), modifiers(), difficultyClass)
     }
 
     private fun modifiers(): List<Int> {
         val modifiers = mutableListOf<Int>()
-        modifiers.add(character.abilityByType(skill.abilityType).modifier)
-        if (character.proficiencySkill.contains(skill)) {
-            modifiers.add(character.proficiencyBonus)
+        modifiers.add(characterOld.abilityByType(skill.abilityType).modifier)
+        if (characterOld.proficiencySkill.contains(skill)) {
+            modifiers.add(characterOld.proficiencyBonus)
         }
 
         return modifiers

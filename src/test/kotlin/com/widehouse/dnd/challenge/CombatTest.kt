@@ -18,7 +18,7 @@ class CombatTest : FunSpec({
         val monster1 = goblin
         val monster2 = goblin
         // combat
-        val combat = Combat(characters = listOf(char1, char2), monsters = listOf(monster1, monster2))
+        val combat = Combat(characterOlds = listOf(char1, char2), monsters = listOf(monster1, monster2))
         // when
         combat.initiative()
         // then
@@ -28,7 +28,7 @@ class CombatTest : FunSpec({
     test("every round, every character take turn") {
         val char = spyk(fighter())
         val monster = spyk(goblin)
-        val combat = Combat(characters = listOf(char), monsters = listOf(monster))
+        val combat = Combat(characterOlds = listOf(char), monsters = listOf(monster))
         combat.initiative()
         // when
         combat.round()
@@ -41,7 +41,7 @@ class CombatTest : FunSpec({
         val pc = spyk(fighter())
         val monster = spyk(goblin)
         every { monster.dead() }.returns(true)
-        val combat = Combat(characters = listOf(pc), monsters = listOf(monster))
+        val combat = Combat(characterOlds = listOf(pc), monsters = listOf(monster))
         combat.initiative()
         // when
         val result = combat.combat()

@@ -17,7 +17,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.spyk
 
 class EquipmentTest : FunSpec({
-    lateinit var char: Character
+    lateinit var char: CharacterOld
 
     beforeEach {
         char = spyk(fighter())

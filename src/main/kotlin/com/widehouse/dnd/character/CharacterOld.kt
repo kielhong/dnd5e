@@ -8,20 +8,14 @@ import com.widehouse.dnd.character.AbilityType.Intelligence
 import com.widehouse.dnd.character.AbilityType.Strength
 import com.widehouse.dnd.character.AbilityType.Wisdom
 import com.widehouse.dnd.character.action.AttackResult
-import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die.D20
+import com.widehouse.dnd.dice.Dice.D20
 import com.widehouse.dnd.dice.RollCondition
-import com.widehouse.dnd.item.Armor
-import com.widehouse.dnd.item.ArmorType
-import com.widehouse.dnd.item.Coin
-import com.widehouse.dnd.item.Item
-import com.widehouse.dnd.item.Shield
-import com.widehouse.dnd.item.Weapon
+import com.widehouse.dnd.item.*
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import kotlin.math.min
 
-class Character(
+class CharacterOld(
     val name: String,
     val `class`: Class,
     var level: Int,
@@ -43,7 +37,6 @@ class Character(
         get() = (level - 1) / 4 + 2
     var coin: Coin = Coin(0)
     val inventory: MutableList<Item> = mutableListOf()
-    private val dice = Dice()
 
     override fun attack(target: Creature): AttackResult {
         return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
@@ -56,7 +49,7 @@ class Character(
     }
 
     fun attackRoll(target: Creature, condition: RollCondition? = null): Boolean {
-        return when (val diceRoll = dice.roll(D20, condition)) {
+        return when (val diceRoll = D20.roll()) {
             1 -> false
             20 -> true
             else -> Challenge.challenge(diceRoll, listOf(proficiencyBonus, attackModifier(equipment.mainHand as? Weapon)), target.armorClass)
@@ -161,9 +154,9 @@ class Character(
             race: Race,
             `class`: Class,
             abilities: Abilities
-        ): Character {
-            val hitPoint = `class`.hitDice.number + Constitution(abilities.con).modifier
-            return Character(name, `class`, 1, race, 0, abilities, `class`.proficiencySavingThrow, emptyList(), hitPoint)
+        ): CharacterOld {
+            val hitPoint = `class`.hitDice.side + Constitution(abilities.con).modifier
+            return CharacterOld(name, `class`, 1, race, 0, abilities, `class`.proficiencySavingThrow, emptyList(), hitPoint)
         }
     }
 }

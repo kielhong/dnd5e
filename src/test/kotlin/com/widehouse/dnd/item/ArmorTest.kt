@@ -1,6 +1,6 @@
 package com.widehouse.dnd.item
 
-import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.CharacterFixtures.Companion.rogue
 import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
 import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
@@ -12,7 +12,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.spyk
 
 class ArmorTest : FunSpec({
-    lateinit var char: Character
+    lateinit var char: CharacterOld
 
     beforeEach {
         char = spyk(rogue())

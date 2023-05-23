@@ -1,17 +1,16 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.Creature
 import com.widehouse.dnd.character.Monster
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die
 
-class Combat(val characters: List<Character>, val monsters: List<Monster>) {
+class Combat(val characterOlds: List<CharacterOld>, val monsters: List<Monster>) {
     private lateinit var roundOrder: List<Creature>
 
     fun initiative() {
-        roundOrder = characters + monsters
-            .associateWith { Dice().roll(Die.D20) + it.dexterity.modifier }
+        roundOrder = characterOlds + monsters
+            .associateWith { Dice.D20.roll() + it.dexterity.modifier }
             .toList()
             .sortedBy { (_, value) -> value }.reversed()
             .map { (key, _) -> key }
@@ -26,7 +25,7 @@ class Combat(val characters: List<Character>, val monsters: List<Monster>) {
             val roundResult = round()
         } while (!roundResult.endCombat())
 
-        return CombatResult(characters, monsters)
+        return CombatResult(characterOlds, monsters)
     }
 
     fun round(): RoundResult {
@@ -34,15 +33,15 @@ class Combat(val characters: List<Character>, val monsters: List<Monster>) {
             val turnResult = turn(it)
             roundOrder = turnResult.resolve()
         }
-        return RoundResult(roundOrder, characters, monsters)
+        return RoundResult(roundOrder, characterOlds, monsters)
     }
 
     fun turn(character: Creature): TurnResult {
-        if (characters.contains(character)) {
+        if (characterOlds.contains(character)) {
             character.attack(monsters[0])
         }
         if (monsters.contains(character)) {
-            character.attack(characters[0])
+            character.attack(characterOlds[0])
         }
 
         return TurnResult(roundOrder)
