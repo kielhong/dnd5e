@@ -8,7 +8,7 @@ class Character(
     val `class`: Class
 ) {
     fun hit(character: Character, dice: Dice): Boolean {
-        return when(val rollResult = dice.roll()) {
+        return when (val rollResult = dice.roll()) {
             1 -> false
             20 -> true
             else -> rollResult >= character.armorClass()

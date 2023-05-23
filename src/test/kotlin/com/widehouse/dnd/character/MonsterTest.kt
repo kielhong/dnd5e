@@ -2,14 +2,8 @@ package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.MonsterFixtures.Companion.goblin
 import com.widehouse.dnd.character.Size.Small
-import com.widehouse.dnd.character.action.Action
-import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.spyk
-import io.mockk.verify
 
 class MonsterTest : FunSpec({
     test("monster construct") {
