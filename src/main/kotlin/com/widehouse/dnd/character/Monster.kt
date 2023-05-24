@@ -1,37 +1,27 @@
 package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.action.Action
-import com.widehouse.dnd.character.action.AttackResult
-import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Weapon
 
 class Monster(
-    val name: String,
+    override val name: String,
+    override var abilities: Abilities,
+    override var hitPoints: Int,
     val size: Size,
     val type: String,
-    abilities: Abilities,
-    override var hitPoints: Int,
-    override val armorClass: Int,
+    val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
-) : Creature(abilities) {
-
-    override fun attack(target: Creature): AttackResult {
-        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
-    }
-
-    override fun getDamage(point: Int) {
-        hitPoints -= point
-    }
-
-    override fun dead() = hitPoints <= 0
-
-    fun attackRoll(target: Creature): Boolean {
-        return when (val diceRoll = Dice.D20.roll()) {
-            1 -> false
-            20 -> true
-            else -> diceRoll + action.hitBonus >= target.armorClass
-        }
-    }
+) : Character(name, abilities, hitPoints) {
+//
+//    override fun attack(target: Creature): AttackResult {
+//        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
+//    }
+//
+//    override fun getDamage(point: Int) {
+//        hitPoints -= point
+//    }
+//
+//    override fun dead() = hitPoints <= 0
 
     fun dealDamage(): Int {
         return action.weapon.damageRoll()

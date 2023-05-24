@@ -4,10 +4,8 @@ import com.widehouse.dnd.dice.Dice
 
 open class Character(
     open val name: String,
-    open val race: Race,
-    open val `class`: Class,
     open var abilities: Abilities,
-    var hitPoints: Int
+    open var hitPoints: Int
 ) {
     fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): Boolean {
         return when (val roll = dice.roll()) {

@@ -18,15 +18,15 @@ import kotlin.math.min
 
 class PlayerCharacter(
     override val name: String,
-    override val race: Race,
-    override val `class`: Class,
+    val race: Race,
+    val `class`: Class,
     override var abilities: Abilities = Abilities.of(10, 10, 10, 10, 10, 10),
     var level: Int,
     var experiencePoints: Int = 0,
     val proficiencySavingThrow: List<AbilityType> = emptyList(),
     val proficiencySkill: List<Skill> = emptyList(),
     var maxHitPoints: Int
-) : Character(name, race, `class`, abilities, maxHitPoints) {
+) : Character(name, abilities, maxHitPoints) {
     val equipment = Equipment()
 
     override fun armorClass(): Int {

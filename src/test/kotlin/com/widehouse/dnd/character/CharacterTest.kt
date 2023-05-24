@@ -1,8 +1,5 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.Class.Fighter
-import com.widehouse.dnd.character.Race.Dwarf
-import com.widehouse.dnd.character.Race.Human
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.headers
@@ -15,17 +12,15 @@ import io.mockk.mockk
 class CharacterTest : FreeSpec() {
     init {
         "Character has name, class, race" {
-            val character = Character("foo", Human, Fighter, Abilities.of(10, 10, 10, 10, 10, 10), 20)
+            val character = Character("foo", Abilities.of(10, 10, 10, 10, 10, 10), 20)
             // then
             character.name shouldBe "foo"
-            character.`class` shouldBe Fighter
-            character.race shouldBe Human
             character.abilities.strength.score shouldBe 10
             character.hitPoints shouldBe 20
         }
 
         "Character ability init" {
-            val char = Character("foo", Dwarf, Fighter, Abilities.of(12, 13, 14, 15, 16, 17), 20)
+            val char = Character("foo", Abilities.of(12, 13, 14, 15, 16, 17), 20)
 
             char.abilities.strength.score shouldBe 12
             char.abilities.dexterity.score shouldBe 13
@@ -101,20 +96,4 @@ class CharacterTest : FreeSpec() {
 //        }
 //    }
 //
-//    test("character creation test") {
-//        val char = CharacterOld.create(name = "foo", race = Human, `class` = Fighter, abilities = Abilities(15, 14, 13, 12, 10, 8))
-//
-//        assertSoftly(char) {
-//            it.name shouldBe "foo"
-//            it.race shouldBe Human
-//            it.`class` shouldBe Fighter
-//            it.level shouldBe 1
-//            it.strength shouldBe Strength(15)
-//            it.constitution shouldBe Constitution(13)
-//            it.hitPoints shouldBe 11
-//            it.proficiencyBonus shouldBe 2
-//            it.proficiencySavingThrow shouldContain AbilityType.Strength
-//            it.proficiencySavingThrow shouldContain AbilityType.Constitution
-//        }
-//    }
 }
