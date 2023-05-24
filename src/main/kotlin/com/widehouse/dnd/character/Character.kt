@@ -7,11 +7,11 @@ class Character(
     val race: Race,
     val `class`: Class
 ) {
-    fun hit(character: Character, dice: Dice): Boolean {
-        return when (val rollResult = dice.roll()) {
+    fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): Boolean {
+        return when (val roll = dice.roll()) {
             1 -> false
             20 -> true
-            else -> rollResult >= character.armorClass()
+            else -> roll + modifiers.sum() >= target.armorClass()
         }
     }
 

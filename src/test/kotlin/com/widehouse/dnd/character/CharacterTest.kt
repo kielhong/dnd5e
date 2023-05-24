@@ -3,7 +3,7 @@ package com.widehouse.dnd.character
 import com.widehouse.dnd.character.Class.Fighter
 import com.widehouse.dnd.character.Race.Human
 import com.widehouse.dnd.dice.Dice
-import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.headers
 import io.kotest.data.row
 import io.kotest.data.table
@@ -11,32 +11,53 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 
-class CharacterTest : FunSpec({
-    test("Character has name, class, race") {
-        val character = Character(name = "foo", race = Human, `class` = Fighter)
-        character.name shouldBe "foo"
-        character.`class` shouldBe Fighter
-        character.race shouldBe Human
-    }
+class CharacterTest : FreeSpec() {
+    init {
+        "Character has name, class, race" {
+            val character = Character(name = "foo", race = Human, `class` = Fighter)
+            character.name shouldBe "foo"
+            character.`class` shouldBe Fighter
+            character.race shouldBe Human
+        }
 
-    test("hit other character") {
-        val foo = CharacterFixtures.foo
-        val dice = mockk<Dice>()
-        val bar = mockk<Character>()
-        io.kotest.data.forAll(
-            table(
-                headers("roll", "armor class", "result"),
-                row(10, 10, true),
-                row(10, 11, false),
-                row(11, 10, true),
-                row(1, 0, false),   // 무조건 실패
-                row(20, 25, true)   // 무조건 성공
-            )
-        ) { roll: Int, armorClass: Int, result: Boolean ->
-            every { dice.roll() } returns roll
-            every { bar.armorClass() } returns armorClass
-            // then
-            foo.hit(bar, dice) shouldBe result
+        "hit other target" - {
+            val character = CharacterFixtures.foo
+            val dice = mockk<Dice>()
+            val target = mockk<Character>()
+
+            "without modifier" {
+                io.kotest.data.forAll(
+                    table(
+                        headers("roll", "armor class", "result"),
+                        row(10, 10, true),
+                        row(10, 11, false),
+                        row(11, 10, true),
+                        row(1, 0, false), // 무조건 실패
+                        row(20, 25, true) // 무조건 성공
+                    )
+                ) { roll: Int, armorClass: Int, result: Boolean ->
+                    every { dice.roll() } returns roll
+                    every { target.armorClass() } returns armorClass
+                    // then
+                    character.attackRoll(target, listOf(0), dice) shouldBe result
+                }
+            }
+
+            "with modifiers" {
+                io.kotest.data.forAll(
+                    table(
+                        headers("roll", "modifiers", "armor class", "result"),
+                        row(8, listOf(1, 1), 10, true),
+                        row(10, listOf(0), 8, true),
+                        row(8, listOf(1), 10, false)
+                    )
+                ) { roll: Int, modifiers: List<Int>, armorClass: Int, result: Boolean ->
+                    every { dice.roll() } returns roll
+                    every { target.armorClass() } returns armorClass
+                    // then
+                    character.attackRoll(target, modifiers, dice) shouldBe result
+                }
+            }
         }
     }
 
@@ -91,4 +112,4 @@ class CharacterTest : FunSpec({
 //            it.proficiencySavingThrow shouldContain AbilityType.Constitution
 //        }
 //    }
-})
+}
