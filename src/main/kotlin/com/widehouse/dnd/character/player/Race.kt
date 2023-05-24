@@ -4,5 +4,5 @@ enum class Race {
     Dwarf,
     Elf,
     Halfling,
-    Human,
+    Human
 }
