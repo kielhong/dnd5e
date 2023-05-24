@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.CharacterOld
+import com.widehouse.dnd.character.PlayerCharacter
 import com.widehouse.dnd.character.CharacterFixtures.cleric
 import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.character.CharacterFixtures.rogue
@@ -14,7 +14,7 @@ import io.mockk.spyk
 
 class AttackTest : FunSpec({
     test("Character attack target then target get damage") {
-        val char = mockk<CharacterOld>()
+        val char = mockk<PlayerCharacter>()
         val target = spyk(wizard())
         every { char.attack(target) }.returns(AttackResult(target, 5))
         val result = char.attack(target)

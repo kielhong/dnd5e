@@ -5,7 +5,8 @@ import com.widehouse.dnd.dice.Dice
 class Character(
     val name: String,
     val race: Race,
-    val `class`: Class
+    val `class`: Class,
+    val abilities: Abilities
 ) {
     fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): Boolean {
         return when (val roll = dice.roll()) {

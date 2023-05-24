@@ -10,21 +10,26 @@ import com.widehouse.dnd.character.AbilityType.Wisdom
 import com.widehouse.dnd.character.action.AttackResult
 import com.widehouse.dnd.dice.Dice.D20
 import com.widehouse.dnd.dice.RollCondition
-import com.widehouse.dnd.item.*
+import com.widehouse.dnd.item.Armor
+import com.widehouse.dnd.item.ArmorType
+import com.widehouse.dnd.item.Coin
+import com.widehouse.dnd.item.Item
+import com.widehouse.dnd.item.Shield
+import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import kotlin.math.min
 
-class CharacterOld(
+class PlayerCharacter(
     val name: String,
     val `class`: Class,
     var level: Int,
     val race: Race,
     var experiencePoints: Int = 0,
-    abilities: Abilities = Abilities(0, 0, 0, 0, 0, 0),
+    abilities: Abilities = Abilities(Strength(0), Dexterity(0), Constitution(0), Intelligence(0), Wisdom(0), Charisma(0)),
     val proficiencySavingThrow: List<AbilityType> = emptyList(),
     val proficiencySkill: List<Skill> = emptyList(),
-    var maxHitPoints: Int,
+    var maxHitPoints: Int
 ) : Creature(abilities) {
     init {
         hitPoints = maxHitPoints
@@ -154,9 +159,9 @@ class CharacterOld(
             race: Race,
             `class`: Class,
             abilities: Abilities
-        ): CharacterOld {
-            val hitPoint = `class`.hitDice.side + Constitution(abilities.con).modifier
-            return CharacterOld(name, `class`, 1, race, 0, abilities, `class`.proficiencySavingThrow, emptyList(), hitPoint)
+        ): PlayerCharacter {
+            val hitPoint = `class`.hitDice.side + Constitution(abilities.constitution.score).modifier
+            return PlayerCharacter(name, `class`, 1, race, 0, abilities, `class`.proficiencySavingThrow, emptyList(), hitPoint)
         }
     }
 }

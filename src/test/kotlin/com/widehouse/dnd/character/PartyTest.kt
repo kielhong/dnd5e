@@ -11,7 +11,7 @@ class PartyTest : BehaviorSpec({
     given("a party") {
         val party = Party()
         `when`("a member join to it") {
-            val member = mockk<CharacterOld>()
+            val member = mockk<PlayerCharacter>()
             party.join(member)
 
             then("member should be member of party") {
@@ -28,7 +28,7 @@ class PartyTest : BehaviorSpec({
         val fighter = fighter()
         party.join(fighter)
         `when`("a member join to it") {
-            val member = mockk<CharacterOld>()
+            val member = mockk<PlayerCharacter>()
             party.join(member)
 
             then("member should not be member of party") {

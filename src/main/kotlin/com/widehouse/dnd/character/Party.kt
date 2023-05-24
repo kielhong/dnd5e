@@ -4,15 +4,15 @@ class Party {
     companion object {
         const val MAX_PARTY_SIZE = 4
     }
-    val members: MutableList<CharacterOld> = mutableListOf()
+    val members: MutableList<PlayerCharacter> = mutableListOf()
 
-    fun join(characterOld: CharacterOld) {
+    fun join(playerCharacter: PlayerCharacter) {
         if (members.size < MAX_PARTY_SIZE) {
-            members.add(characterOld)
+            members.add(playerCharacter)
         }
     }
 
-    fun leave(characterOld: CharacterOld) {
-        members.remove(characterOld)
+    fun leave(playerCharacter: PlayerCharacter) {
+        members.remove(playerCharacter)
     }
 }

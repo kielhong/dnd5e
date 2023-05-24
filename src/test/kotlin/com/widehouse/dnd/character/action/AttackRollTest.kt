@@ -1,17 +1,13 @@
 package com.widehouse.dnd.character.action
 
 import com.widehouse.dnd.character.CharacterFixtures.fighter
-import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.Monster
+import com.widehouse.dnd.character.PlayerCharacter
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.RollCondition.DISADVANTAGE
-import com.widehouse.dnd.item.Weapon
-import com.widehouse.dnd.item.WeaponProperty.Finesse
-import com.widehouse.dnd.item.WeaponProperty.Thrown
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.inspectors.forAll
-import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.clearAllMocks
+import io.mockk.mockk
+import io.mockk.spyk
 
 class AttackRollTest : FunSpec({
     val dice = mockk<Dice>()
@@ -19,7 +15,7 @@ class AttackRollTest : FunSpec({
     val char = spyk(fighter(), recordPrivateCalls = true)
 
     beforeEach {
-        val f = CharacterOld::class.java.getDeclaredField("dice")
+        val f = PlayerCharacter::class.java.getDeclaredField("dice")
         f.isAccessible = true
         f.set(char, dice)
     }

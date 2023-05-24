@@ -13,11 +13,13 @@ import io.mockk.mockk
 
 class CharacterTest : FreeSpec() {
     init {
-        "Character has name, class, race" {
-            val character = Character(name = "foo", race = Human, `class` = Fighter)
+        "Character has name, class, race, abilities" {
+            val character = Character("foo", Human, Fighter, Abilities.of(10, 10, 10, 10, 10, 10))
+            // then
             character.name shouldBe "foo"
             character.`class` shouldBe Fighter
             character.race shouldBe Human
+            character.abilities.strength.score shouldBe 10
         }
 
         "hit other target" - {
