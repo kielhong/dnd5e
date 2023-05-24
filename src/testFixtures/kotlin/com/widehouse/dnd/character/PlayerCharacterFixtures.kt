@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.player.Class
 import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.character.player.Race

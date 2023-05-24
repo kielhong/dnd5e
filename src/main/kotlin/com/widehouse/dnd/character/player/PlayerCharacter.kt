@@ -1,13 +1,13 @@
 package com.widehouse.dnd.character.player
 
-import com.widehouse.dnd.character.Abilities
-import com.widehouse.dnd.character.AbilityType
-import com.widehouse.dnd.character.AbilityType.Charisma
-import com.widehouse.dnd.character.AbilityType.Constitution
-import com.widehouse.dnd.character.AbilityType.Dexterity
-import com.widehouse.dnd.character.AbilityType.Intelligence
-import com.widehouse.dnd.character.AbilityType.Strength
-import com.widehouse.dnd.character.AbilityType.Wisdom
+import com.widehouse.dnd.character.ability.Abilities
+import com.widehouse.dnd.character.ability.AbilityType
+import com.widehouse.dnd.character.ability.AbilityType.Charisma
+import com.widehouse.dnd.character.ability.AbilityType.Constitution
+import com.widehouse.dnd.character.ability.AbilityType.Dexterity
+import com.widehouse.dnd.character.ability.AbilityType.Intelligence
+import com.widehouse.dnd.character.ability.AbilityType.Strength
+import com.widehouse.dnd.character.ability.AbilityType.Wisdom
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.item.Armor
@@ -150,7 +150,7 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + com.widehouse.dnd.character.Constitution(abilities.constitution.score).modifier
+            val hitPoint = `class`.hitDice.side + com.widehouse.dnd.character.ability.Constitution(abilities.constitution.score).modifier
             return PlayerCharacter(
                 name,
                 race,

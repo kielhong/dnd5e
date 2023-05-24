@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character.nonplayer
 
-import com.widehouse.dnd.character.Abilities
+import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe

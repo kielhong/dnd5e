@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 

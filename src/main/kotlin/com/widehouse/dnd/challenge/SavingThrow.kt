@@ -1,6 +1,6 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.AbilityType
+import com.widehouse.dnd.character.ability.AbilityType
 import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.dice.Dice
 

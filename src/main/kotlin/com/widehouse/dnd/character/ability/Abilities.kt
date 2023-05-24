@@ -1,4 +1,4 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.ability
 
 class Abilities(
     val strength: Ability,
