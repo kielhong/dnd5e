@@ -1,7 +1,7 @@
 package com.widehouse.dnd.character.nonplayer
 
-import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.item.Weapon
 

@@ -1,5 +1,7 @@
 package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.ability.AbilityType
 import com.widehouse.dnd.character.ability.AbilityType.Charisma
@@ -8,8 +10,6 @@ import com.widehouse.dnd.character.ability.AbilityType.Dexterity
 import com.widehouse.dnd.character.ability.AbilityType.Intelligence
 import com.widehouse.dnd.character.ability.AbilityType.Strength
 import com.widehouse.dnd.character.ability.AbilityType.Wisdom
-import com.widehouse.dnd.character.Character
-import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Coin

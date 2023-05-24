@@ -7,7 +7,6 @@ import io.mockk.mockk
 
 class AbilityCheckTest : FunSpec({
     val dice = mockk<Dice>()
-    //val char = spyk(cleric(), recordPrivateCalls = true)
 
     afterEach {
         clearAllMocks()
