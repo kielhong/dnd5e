@@ -1,16 +1,13 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.PlayerCharacter
 import com.widehouse.dnd.character.PlayerCharacterFixtures.cleric
 import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import com.widehouse.dnd.character.PlayerCharacterFixtures.rogue
-import com.widehouse.dnd.character.PlayerCharacterFixtures.wizard
 import com.widehouse.dnd.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
 
 class AttackTest : FunSpec({
 //    test("Character attack target then target get damage") {

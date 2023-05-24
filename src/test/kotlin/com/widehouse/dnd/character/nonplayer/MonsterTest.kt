@@ -1,18 +1,19 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.nonplayer
 
-import com.widehouse.dnd.character.Size.Small
+import com.widehouse.dnd.character.Abilities
+import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
 class MonsterTest : FunSpec({
     test("monster construct") {
-        val monster = Monster(name = "goblin", size = Small, type = "Humanoid", hitPoints = 7, abilities = Abilities.of(8, 14, 10, 10, 8, 8), armorClass = 15)
+        val monster = Monster("goblin", Abilities.of(8, 8, 8, 8, 8, 8), 7, Small, "Humanoid", armorClass = 15)
 
-        monster.armorClass shouldBe 15
-        monster.hitPoints shouldBe 7
         monster.abilities.strength.score shouldBe 8
+        monster.hitPoints shouldBe 7
         monster.size shouldBe Small
         monster.type shouldBe "Humanoid"
+        monster.armorClass shouldBe 15
     }
 
 //    test("when monster attack, attack roll + hit bonus") {

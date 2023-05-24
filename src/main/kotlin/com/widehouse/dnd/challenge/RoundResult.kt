@@ -1,8 +1,8 @@
 package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.Character
-import com.widehouse.dnd.character.Monster
-import com.widehouse.dnd.character.PlayerCharacter
+import com.widehouse.dnd.character.nonplayer.Monster
+import com.widehouse.dnd.character.player.PlayerCharacter
 
 class RoundResult(
     private val roundOrder: List<Character>,

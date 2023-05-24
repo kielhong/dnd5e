@@ -1,7 +1,7 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.Monster
-import com.widehouse.dnd.character.PlayerCharacter
+import com.widehouse.dnd.character.nonplayer.Monster
+import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec

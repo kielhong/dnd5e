@@ -1,4 +1,4 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.player
 
 import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import io.kotest.core.spec.style.BehaviorSpec

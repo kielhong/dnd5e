@@ -1,5 +1,6 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.character.AbilityType
 import com.widehouse.dnd.character.AbilityType.Charisma
 import com.widehouse.dnd.character.AbilityType.Constitution
 import com.widehouse.dnd.character.AbilityType.Dexterity

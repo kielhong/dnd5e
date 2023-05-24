@@ -1,11 +1,15 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.character.Abilities
+import com.widehouse.dnd.character.AbilityType
 import com.widehouse.dnd.character.AbilityType.Charisma
 import com.widehouse.dnd.character.AbilityType.Constitution
 import com.widehouse.dnd.character.AbilityType.Dexterity
 import com.widehouse.dnd.character.AbilityType.Intelligence
 import com.widehouse.dnd.character.AbilityType.Strength
 import com.widehouse.dnd.character.AbilityType.Wisdom
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Coin
@@ -146,7 +150,7 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + Constitution(abilities.constitution.score).modifier
+            val hitPoint = `class`.hitDice.side + com.widehouse.dnd.character.Constitution(abilities.constitution.score).modifier
             return PlayerCharacter(
                 name,
                 race,

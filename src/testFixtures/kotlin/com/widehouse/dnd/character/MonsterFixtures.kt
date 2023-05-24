@@ -1,6 +1,7 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.Size.Small
+import com.widehouse.dnd.character.nonplayer.Monster
+import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 
 class MonsterFixtures {
     companion object {

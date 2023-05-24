@@ -1,7 +1,7 @@
 package com.widehouse.dnd.item
 
-import com.widehouse.dnd.character.PlayerCharacter
 import com.widehouse.dnd.character.PlayerCharacterFixtures.rogue
+import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.item.ItemFixtures.breastplate
 import com.widehouse.dnd.item.ItemFixtures.chainMail
 import com.widehouse.dnd.item.ItemFixtures.padded

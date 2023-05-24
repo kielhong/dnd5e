@@ -1,5 +1,7 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.nonplayer
 
+import com.widehouse.dnd.character.Abilities
+import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.item.Weapon
 
@@ -7,7 +9,7 @@ class Monster(
     override val name: String,
     override var abilities: Abilities,
     override var hitPoints: Int,
-    val size: Size,
+    val size: MonsterSize,
     val type: String,
     val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
@@ -26,13 +28,4 @@ class Monster(
     fun dealDamage(): Int {
         return action.weapon.damageRoll()
     }
-}
-
-enum class Size {
-    Tiny,
-    Small,
-    Medium,
-    Large,
-    Huge,
-    Gargantuan
 }

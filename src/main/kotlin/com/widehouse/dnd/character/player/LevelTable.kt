@@ -1,4 +1,4 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.player
 
 enum class LevelTable(val level: Int, val xp: Int) {
     Level1(1, 0),

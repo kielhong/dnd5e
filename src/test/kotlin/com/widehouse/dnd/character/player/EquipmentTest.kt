@@ -1,4 +1,4 @@
-package com.widehouse.dnd.character
+package com.widehouse.dnd.character.player
 
 import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import com.widehouse.dnd.item.ItemFixtures.breastplate

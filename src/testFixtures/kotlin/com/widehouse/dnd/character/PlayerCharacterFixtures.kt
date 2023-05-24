@@ -1,5 +1,9 @@
 package com.widehouse.dnd.character
 
+import com.widehouse.dnd.character.player.Class
+import com.widehouse.dnd.character.player.PlayerCharacter
+import com.widehouse.dnd.character.player.Race
+
 object PlayerCharacterFixtures {
     val cleric: PlayerCharacter = PlayerCharacter(
         "cleric",

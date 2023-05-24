@@ -1,7 +1,7 @@
 package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.AbilityType
-import com.widehouse.dnd.character.PlayerCharacter
+import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.dice.Dice
 
 class SavingThrow(private val playerCharacter: PlayerCharacter, private val abilityType: AbilityType, private val difficultClass: Int) {
