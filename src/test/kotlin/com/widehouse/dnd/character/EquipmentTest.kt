@@ -2,13 +2,13 @@ package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.item.Coin
-import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
-import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
-import com.widehouse.dnd.item.ItemFixtures.Companion.dagger
-import com.widehouse.dnd.item.ItemFixtures.Companion.longBow
-import com.widehouse.dnd.item.ItemFixtures.Companion.longSword
-import com.widehouse.dnd.item.ItemFixtures.Companion.ring
-import com.widehouse.dnd.item.ItemFixtures.Companion.shield
+import com.widehouse.dnd.item.ItemFixtures.breastplate
+import com.widehouse.dnd.item.ItemFixtures.chainMail
+import com.widehouse.dnd.item.ItemFixtures.dagger
+import com.widehouse.dnd.item.ItemFixtures.longBow
+import com.widehouse.dnd.item.ItemFixtures.longSword
+import com.widehouse.dnd.item.ItemFixtures.ring
+import com.widehouse.dnd.item.ItemFixtures.shield
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldContain

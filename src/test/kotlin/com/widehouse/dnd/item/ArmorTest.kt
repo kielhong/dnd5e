@@ -1,11 +1,11 @@
 package com.widehouse.dnd.item
 
-import com.widehouse.dnd.character.CharacterOld
 import com.widehouse.dnd.character.CharacterFixtures.rogue
-import com.widehouse.dnd.item.ItemFixtures.Companion.breastplate
-import com.widehouse.dnd.item.ItemFixtures.Companion.chainMail
-import com.widehouse.dnd.item.ItemFixtures.Companion.padded
-import com.widehouse.dnd.item.ItemFixtures.Companion.shield
+import com.widehouse.dnd.character.CharacterOld
+import com.widehouse.dnd.item.ItemFixtures.breastplate
+import com.widehouse.dnd.item.ItemFixtures.chainMail
+import com.widehouse.dnd.item.ItemFixtures.padded
+import com.widehouse.dnd.item.ItemFixtures.shield
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe

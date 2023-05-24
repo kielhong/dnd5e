@@ -7,13 +7,13 @@ import com.widehouse.dnd.item.WeaponType.Melee
 
 class Weapon(
     override val name: String,
+    override val cost: Coin = Coin(0),
+    override val weight: Int = 0,
     val category: WeaponCategory = Simple,
     val type: WeaponType = Melee,
     val damage: List<Dice> = emptyList(),
     val damageType: DamageType = Bludgeoning,
-    val properties: List<WeaponProperty> = emptyList(),
-    override val cost: Coin = Coin(0),
-    override val weight: Int = 0
+    val properties: List<WeaponProperty> = emptyList()
 ) : Item(name, cost, weight) {
     fun damageRoll() = damage.stream()
         .mapToInt { it.roll() }
@@ -44,5 +44,5 @@ enum class WeaponProperty {
     Range,
     Thrown,
     TwoHanded,
-    Versatile,
+    Versatile
 }
