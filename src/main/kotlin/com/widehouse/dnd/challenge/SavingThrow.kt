@@ -1,22 +1,19 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.AbilityType
-import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.ability.AbilityType
+import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.dice.Die
 
-class SavingThrow(private val character: Character, private val abilityType: AbilityType, private val difficultClass: Int) {
-    private val dice = Dice()
-
+class SavingThrow(private val playerCharacter: PlayerCharacter, private val abilityType: AbilityType, private val difficultClass: Int) {
     fun result(): Boolean {
-        return Challenge.challenge(dice.roll(Die.D20), modifiers(), difficultClass)
+        return Challenge.challenge(Dice.D20.roll(), modifiers(), difficultClass)
     }
 
     private fun modifiers(): List<Int> {
         val modifiers = mutableListOf<Int>()
-        modifiers.add(character.abilityByType(abilityType).modifier)
-        if (character.proficiencySavingThrow.contains(abilityType)) {
-            modifiers.add(character.proficiencyBonus)
+        modifiers.add(playerCharacter.abilityByType(abilityType).modifier)
+        if (playerCharacter.proficiencySavingThrow.contains(abilityType)) {
+            modifiers.add(playerCharacter.proficiencyBonus)
         }
 
         return modifiers
