@@ -1,6 +1,6 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.CharacterFixtures.fighter
+import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotContain
@@ -25,7 +25,7 @@ class PartyTest : BehaviorSpec({
         for (i in 0..2) {
             party.join(mockk())
         }
-        val fighter = fighter()
+        val fighter = fighter
         party.join(fighter)
         `when`("a member join to it") {
             val member = mockk<PlayerCharacter>()

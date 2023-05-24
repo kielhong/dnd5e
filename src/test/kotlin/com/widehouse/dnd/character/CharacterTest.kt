@@ -1,6 +1,7 @@
 package com.widehouse.dnd.character
 
 import com.widehouse.dnd.character.Class.Fighter
+import com.widehouse.dnd.character.Race.Dwarf
 import com.widehouse.dnd.character.Race.Human
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FreeSpec
@@ -13,13 +14,25 @@ import io.mockk.mockk
 
 class CharacterTest : FreeSpec() {
     init {
-        "Character has name, class, race, abilities" {
-            val character = Character("foo", Human, Fighter, Abilities.of(10, 10, 10, 10, 10, 10))
+        "Character has name, class, race" {
+            val character = Character("foo", Human, Fighter, Abilities.of(10, 10, 10, 10, 10, 10), 20)
             // then
             character.name shouldBe "foo"
             character.`class` shouldBe Fighter
             character.race shouldBe Human
             character.abilities.strength.score shouldBe 10
+            character.hitPoints shouldBe 20
+        }
+
+        "Character ability init" {
+            val char = Character("foo", Dwarf, Fighter, Abilities.of(12, 13, 14, 15, 16, 17), 20)
+
+            char.abilities.strength.score shouldBe 12
+            char.abilities.dexterity.score shouldBe 13
+            char.abilities.constitution.score shouldBe 14
+            char.abilities.intelligence.score shouldBe 15
+            char.abilities.wisdom.score shouldBe 16
+            char.abilities.charisma.score shouldBe 17
         }
 
         "hit other target" - {
@@ -63,16 +76,6 @@ class CharacterTest : FreeSpec() {
         }
     }
 
-//    test("Character has name, class, level, race, xp") {
-//        val char = CharacterOld(name = "foo", `class` = Fighter, level = 1, race = Human, experiencePoints = 10, maxHitPoints = 20)
-//        char.name shouldBe "foo"
-//        char.`class` shouldBe Fighter
-//        char.level shouldBe 1
-//        char.race shouldBe Human
-//        char.experiencePoints shouldBe 10
-//        char.hitPoints shouldBe 20
-//    }
-//
 //    test("Character ability init") {
 //        val char = CharacterOld("foo", Fighter, 1, Dwarf, 0, Abilities(12, 13, 14, 15, 16, 17), maxHitPoints = 20)
 //

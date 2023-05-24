@@ -1,8 +1,8 @@
 package com.widehouse.dnd.character.action
 
-import com.widehouse.dnd.character.CharacterFixtures.fighter
 import com.widehouse.dnd.character.Monster
 import com.widehouse.dnd.character.PlayerCharacter
+import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec
 import io.mockk.clearAllMocks
@@ -12,7 +12,7 @@ import io.mockk.spyk
 class AttackRollTest : FunSpec({
     val dice = mockk<Dice>()
     val target = mockk<Monster>()
-    val char = spyk(fighter(), recordPrivateCalls = true)
+    val char = spyk(fighter, recordPrivateCalls = true)
 
     beforeEach {
         val f = PlayerCharacter::class.java.getDeclaredField("dice")

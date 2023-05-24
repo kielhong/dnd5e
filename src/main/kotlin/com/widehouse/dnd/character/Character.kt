@@ -2,11 +2,12 @@ package com.widehouse.dnd.character
 
 import com.widehouse.dnd.dice.Dice
 
-class Character(
-    val name: String,
-    val race: Race,
-    val `class`: Class,
-    val abilities: Abilities
+open class Character(
+    open val name: String,
+    open val race: Race,
+    open val `class`: Class,
+    open var abilities: Abilities,
+    var hitPoints: Int
 ) {
     fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): Boolean {
         return when (val roll = dice.roll()) {
@@ -16,7 +17,7 @@ class Character(
         }
     }
 
-    fun armorClass(): Int {
-        TODO("Not yet implemented")
+    open fun armorClass(): Int {
+        return 0
     }
 }

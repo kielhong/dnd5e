@@ -1,17 +1,15 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.AbilityType
-import com.widehouse.dnd.character.CharacterFixtures.wizard
-import com.widehouse.dnd.character.Constitution
-import com.widehouse.dnd.character.Dexterity
+import com.widehouse.dnd.character.PlayerCharacterFixtures.wizard
 import com.widehouse.dnd.dice.Dice
 import io.kotest.core.spec.style.FunSpec
-import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.clearAllMocks
+import io.mockk.mockk
+import io.mockk.spyk
 
 class SavingThrowTest : FunSpec({
     val dice = mockk<Dice>()
-    val char = spyk(wizard(), recordPrivateCalls = true)
+    val char = spyk(wizard, recordPrivateCalls = true)
 
     afterEach {
         clearAllMocks()
