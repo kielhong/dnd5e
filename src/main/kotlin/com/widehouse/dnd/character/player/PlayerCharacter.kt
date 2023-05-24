@@ -10,6 +10,7 @@ import com.widehouse.dnd.character.ability.AbilityType.Dexterity
 import com.widehouse.dnd.character.ability.AbilityType.Intelligence
 import com.widehouse.dnd.character.ability.AbilityType.Strength
 import com.widehouse.dnd.character.ability.AbilityType.Wisdom
+import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Coin
@@ -31,19 +32,25 @@ class PlayerCharacter(
     val proficiencySkill: List<Skill> = emptyList(),
     var maxHitPoints: Int
 ) : Character(name, abilities, maxHitPoints) {
-    val equipment = Equipment()
-
-    override fun armorClass(): Int {
-        return (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
-    }
     val proficiencyBonus
         get() = (level - 1) / 4 + 2
+
+    override val armorClass: Int
+        get() = (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
+
+    val equipment = Equipment()
+
     var coin: Coin = Coin(0)
     val inventory: MutableList<Item> = mutableListOf()
 
-//    fun attack(target: Creature): AttackResult {
-//        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
-//    }
+    override fun attack(target: Character, dice: Dice): Int {
+        val modifiers = listOf<Int>()
+        return if (attackRoll(target, modifiers, dice)) {
+            dealDamage()
+        } else {
+            0
+        }
+    }
 
     fun dead() = hitPoints <= 0
 
@@ -150,7 +157,7 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + com.widehouse.dnd.character.ability.Constitution(abilities.constitution.score).modifier
+            val hitPoint = `class`.hitDice.side + abilities.constitution.modifier
             return PlayerCharacter(
                 name,
                 race,

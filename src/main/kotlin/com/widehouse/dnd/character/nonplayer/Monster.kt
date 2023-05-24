@@ -3,6 +3,7 @@ package com.widehouse.dnd.character.nonplayer
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
+import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Weapon
 
 class Monster(
@@ -11,7 +12,7 @@ class Monster(
     override var hitPoints: Int,
     val size: MonsterSize,
     val type: String,
-    val armorClass: Int,
+    override val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
 ) : Character(name, abilities, hitPoints) {
 //
@@ -27,5 +28,9 @@ class Monster(
 
     fun dealDamage(): Int {
         return action.weapon.damageRoll()
+    }
+
+    override fun attack(target: Character, dice: Dice): Int {
+        TODO("Not yet implemented")
     }
 }

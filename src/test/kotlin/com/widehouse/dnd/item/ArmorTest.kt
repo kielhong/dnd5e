@@ -31,19 +31,19 @@ class ArmorTest : FunSpec({
     test("Light Armor, add dex modifier to base armor class") {
         val armor = padded
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass + char.abilities.dexterity.modifier
+        char.armorClass shouldBe armor.armorClass + char.abilities.dexterity.modifier
     }
 
     test("Medium Armor, add dex modifier to base armor class") {
         val armor = breastplate
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass + 2
+        char.armorClass shouldBe armor.armorClass + 2
     }
 
     test("Heavy Armor, does not add dex modifier to base armor class") {
         val armor = chainMail
         char.equip(armor)
-        char.armorClass() shouldBe armor.armorClass
+        char.armorClass shouldBe armor.armorClass
     }
 
     test("Equip Shield, add 2 AC") {
@@ -51,7 +51,7 @@ class ArmorTest : FunSpec({
         val shield = shield
         char.equip(armor)
         char.equip(shield)
-        char.armorClass() shouldBe armor.armorClass + shield.armorClass
+        char.armorClass shouldBe armor.armorClass + shield.armorClass
     }
 
     test("Padded Armor cost is 5gp, weight 8 lb") {
