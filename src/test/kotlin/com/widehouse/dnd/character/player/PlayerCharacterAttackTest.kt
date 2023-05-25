@@ -3,8 +3,16 @@ package com.widehouse.dnd.character.player
 import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.PlayerCharacterFixtures
+import com.widehouse.dnd.character.ability.Abilities
+import com.widehouse.dnd.character.ability.Ability
+import com.widehouse.dnd.character.ability.Dexterity
+import com.widehouse.dnd.character.ability.Strength
+import com.widehouse.dnd.character.player.Class.Fighter
+import com.widehouse.dnd.character.player.Race.Human
 import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Weapon
+import com.widehouse.dnd.item.WeaponProperty
+import com.widehouse.dnd.item.WeaponType
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.headers
 import io.kotest.data.row
@@ -57,6 +65,43 @@ class PlayerCharacterAttackTest : FreeSpec({
                 // then
                 character.attackRoll(target, modifiers, dice) shouldBe result
             }
+        }
+    }
+
+    "Attack roll modifier" - {
+        val character = PlayerCharacter.create("foo", Human, Fighter, Abilities.of(12, 8, 14, 15, 16, 17))
+        val weapon = mockk<Weapon>()
+
+        "melee weapon uses Strength modifier" {
+            every { weapon.type } returns WeaponType.Melee
+            every { weapon.properties } returns listOf()
+            character.equip(weapon)
+
+            val result = character.attackModifiers()
+            result shouldBe Strength(12).modifier
+        }
+
+        "melee weapon which property is Finesse or Thrown uses Dexterity modifier" {
+            every { weapon.type } returns WeaponType.Melee
+
+            io.kotest.data.forAll(
+                row(WeaponProperty.Finesse, Dexterity(8)),
+                row(WeaponProperty.Thrown, Dexterity(8))
+            ) { property: WeaponProperty, ability: Ability ->
+                every { weapon.properties } returns listOf(property)
+                character.equip(weapon)
+
+                val result = character.attackModifiers()
+                result shouldBe ability.modifier
+            }
+        }
+
+        "range weapon uses Dexterity modifier" {
+            every { weapon.type } returns WeaponType.Range
+            character.equip(weapon)
+
+            val result = character.attackModifiers()
+            result shouldBe Dexterity(8).modifier
         }
     }
 
