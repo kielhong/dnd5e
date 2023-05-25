@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.character.ability.Abilities
@@ -10,6 +11,7 @@ import com.widehouse.dnd.character.ability.AbilityType.Dexterity
 import com.widehouse.dnd.character.ability.AbilityType.Intelligence
 import com.widehouse.dnd.character.ability.AbilityType.Strength
 import com.widehouse.dnd.character.ability.AbilityType.Wisdom
+import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Armor
 import com.widehouse.dnd.item.ArmorType
 import com.widehouse.dnd.item.Coin
@@ -18,6 +20,7 @@ import com.widehouse.dnd.item.Shield
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
+import com.widehouse.dnd.item.Weapons
 import kotlin.math.min
 
 class PlayerCharacter(
@@ -31,28 +34,32 @@ class PlayerCharacter(
     val proficiencySkill: List<Skill> = emptyList(),
     var maxHitPoints: Int
 ) : Character(name, abilities, maxHitPoints) {
-    val equipment = Equipment()
-
-    override fun armorClass(): Int {
-        return (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
-    }
     val proficiencyBonus
         get() = (level - 1) / 4 + 2
+
+    override val armorClass: Int
+        get() = (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
+
+    val equipment = Equipment()
     var coin: Coin = Coin(0)
     val inventory: MutableList<Item> = mutableListOf()
 
-//    fun attack(target: Creature): AttackResult {
-//        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
-//    }
-
-    fun dead() = hitPoints <= 0
-
-    fun getDamage(point: Int) {
-        hitPoints = (hitPoints - point).coerceAtLeast(0)
+    override fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
+        return when (val roll = dice.roll()) {
+            1 -> RollResult.CriticalFail
+            20 -> RollResult.CriticalSuccess
+            else -> if (roll + modifiers.sum() >= target.armorClass) RollResult.Success else RollResult.Fail
+        }
     }
 
-    fun dealDamage(): Int {
+    override fun damageRoll(): Int {
         return (equipment.mainHand as? Weapon)?.damageRoll() ?: 0
+    }
+
+    override fun dead() = hitPoints <= 0
+
+    override fun getDamage(damage: Int) {
+        hitPoints = (hitPoints - damage).coerceAtLeast(0)
     }
 
     fun removeDamage(point: Int) {
@@ -62,11 +69,9 @@ class PlayerCharacter(
     fun equip(item: Item) {
         when (item) {
             is Weapon -> {
-                equipment.mainHand?.let { unequip(it) }
                 equipment.mainHand = item
             }
             is Shield -> {
-                equipment.offHand?.let { unequip(it) }
                 equipment.offHand = item
             }
             is Armor -> {
@@ -82,8 +87,8 @@ class PlayerCharacter(
 
     fun unequip(item: Item) {
         when (item) {
-            is Weapon -> equipment.mainHand = null
-            is Shield -> equipment.offHand = null
+            is Weapon -> equipment.mainHand = Weapons.Unarmed
+            is Shield -> equipment.offHand = Weapons.Unarmed
             is Armor -> equipment.armor = null
             else -> equipment.accessory.remove(item)
         }
@@ -137,8 +142,8 @@ class PlayerCharacter(
         }
 
     inner class Equipment {
-        var mainHand: Item? = null
-        var offHand: Item? = null
+        var mainHand: Item = Weapons.Unarmed
+        var offHand: Item = Weapons.Unarmed
         var armor: Armor? = null
         var accessory: MutableList<Item> = mutableListOf()
     }
@@ -150,7 +155,7 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + com.widehouse.dnd.character.ability.Constitution(abilities.constitution.score).modifier
+            val hitPoint = `class`.hitDice.side + abilities.constitution.modifier
             return PlayerCharacter(
                 name,
                 race,

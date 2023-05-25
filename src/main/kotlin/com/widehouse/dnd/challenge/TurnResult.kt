@@ -1,9 +1,9 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Creature
+import com.widehouse.dnd.character.Character
 
-class TurnResult(private val roundOrder: List<Creature>) {
-    fun resolve(): List<Creature> {
+class TurnResult(private val roundOrder: List<Character>) {
+    fun resolve(): List<Character> {
         return roundOrder
             .filter { !it.dead() }
             .toList()

@@ -1,8 +1,10 @@
 package com.widehouse.dnd.character.nonplayer
 
+import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
+import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.item.Weapon
 
 class Monster(
@@ -11,21 +13,26 @@ class Monster(
     override var hitPoints: Int,
     val size: MonsterSize,
     val type: String,
-    val armorClass: Int,
+    override val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
 ) : Character(name, abilities, hitPoints) {
-//
-//    override fun attack(target: Creature): AttackResult {
-//        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
-//    }
-//
-//    override fun getDamage(point: Int) {
-//        hitPoints -= point
-//    }
-//
-//    override fun dead() = hitPoints <= 0
+    override fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
+        return when (val roll = dice.roll()) {
+            1 -> RollResult.CriticalFail
+            20 -> RollResult.CriticalSuccess
+            else -> if (roll + modifiers.sum() >= target.armorClass) RollResult.Success else RollResult.Fail
+        }
+    }
 
-    fun dealDamage(): Int {
+    override fun damageRoll(): Int {
         return action.weapon.damageRoll()
+    }
+
+    override fun getDamage(damage: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun dead(): Boolean {
+        TODO("Not yet implemented")
     }
 }

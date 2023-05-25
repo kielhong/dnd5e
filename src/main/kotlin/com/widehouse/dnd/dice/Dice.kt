@@ -9,7 +9,8 @@ enum class Dice(val side: Int) {
     D10(10),
     D8(8),
     D6(6),
-    D4(4);
+    D4(4),
+    D1(1);
 
     fun roll(): Int =
         Random.nextInt(1, side + 1)

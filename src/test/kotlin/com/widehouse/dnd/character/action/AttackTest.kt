@@ -25,7 +25,7 @@ class AttackTest : FunSpec({
         every { sword.damageRoll() } returns 5
         val char = fighter
         char.equip(sword)
-        char.dealDamage() shouldBe 5
+        char.damageRoll() shouldBe 5
     }
 
     test("HitPoint minimum value is zero") {
