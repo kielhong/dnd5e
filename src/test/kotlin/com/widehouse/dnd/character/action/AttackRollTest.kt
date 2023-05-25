@@ -24,32 +24,6 @@ class AttackRollTest : FunSpec({
         clearAllMocks()
     }
 
-//    test("Attack Roll then hit") {
-//        every { Dice.D20.roll() }.returns(15)
-//        every { target.armorClass }.returns(16)
-//
-//        char.attackRoll(target)
-//
-//        verify { char["attackModifier"](allAny<Weapon>()) }
-//        verify { char.proficiencyBonus }
-//        verify { target.armorClass }
-//    }
-//
-//    test("Roll Dice 1 then AttackRoll should fail") {
-//        every { Dice.D20.roll() }.returns(1)
-//
-//        char.attackRoll(target) shouldBe false
-//        verify(exactly = 0) { char["attackModifier"](allAny<Weapon>()) }
-//        verify(exactly = 0) { char.proficiencyBonus }
-//    }
-//
-//    test("Roll Dice 20 then AttackRoll should succeed") {
-//        every { Dice.D20.roll() }.returns(20)
-//
-//        char.attackRoll(target) shouldBe true
-//        verify(exactly = 0) { char["attackModifier"](allAny<Weapon>()) }
-//        verify(exactly = 0) { char.proficiencyBonus }
-//    }
 //
 //    test("Attack with Finesse or Thrown weapon uses dex modifier") {
 //        every { Dice.D20.roll() } returns 10

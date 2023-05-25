@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.character.ability.Abilities
@@ -39,27 +40,25 @@ class PlayerCharacter(
         get() = (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
 
     val equipment = Equipment()
-
     var coin: Coin = Coin(0)
     val inventory: MutableList<Item> = mutableListOf()
 
-    override fun attack(target: Character, dice: Dice): Int {
-        val modifiers = listOf<Int>()
-        return if (attackRoll(target, modifiers, dice)) {
-            dealDamage()
-        } else {
-            0
+    override fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
+        return when (val roll = dice.roll()) {
+            1 -> RollResult.CriticalFail
+            20 -> RollResult.CriticalSuccess
+            else -> if (roll + modifiers.sum() >= target.armorClass) RollResult.Success else RollResult.Fail
         }
+    }
+
+    override fun damageRoll(): Int {
+        return (equipment.mainHand as? Weapon)?.damageRoll() ?: 0
     }
 
     fun dead() = hitPoints <= 0
 
     fun getDamage(point: Int) {
         hitPoints = (hitPoints - point).coerceAtLeast(0)
-    }
-
-    fun dealDamage(): Int {
-        return (equipment.mainHand as? Weapon)?.damageRoll() ?: 0
     }
 
     fun removeDamage(point: Int) {

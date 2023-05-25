@@ -1,5 +1,6 @@
 package com.widehouse.dnd.character.nonplayer
 
+import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
@@ -15,22 +16,11 @@ class Monster(
     override val armorClass: Int,
     private var action: Action = Action(0, Weapon(""))
 ) : Character(name, abilities, hitPoints) {
-//
-//    override fun attack(target: Creature): AttackResult {
-//        return AttackResult(target, if (attackRoll(target)) dealDamage() else 0)
-//    }
-//
-//    override fun getDamage(point: Int) {
-//        hitPoints -= point
-//    }
-//
-//    override fun dead() = hitPoints <= 0
-
-    fun dealDamage(): Int {
-        return action.weapon.damageRoll()
+    override fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
+        TODO("Not yet implemented")
     }
 
-    override fun attack(target: Character, dice: Dice): Int {
-        TODO("Not yet implemented")
+    override fun damageRoll(): Int {
+        return action.weapon.damageRoll()
     }
 }

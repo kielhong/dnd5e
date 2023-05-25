@@ -15,9 +15,7 @@ class Weapon(
     val damageType: DamageType = Bludgeoning,
     val properties: List<WeaponProperty> = emptyList()
 ) : Item(name, cost, weight) {
-    fun damageRoll() = damage.stream()
-        .mapToInt { it.roll() }
-        .sum()
+    fun damageRoll(): Int = damage.sumOf { it.roll() }
 }
 
 sealed class WeaponCategory {
