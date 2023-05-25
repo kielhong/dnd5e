@@ -14,4 +14,8 @@ abstract class Character(
     abstract fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult
 
     abstract fun damageRoll(): Int
+
+    abstract fun getDamage(damage: Int)
+
+    abstract fun dead(): Boolean
 }

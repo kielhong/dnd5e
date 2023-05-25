@@ -1,11 +1,11 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Creature
+import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.player.PlayerCharacter
 
 class Combat(val playerCharacters: List<PlayerCharacter>, val monsters: List<Monster>) {
-    private lateinit var roundOrder: List<Creature>
+    private lateinit var roundOrder: List<Character>
 
 //    fun initiative() {
 //        roundOrder = playerCharacters + monsters

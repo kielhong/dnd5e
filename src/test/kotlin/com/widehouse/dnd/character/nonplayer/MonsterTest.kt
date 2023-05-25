@@ -1,9 +1,20 @@
 package com.widehouse.dnd.character.nonplayer
 
+import com.widehouse.dnd.challenge.RollResult
+import com.widehouse.dnd.character.Character
+import com.widehouse.dnd.character.MonsterFixtures
 import com.widehouse.dnd.character.ability.Abilities
+import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
+import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.item.Weapon
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.data.headers
+import io.kotest.data.row
+import io.kotest.data.table
 import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.mockk
 
 class MonsterTest : FunSpec({
     test("monster construct") {
@@ -16,28 +27,35 @@ class MonsterTest : FunSpec({
         monster.armorClass shouldBe 15
     }
 
-//    test("when monster attack, attack roll + hit bonus") {
-//        val dice = mockk<Dice>()
-//        every { Dice.D20.roll() }.returns(15)
-//        val characterOld = mockk<CharacterOld>()
-//        every { characterOld.armorClass }.returns(15)
-//        val action = mockk<Action>()
-//        every { action.hitBonus }.returns(5)
-//        val monster = spyk(Monster("goblin", Small, "Humanoid", Abilities(8, 14, 10, 10, 8, 8), 7, 15, action), recordPrivateCalls = true)
-//        val f = Monster::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(monster, dice)
-//        monster.attackRoll(characterOld)
-//
-//        verify { action.hitBonus }
-//        verify { characterOld.armorClass }
-//    }
+    test("Attack Roll") {
+        val monster = MonsterFixtures.goblin
+        val dice = mockk<Dice>()
+        val target = mockk<Character>()
 
-//    test("monster get damage then reduce hitPoint") {
-//        val hitPoint = goblin.hitPoints
-//        val monster = goblin
-//        monster.getDamage(5)
-//
-//        monster.hitPoints shouldBe hitPoint - 5
-//    }
+        io.kotest.data.forAll(
+            table(
+                headers("roll", "modifiers", "armor class", "result"),
+                row(1, listOf(1, 1), 10, RollResult.CriticalFail),
+                row(8, listOf(1), 10, RollResult.Fail),
+                row(8, listOf(1, 1), 10, RollResult.Success),
+                row(10, listOf(0), 8, RollResult.Success),
+                row(20, listOf(0), 30, RollResult.CriticalSuccess)
+            )
+        ) { roll: Int, modifiers: List<Int>, armorClass: Int, result: RollResult ->
+            every { dice.roll() } returns roll
+            every { target.armorClass } returns armorClass
+            // then
+            monster.attackRoll(target, modifiers, dice) shouldBe result
+        }
+    }
+
+    test("Damage Roll") {
+        val action = mockk<Action>()
+        val weapon = mockk<Weapon>()
+        every { action.weapon } returns weapon
+        every { weapon.damageRoll() } returns 5
+        val monster = Monster("goblin", Abilities.of(8, 8, 8, 8, 8, 8), 7, Small, "Humanoid", 15, action)
+
+        monster.damageRoll() shouldBe 5
+    }
 })

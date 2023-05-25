@@ -13,20 +13,4 @@ class DiceTest : FunSpec({
                 .shouldBeLessThanOrEqual(it.side)
         }
     }
-
-//    test("Roll with Advantage then roll twice and get max value") {
-//        val dice = spyk(Dice(), recordPrivateCalls = true)
-//        every { dice["roll"](20) } returns 5 andThen 10
-//
-//        dice.roll(Dice.D20, RollCondition.ADVANTAGE) shouldBe 10
-//        verify(exactly = 2) { dice["roll"](20) }
-//    }
-//
-//    test("Roll with Disadvantage then roll twice and get min value") {
-//        val dice = spyk(Dice(), recordPrivateCalls = true)
-//        every { dice["roll"](20) } returns 5 andThen 10
-//
-//        dice.roll(Dice.D20, RollCondition.DISADVANTAGE) shouldBe 5
-//        verify(exactly = 2) { dice["roll"](20) }
-//    }
 })
