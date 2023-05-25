@@ -20,6 +20,7 @@ import com.widehouse.dnd.item.Shield
 import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
+import com.widehouse.dnd.item.WeaponType
 import com.widehouse.dnd.item.Weapons
 import kotlin.math.min
 
@@ -53,13 +54,27 @@ class PlayerCharacter(
     }
 
     override fun damageRoll(): Int {
-        return (equipment.mainHand as? Weapon)?.damageRoll() ?: 0
+        return (equipment.mainHand as Weapon).damageRoll()
     }
 
     override fun dead() = hitPoints <= 0
 
     override fun getDamage(damage: Int) {
         hitPoints = (hitPoints - damage).coerceAtLeast(0)
+    }
+
+    fun attackModifiers(): Int {
+        val weapon = (equipment.mainHand as Weapon)
+        return when (weapon.type) {
+            WeaponType.Melee -> {
+                if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
+                    abilities.dexterity.modifier
+                } else {
+                    abilities.strength.modifier
+                }
+            }
+            WeaponType.Range -> abilities.dexterity.modifier
+        }
     }
 
     fun removeDamage(point: Int) {
@@ -121,16 +136,6 @@ class PlayerCharacter(
 
     fun dropItem(item: Item) {
         inventory.remove(item)
-    }
-
-    private fun attackModifier(weapon: Weapon?): Int {
-        if (weapon == null) return 0
-
-        return if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
-            abilities.dexterity.modifier
-        } else {
-            abilities.strength.modifier
-        }
     }
 
     private fun armorModifier() =
