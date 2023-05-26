@@ -1,25 +1,20 @@
 package com.widehouse.dnd.item
 
-import com.widehouse.dnd.character.PlayerCharacterFixtures.rogue
+import com.widehouse.dnd.character.PlayerCharacterFixtures
 import com.widehouse.dnd.character.player.PlayerCharacter
-import com.widehouse.dnd.item.ItemFixtures.breastplate
-import com.widehouse.dnd.item.ItemFixtures.chainMail
-import com.widehouse.dnd.item.ItemFixtures.padded
-import com.widehouse.dnd.item.ItemFixtures.shield
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.spyk
 
 class ArmorTest : FunSpec({
-    lateinit var char: PlayerCharacter
+    lateinit var character: PlayerCharacter
 
     beforeEach {
-        char = spyk(rogue)
+        character = PlayerCharacterFixtures.rogue
     }
 
     test("Shield item test") {
-        val shield = shield
+        val shield = ItemFixtures.shield
         assertSoftly(shield) {
             it.name shouldBe "Shield"
             it.armorClass shouldBe 2
@@ -29,33 +24,37 @@ class ArmorTest : FunSpec({
     }
 
     test("Light Armor, add dex modifier to base armor class") {
-        val armor = padded
-        char.equip(armor)
-        char.armorClass shouldBe armor.armorClass + char.abilities.dexterity.modifier
+        val armor = ItemFixtures.padded
+        character.equipment.armor = armor
+
+        character.armorClass shouldBe armor.armorClass + character.abilities.dexterity.modifier
     }
 
     test("Medium Armor, add dex modifier to base armor class") {
-        val armor = breastplate
-        char.equip(armor)
-        char.armorClass shouldBe armor.armorClass + 2
+        val armor = ItemFixtures.breastplate
+        character.equipment.armor = armor
+
+        character.armorClass shouldBe armor.armorClass + 2
     }
 
     test("Heavy Armor, does not add dex modifier to base armor class") {
-        val armor = chainMail
-        char.equip(armor)
-        char.armorClass shouldBe armor.armorClass
+        val armor = ItemFixtures.chainMail
+        character.equipment.armor = ItemFixtures.chainMail
+
+        character.armorClass shouldBe armor.armorClass
     }
 
     test("Equip Shield, add 2 AC") {
-        val armor = chainMail
-        val shield = shield
-        char.equip(armor)
-        char.equip(shield)
-        char.armorClass shouldBe armor.armorClass + shield.armorClass
+        val armor = ItemFixtures.chainMail
+        val shield = ItemFixtures.shield
+        character.equipment.armor = armor
+        character.equipment.shield = shield
+
+        character.armorClass shouldBe armor.armorClass + shield.armorClass
     }
 
     test("Padded Armor cost is 5gp, weight 8 lb") {
-        assertSoftly(padded) {
+        assertSoftly(ItemFixtures.padded) {
             name shouldBe "Padded Armor"
             cost shouldBe Coin(5, GP)
             weight shouldBe 8

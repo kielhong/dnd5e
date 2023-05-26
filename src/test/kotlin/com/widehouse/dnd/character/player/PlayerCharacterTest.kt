@@ -1,7 +1,9 @@
 package com.widehouse.dnd.character.player
 
+import com.widehouse.dnd.character.PlayerCharacterFixtures
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.ability.AbilityType
+import com.widehouse.dnd.item.ItemFixtures
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -41,5 +43,13 @@ class PlayerCharacterTest : FreeSpec({
             abilities.wisdom.score shouldBe 16
             abilities.charisma.score shouldBe 17
         }
+    }
+
+    "Player switch weapon" {
+        val character = PlayerCharacterFixtures.rogue
+        val weapon = ItemFixtures.dagger
+        character.switchWeapon(weapon)
+        // then
+        character.attacks.weapons shouldBe mutableListOf(weapon)
     }
 })
