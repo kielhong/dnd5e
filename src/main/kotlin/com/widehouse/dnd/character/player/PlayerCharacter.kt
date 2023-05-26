@@ -21,7 +21,6 @@ import com.widehouse.dnd.item.Weapon
 import com.widehouse.dnd.item.WeaponProperty.Finesse
 import com.widehouse.dnd.item.WeaponProperty.Thrown
 import com.widehouse.dnd.item.WeaponType
-import com.widehouse.dnd.item.Weapons
 import kotlin.math.min
 
 class PlayerCharacter(
@@ -39,11 +38,11 @@ class PlayerCharacter(
         get() = (level - 1) / 4 + 2
 
     override val armorClass: Int
-        get() = (equipment.armor?.armorClass ?: 0) + armorModifier() + ((equipment.offHand as? Shield)?.armorClass ?: 0)
+        get() = (equipment.armor?.armorClass ?: 0) + armorModifier() + (equipment.shield?.armorClass ?: 0)
 
+    val attacks = Attacks()
     val equipment = Equipment()
     var coin: Coin = Coin(0)
-    val inventory: MutableList<Item> = mutableListOf()
 
     override fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
         return when (val roll = dice.roll()) {
@@ -54,7 +53,7 @@ class PlayerCharacter(
     }
 
     override fun damageRoll(): Int {
-        return (equipment.mainHand as Weapon).damageRoll()
+        return attacks.mainWeapon().damageRoll()
     }
 
     override fun dead() = hitPoints <= 0
@@ -64,7 +63,7 @@ class PlayerCharacter(
     }
 
     fun attackModifiers(): Int {
-        val weapon = (equipment.mainHand as Weapon)
+        val weapon = attacks.mainWeapon()
         return when (weapon.type) {
             WeaponType.Melee -> {
                 if (weapon.properties.contains(Finesse) || weapon.properties.contains(Thrown)) {
@@ -81,33 +80,9 @@ class PlayerCharacter(
         hitPoints = min(hitPoints + point, maxHitPoints)
     }
 
-    fun equip(item: Item) {
-        when (item) {
-            is Weapon -> {
-                equipment.mainHand = item
-            }
-            is Shield -> {
-                equipment.offHand = item
-            }
-            is Armor -> {
-                equipment.armor?.let { unequip(it) }
-                equipment.armor = item
-            }
-            else -> {
-                equipment.accessory.add(item)
-            }
-        }
-        inventory.remove(item)
-    }
-
-    fun unequip(item: Item) {
-        when (item) {
-            is Weapon -> equipment.mainHand = Weapons.Unarmed
-            is Shield -> equipment.offHand = Weapons.Unarmed
-            is Armor -> equipment.armor = null
-            else -> equipment.accessory.remove(item)
-        }
-        inventory.add(item)
+    fun switchWeapon(weapon: Weapon) {
+        attacks.weapons.clear()
+        attacks.weapons.add(weapon)
     }
 
     fun abilityByType(type: AbilityType) =
@@ -131,11 +106,11 @@ class PlayerCharacter(
     }
 
     fun getItem(item: Item) {
-        inventory.add(item)
+        equipment.items.add(item)
     }
 
     fun dropItem(item: Item) {
-        inventory.remove(item)
+        equipment.items.remove(item)
     }
 
     private fun armorModifier() =
@@ -147,10 +122,14 @@ class PlayerCharacter(
         }
 
     inner class Equipment {
-        var mainHand: Item = Weapons.Unarmed
-        var offHand: Item = Weapons.Unarmed
         var armor: Armor? = null
-        var accessory: MutableList<Item> = mutableListOf()
+        var shield: Shield? = null
+        var items = mutableListOf<Item>()
+    }
+
+    inner class Attacks {
+        val weapons = mutableListOf<Weapon>()
+        fun mainWeapon() = weapons.first()
     }
 
     companion object {
@@ -160,7 +139,6 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + abilities.constitution.modifier
             return PlayerCharacter(
                 name,
                 race,
@@ -170,7 +148,7 @@ class PlayerCharacter(
                 0,
                 `class`.proficiencySavingThrow,
                 emptyList(),
-                hitPoint
+                `class`.hitDice.side + abilities.constitution.modifier
             )
         }
     }

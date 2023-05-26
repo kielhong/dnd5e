@@ -75,7 +75,7 @@ class PlayerCharacterAttackTest : FreeSpec({
         "melee weapon uses Strength modifier" {
             every { weapon.type } returns WeaponType.Melee
             every { weapon.properties } returns listOf()
-            character.equip(weapon)
+            character.switchWeapon(weapon)
 
             val result = character.attackModifiers()
             result shouldBe Strength(12).modifier
@@ -89,7 +89,7 @@ class PlayerCharacterAttackTest : FreeSpec({
                 row(WeaponProperty.Thrown, Dexterity(8))
             ) { property: WeaponProperty, ability: Ability ->
                 every { weapon.properties } returns listOf(property)
-                character.equip(weapon)
+                character.switchWeapon(weapon)
 
                 val result = character.attackModifiers()
                 result shouldBe ability.modifier
@@ -98,7 +98,7 @@ class PlayerCharacterAttackTest : FreeSpec({
 
         "range weapon uses Dexterity modifier" {
             every { weapon.type } returns WeaponType.Range
-            character.equip(weapon)
+            character.switchWeapon(weapon)
 
             val result = character.attackModifiers()
             result shouldBe Dexterity(8).modifier
@@ -111,7 +111,7 @@ class PlayerCharacterAttackTest : FreeSpec({
         "weapon damage dice roll" {
             val weapon = mockk<Weapon>()
             every { weapon.damageRoll() } returns 8
-            character.equip(weapon)
+            character.switchWeapon(weapon)
             // when
             val result = character.damageRoll()
             // then

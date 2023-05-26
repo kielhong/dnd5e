@@ -24,7 +24,7 @@ class AttackTest : FunSpec({
         val sword = mockk<Weapon>()
         every { sword.damageRoll() } returns 5
         val char = fighter
-        char.equip(sword)
+        char.switchWeapon(sword)
         char.damageRoll() shouldBe 5
     }
 
