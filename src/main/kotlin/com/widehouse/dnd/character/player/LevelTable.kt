@@ -8,6 +8,6 @@ enum class LevelTable(val level: Int, val xp: Int) {
     Level5(5, 6500);
 
     companion object {
-        fun of(level: Int) = values().find { it.level == level }
+        fun of(level: Int) = values().find { it.level == level } ?: LevelTable.values().last()
     }
 }

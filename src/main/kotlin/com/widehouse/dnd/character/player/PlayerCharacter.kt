@@ -62,6 +62,20 @@ class PlayerCharacter(
         hitPoints = (hitPoints - damage).coerceAtLeast(0)
     }
 
+    fun removeDamage(point: Int) {
+        hitPoints = min(hitPoints + point, maxHitPoints)
+    }
+
+    fun abilityByType(type: AbilityType) =
+        when (type) {
+            is Strength -> abilities.strength
+            is Dexterity -> abilities.dexterity
+            is Constitution -> abilities.constitution
+            is Intelligence -> abilities.intelligence
+            is Wisdom -> abilities.wisdom
+            is Charisma -> abilities.charisma
+        }
+
     fun attackModifiers(): Int {
         val weapon = attacks.mainWeapon()
         return when (weapon.type) {
@@ -76,33 +90,10 @@ class PlayerCharacter(
         }
     }
 
-    fun removeDamage(point: Int) {
-        hitPoints = min(hitPoints + point, maxHitPoints)
-    }
-
+    // equipment, weapon, armor
     fun switchWeapon(weapon: Weapon) {
         attacks.weapons.clear()
         attacks.weapons.add(weapon)
-    }
-
-    fun abilityByType(type: AbilityType) =
-        when (type) {
-            is Strength -> abilities.strength
-            is Dexterity -> abilities.dexterity
-            is Constitution -> abilities.constitution
-            is Intelligence -> abilities.intelligence
-            is Wisdom -> abilities.wisdom
-            is Charisma -> abilities.charisma
-        }
-
-    fun earnExperiencePoints(xp: Int) {
-        experiencePoints += xp
-
-        for (table in LevelTable.values()) {
-            if (level < table.level && experiencePoints >= table.xp) {
-                level = table.level
-            }
-        }
     }
 
     fun getItem(item: Item) {
@@ -120,6 +111,26 @@ class PlayerCharacter(
             ArmorType.HeavyArmor -> 0
             else -> 0
         }
+
+    // xp, level
+    fun gainXp(xp: Int) {
+        experiencePoints += xp
+    }
+
+    fun checkLevelUp(): Boolean {
+        val nextLevelTable = LevelTable.of(level + 1)
+
+        return experiencePoints >= nextLevelTable.xp
+    }
+
+    fun levelUp() {
+        if (!checkLevelUp()) {
+            return
+        }
+
+        level += 1
+        maxHitPoints += `class`.hitDice.side + abilities.constitution.modifier
+    }
 
     inner class Equipment {
         var armor: Armor? = null
