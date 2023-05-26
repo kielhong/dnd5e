@@ -139,7 +139,6 @@ class PlayerCharacter(
             `class`: Class,
             abilities: Abilities
         ): PlayerCharacter {
-            val hitPoint = `class`.hitDice.side + abilities.constitution.modifier
             return PlayerCharacter(
                 name,
                 race,
@@ -149,7 +148,7 @@ class PlayerCharacter(
                 0,
                 `class`.proficiencySavingThrow,
                 emptyList(),
-                hitPoint
+                `class`.hitDice.side + abilities.constitution.modifier
             )
         }
     }
