@@ -19,30 +19,28 @@ class Combat(
             .map { (character, _) -> character }
     }
 
-//    fun combat(): CombatResult {
-//        do {
-//            val roundResult = round()
-//        } while (!roundResult.endCombat())
-//
-//        return CombatResult(playerCharacters, monsters)
-//    }
-//
-//    fun round(): RoundResult {
-//        roundOrder.map {
-//            val turnResult = turn(it)
-//            roundOrder = turnResult.resolve()
-//        }
-//        return RoundResult(roundOrder, playerCharacters, monsters)
-//    }
-//
-//    fun turn(character: Creature): TurnResult {
-//        if (playerCharacters.contains(character)) {
-//            character.attack(monsters[0])
-//        }
-//        if (monsters.contains(character)) {
-//            character.attack(playerCharacters[0])
-//        }
-//
-//        return TurnResult(roundOrder)
-//    }
+    fun combat() {
+        do {
+            round()
+            println("round")
+        } while (!playerCharacters.all { it.dead() } && !monsters.all { it.dead() })
+    }
+
+    fun round() {
+        initiativeOrder.forEach {
+            takeTurn(it)
+        }
+    }
+
+    fun takeTurn(character: Character) {
+        if (character is PlayerCharacter) {
+            action(character, monsters[0])
+        }
+        if (character is Monster) {
+            action(character, playerCharacters[0])
+        }
+    }
+
+    fun action(character: Character, target: Character) {
+    }
 }
