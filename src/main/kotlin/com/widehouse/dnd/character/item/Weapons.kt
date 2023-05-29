@@ -1,7 +1,7 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.DamageType.Bludgeoning
+import com.widehouse.dnd.character.item.DamageType.Bludgeoning
 
 object Weapons {
     val Unarmed = Weapon("Unarmed", damage = listOf(Dice.D1), damageType = Bludgeoning)

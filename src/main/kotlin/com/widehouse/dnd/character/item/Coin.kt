@@ -1,4 +1,4 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
 data class Coin(var value: Int, val unit: CoinUnit = CP) {
     init {

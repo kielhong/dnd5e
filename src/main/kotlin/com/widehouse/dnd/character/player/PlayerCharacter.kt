@@ -11,16 +11,16 @@ import com.widehouse.dnd.character.ability.AbilityType.Dexterity
 import com.widehouse.dnd.character.ability.AbilityType.Intelligence
 import com.widehouse.dnd.character.ability.AbilityType.Strength
 import com.widehouse.dnd.character.ability.AbilityType.Wisdom
+import com.widehouse.dnd.character.item.Armor
+import com.widehouse.dnd.character.item.ArmorType
+import com.widehouse.dnd.character.item.Coin
+import com.widehouse.dnd.character.item.Item
+import com.widehouse.dnd.character.item.Shield
+import com.widehouse.dnd.character.item.Weapon
+import com.widehouse.dnd.character.item.WeaponProperty.Finesse
+import com.widehouse.dnd.character.item.WeaponProperty.Thrown
+import com.widehouse.dnd.character.item.WeaponType
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.Armor
-import com.widehouse.dnd.item.ArmorType
-import com.widehouse.dnd.item.Coin
-import com.widehouse.dnd.item.Item
-import com.widehouse.dnd.item.Shield
-import com.widehouse.dnd.item.Weapon
-import com.widehouse.dnd.item.WeaponProperty.Finesse
-import com.widehouse.dnd.item.WeaponProperty.Thrown
-import com.widehouse.dnd.item.WeaponType
 import kotlin.math.min
 
 class PlayerCharacter(

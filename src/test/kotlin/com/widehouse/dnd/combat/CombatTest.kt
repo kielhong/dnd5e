@@ -1,4 +1,4 @@
-package com.widehouse.dnd.challenge
+package com.widehouse.dnd.combat
 
 import io.kotest.core.spec.style.FunSpec
 

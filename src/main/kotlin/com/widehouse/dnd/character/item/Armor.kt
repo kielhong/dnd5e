@@ -1,4 +1,4 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
 class Armor(
     override val name: String,

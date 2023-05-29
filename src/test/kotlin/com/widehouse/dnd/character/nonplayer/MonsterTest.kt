@@ -7,7 +7,7 @@ import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.Weapon
+import com.widehouse.dnd.character.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.data.headers
 import io.kotest.data.row

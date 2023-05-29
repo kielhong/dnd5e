@@ -1,4 +1,4 @@
-package com.widehouse.dnd.challenge
+package com.widehouse.dnd.combat
 
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.nonplayer.Monster
