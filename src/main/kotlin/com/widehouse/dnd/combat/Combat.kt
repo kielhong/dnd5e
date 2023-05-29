@@ -3,22 +3,22 @@ package com.widehouse.dnd.combat
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.player.PlayerCharacter
+import com.widehouse.dnd.dice.Dice
 
-class Combat(val playerCharacters: List<PlayerCharacter>, val monsters: List<Monster>) {
-    private lateinit var roundOrder: List<Character>
+class Combat(
+    val playerCharacters: List<PlayerCharacter>,
+    val monsters: List<Monster>
+) {
+    lateinit var initiativeOrder: List<Character>
 
-//    fun initiative() {
-//        roundOrder = playerCharacters + monsters
-//            .associateWith { Dice.D20.roll() + it.dexterity.modifier }
-//            .toList()
-//            .sortedBy { (_, value) -> value }.reversed()
-//            .map { (key, _) -> key }
-//    }
-//
-//    fun roundOrder(): List<Creature> {
-//        return roundOrder
-//    }
-//
+    fun initiativeRoll(dice: Dice) {
+        initiativeOrder = (playerCharacters + monsters)
+            .associateWith { dice.roll() + it.abilities.dexterity.modifier }
+            .toList()
+            .sortedBy { (_, value) -> value }.reversed()
+            .map { (character, _) -> character }
+    }
+
 //    fun combat(): CombatResult {
 //        do {
 //            val roundResult = round()
