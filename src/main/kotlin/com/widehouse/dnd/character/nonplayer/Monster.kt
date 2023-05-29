@@ -32,7 +32,6 @@ class Monster(
         TODO("Not yet implemented")
     }
 
-    override fun dead(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun dead() =
+        hitPoints <= 0
 }
