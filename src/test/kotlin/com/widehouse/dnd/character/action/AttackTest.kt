@@ -3,7 +3,7 @@ package com.widehouse.dnd.character.action
 import com.widehouse.dnd.character.PlayerCharacterFixtures.cleric
 import com.widehouse.dnd.character.PlayerCharacterFixtures.fighter
 import com.widehouse.dnd.character.PlayerCharacterFixtures.rogue
-import com.widehouse.dnd.item.Weapon
+import com.widehouse.dnd.character.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every

@@ -4,8 +4,8 @@ import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
+import com.widehouse.dnd.character.item.Weapon
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.Weapon
 
 class Monster(
     override val name: String,
@@ -32,7 +32,6 @@ class Monster(
         TODO("Not yet implemented")
     }
 
-    override fun dead(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun dead() =
+        hitPoints <= 0
 }

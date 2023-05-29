@@ -9,6 +9,8 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
+import io.mockk.every
+import io.mockk.spyk
 
 class PlayerCharacterTest : FreeSpec({
     beforeEach {
@@ -51,5 +53,12 @@ class PlayerCharacterTest : FreeSpec({
         character.switchWeapon(weapon)
         // then
         character.attacks.weapons shouldBe mutableListOf(weapon)
+    }
+
+    "Player is dead" {
+        val character = spyk(PlayerCharacterFixtures.wizard)
+        every { character.hitPoints } returns 0
+
+        character.dead() shouldBe true
     }
 })

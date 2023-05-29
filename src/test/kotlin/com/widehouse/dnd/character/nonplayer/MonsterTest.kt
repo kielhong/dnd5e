@@ -5,9 +5,9 @@ import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.MonsterFixtures
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.action.Action
+import com.widehouse.dnd.character.item.Weapon
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.Weapon
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.data.headers
 import io.kotest.data.row
@@ -15,6 +15,7 @@ import io.kotest.data.table
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.spyk
 
 class MonsterTest : FunSpec({
     test("monster construct") {
@@ -57,5 +58,12 @@ class MonsterTest : FunSpec({
         val monster = Monster("goblin", Abilities.of(8, 8, 8, 8, 8, 8), 7, Small, "Humanoid", 15, action)
 
         monster.damageRoll() shouldBe 5
+    }
+
+    test("Monster is dead") {
+        val monster = spyk(MonsterFixtures.goblin)
+        every { monster.hitPoints } returns 0
+
+        monster.dead() shouldBe true
     }
 })

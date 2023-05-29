@@ -1,14 +1,23 @@
 package com.widehouse.dnd.item
 
+import com.widehouse.dnd.character.item.Armor
+import com.widehouse.dnd.character.item.ArmorType
+import com.widehouse.dnd.character.item.Coin
+import com.widehouse.dnd.character.item.DamageType.Piercing
+import com.widehouse.dnd.character.item.DamageType.Slashing
+import com.widehouse.dnd.character.item.GP
+import com.widehouse.dnd.character.item.Ring
+import com.widehouse.dnd.character.item.Shield
+import com.widehouse.dnd.character.item.Weapon
+import com.widehouse.dnd.character.item.WeaponCategory.Martial
+import com.widehouse.dnd.character.item.WeaponCategory.Simple
+import com.widehouse.dnd.character.item.WeaponProperty
+import com.widehouse.dnd.character.item.WeaponProperty.Finesse
+import com.widehouse.dnd.character.item.WeaponProperty.Light
+import com.widehouse.dnd.character.item.WeaponProperty.Thrown
+import com.widehouse.dnd.character.item.WeaponType
+import com.widehouse.dnd.character.item.WeaponType.Melee
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.DamageType.Piercing
-import com.widehouse.dnd.item.DamageType.Slashing
-import com.widehouse.dnd.item.WeaponCategory.Martial
-import com.widehouse.dnd.item.WeaponCategory.Simple
-import com.widehouse.dnd.item.WeaponProperty.Finesse
-import com.widehouse.dnd.item.WeaponProperty.Light
-import com.widehouse.dnd.item.WeaponProperty.Thrown
-import com.widehouse.dnd.item.WeaponType.Melee
 
 object ItemFixtures {
     // Weapon

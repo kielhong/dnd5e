@@ -1,4 +1,4 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
 import com.widehouse.dnd.character.PlayerCharacterFixtures
 import com.widehouse.dnd.character.player.PlayerCharacter
@@ -82,7 +82,7 @@ class ArmorTest : FunSpec({
         assertSoftly(Shield("Shield", 2, Coin(10, GP), 6)) {
             it.name shouldBe "Shield"
             it.armorClass shouldBe 2
-            it.cost shouldBe Coin(10, GP)
+            it.cost shouldBe Coin(10, com.widehouse.dnd.character.item.GP)
             it.weight shouldBe 6
         }
     }

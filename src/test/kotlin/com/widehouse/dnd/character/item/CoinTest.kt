@@ -1,4 +1,4 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe

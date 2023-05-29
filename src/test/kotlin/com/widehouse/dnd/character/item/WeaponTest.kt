@@ -1,11 +1,11 @@
-package com.widehouse.dnd.item
+package com.widehouse.dnd.character.item
 
+import com.widehouse.dnd.character.item.DamageType.Piercing
+import com.widehouse.dnd.character.item.DamageType.Slashing
+import com.widehouse.dnd.character.item.WeaponCategory.Simple
+import com.widehouse.dnd.character.item.WeaponType.Melee
 import com.widehouse.dnd.dice.Dice
-import com.widehouse.dnd.item.DamageType.Piercing
-import com.widehouse.dnd.item.DamageType.Slashing
 import com.widehouse.dnd.item.ItemFixtures.longBow
-import com.widehouse.dnd.item.WeaponCategory.Simple
-import com.widehouse.dnd.item.WeaponType.Melee
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
@@ -20,7 +20,7 @@ class WeaponTest : FunSpec({
             category shouldBe Simple
             type shouldBe Melee
             damageType shouldBe Piercing
-            cost shouldBe Coin(2, GP)
+            cost shouldBe Coin(2, com.widehouse.dnd.character.item.GP)
             weight shouldBe 1
         }
     }
