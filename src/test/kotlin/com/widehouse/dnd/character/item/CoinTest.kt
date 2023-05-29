@@ -1,11 +1,5 @@
 package com.widehouse.dnd.character.item
 
-import com.widehouse.dnd.character.item.CP
-import com.widehouse.dnd.character.item.Coin
-import com.widehouse.dnd.character.item.EP
-import com.widehouse.dnd.character.item.GP
-import com.widehouse.dnd.character.item.PP
-import com.widehouse.dnd.character.item.SP
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 

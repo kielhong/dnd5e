@@ -1,11 +1,6 @@
 package com.widehouse.dnd.character.item
 
 import com.widehouse.dnd.character.PlayerCharacterFixtures
-import com.widehouse.dnd.character.item.Armor
-import com.widehouse.dnd.character.item.ArmorType
-import com.widehouse.dnd.character.item.Coin
-import com.widehouse.dnd.character.item.GP
-import com.widehouse.dnd.character.item.Shield
 import com.widehouse.dnd.character.player.PlayerCharacter
 import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.FunSpec

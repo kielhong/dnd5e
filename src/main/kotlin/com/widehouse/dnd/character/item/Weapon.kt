@@ -1,9 +1,9 @@
 package com.widehouse.dnd.character.item
 
-import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.character.item.DamageType.Bludgeoning
 import com.widehouse.dnd.character.item.WeaponCategory.Simple
 import com.widehouse.dnd.character.item.WeaponType.Melee
+import com.widehouse.dnd.dice.Dice
 
 class Weapon(
     override val name: String,
