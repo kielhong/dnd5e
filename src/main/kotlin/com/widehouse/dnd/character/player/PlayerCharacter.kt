@@ -141,6 +141,11 @@ class PlayerCharacter(
     inner class Attacks {
         val weapons = mutableListOf<Weapon>()
         fun mainWeapon() = weapons.first()
+        fun modifier() =
+            when (mainWeapon().type) {
+                WeaponType.Melee -> abilities.strength.modifier
+                WeaponType.Range -> abilities.dexterity.modifier
+            }
     }
 
     companion object {
