@@ -1,5 +1,6 @@
 package com.widehouse.dnd.combat
 
+import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.player.PlayerCharacter
@@ -32,15 +33,37 @@ class Combat(
         }
     }
 
-    fun takeTurn(character: Character) {
-        if (character is PlayerCharacter) {
-            action(character, monsters[0])
+    private fun takeTurn(character: Character) {
+        actionAttack(character)
+    }
+
+    fun actionAttack(character: Character) {
+        val target = chooseTarget(character)
+        val modifiers = if (character is PlayerCharacter) {
+            listOf(character.attacks.modifier(), character.proficiencyBonus)
+        } else {
+            emptyList()
         }
-        if (character is Monster) {
-            action(character, playerCharacters[0])
+        val attackRollResult = attackRoll(target, modifiers, Dice.D20)
+        if (attackRollResult == RollResult.CriticalSuccess || attackRollResult == RollResult.Success) {
+            val damage = character.damageRoll()
+            target.hitPoints = target.hitPoints - damage
         }
     }
 
-    fun action(character: Character, target: Character) {
+    private fun chooseTarget(character: Character): Character {
+        return if (character is PlayerCharacter) {
+            monsters.first { !it.dead() }
+        } else {
+            playerCharacters.first { !it.dead() }
+        }
+    }
+
+    fun attackRoll(target: Character, modifiers: List<Int>, dice: Dice): RollResult {
+        return when (val roll = dice.roll()) {
+            1 -> RollResult.CriticalFail
+            20 -> RollResult.CriticalSuccess
+            else -> if (roll + modifiers.sum() >= target.armorClass) RollResult.Success else RollResult.Fail
+        }
     }
 }
