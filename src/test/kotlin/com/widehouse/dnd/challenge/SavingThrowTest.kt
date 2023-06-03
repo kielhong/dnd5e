@@ -1,49 +1,62 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.PlayerCharacterFixtures.wizard
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollCondition
+import com.widehouse.dnd.dice.RollSituation
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
+import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
 
 class SavingThrowTest : FunSpec({
     val dice = mockk<Dice>()
-    val char = spyk(wizard, recordPrivateCalls = true)
 
-    afterEach {
+    beforeEach {
         clearAllMocks()
     }
 
-//    test("test Saving Throw with proficiency ability") {
-//        every { Dice.D20.roll() }.returns(14)
-//        every { char.constitution }.returns(Constitution(16))
-//        every { char.proficiencyBonus }.returns(2)
-//        every { char.proficiencySavingThrow }.returns(listOf(AbilityType.Intelligence, AbilityType.Constitution))
-//        val savingThrow = SavingThrow(char, AbilityType.Constitution, 15)
-//        val f = savingThrow::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(savingThrow, dice)
-//
-//        savingThrow.result() shouldBe true
-//        verify { Dice.D20.roll() }
-//        verify { char.constitution }
-//        verify { char.proficiencyBonus }
-//    }
-//
-//    test("test Saving Throw without proficiency ability") {
-//        every { Dice.D20.roll() }.returns(10)
-//        every { char.dexterity }.returns(Dexterity(10))
-//        every { char.proficiencyBonus }.returns(2)
-//        every { char.proficiencySavingThrow }.returns(listOf(AbilityType.Intelligence, AbilityType.Constitution))
-//        val savingThrow = SavingThrow(char, AbilityType.Dexterity, 15)
-//        val f = savingThrow::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(savingThrow, dice)
-//
-//        savingThrow.result() shouldBe false
-//        verify { Dice.D20.roll() }
-//        verify { char.dexterity }
-//        verify(exactly = 0) { char.proficiencyBonus }
-//    }
+    test("Saving Throw") {
+        every { dice.roll() }.returns(14)
+        val rollSituation = RollSituation(listOf(dice), RollCondition.NORMAL)
+        val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
+
+        savingThrow.result() shouldBe true
+    }
+
+    test("Saving Throw - advantage") {
+        val dice1 = mockk<Dice>() {
+            every { roll() } returns 14
+        }
+        val dice2 = mockk<Dice>() {
+            every { roll() } returns 10
+        }
+        val rollSituation = RollSituation(listOf(dice1, dice2), RollCondition.ADVANTAGE)
+        val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
+
+        savingThrow.result() shouldBe true
+    }
+
+    test("Saving Throw - disadvantage") {
+        val dice1 = mockk<Dice>() {
+            every { roll() } returns 14
+        }
+        val dice2 = mockk<Dice>() {
+            every { roll() } returns 10
+        }
+        val rollSituation = RollSituation(listOf(dice1, dice2), RollCondition.DISADVANTAGE)
+        val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
+
+        savingThrow.result() shouldBe false
+    }
+
+    test("when roll without dice throw error") {
+        val rollSituation = RollSituation(listOf(), RollCondition.NORMAL)
+        val savingThrow = SavingThrow(rollSituation, listOf(), 15)
+
+        shouldThrow<IllegalArgumentException> {
+            savingThrow.result()
+        }
+    }
 })
