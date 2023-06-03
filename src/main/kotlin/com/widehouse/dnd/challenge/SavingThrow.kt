@@ -11,9 +11,7 @@ class SavingThrow(
     private val difficultyClass: Int
 ) {
     fun result(): Boolean {
-        if (rollSituation.dice.isEmpty()) {
-            throw IllegalArgumentException()
-        }
+        require(rollSituation.dice.isNotEmpty())
 
         val diceRolls = rollSituation.dice.map { it.roll() }
         val diceResult =
