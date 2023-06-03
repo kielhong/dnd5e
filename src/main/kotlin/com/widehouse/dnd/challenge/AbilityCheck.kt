@@ -1,21 +1,20 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.Skill
-import com.widehouse.dnd.character.player.PlayerCharacter
-import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollCondition
+import com.widehouse.dnd.dice.RollSituation
 
-class AbilityCheck(private val playerCharacter: PlayerCharacter, private val skill: Skill, private val difficultyClass: Int) {
+class AbilityCheck(private val rollSituation: RollSituation, private val modifiers: List<Int>, private val difficultyClass: Int) {
     fun result(): Boolean {
-        return Challenge.challenge(Dice.D20.roll(), modifiers(), difficultyClass)
-    }
+        require(rollSituation.dice.isNotEmpty())
 
-    private fun modifiers(): List<Int> {
-        val modifiers = mutableListOf<Int>()
-        modifiers.add(playerCharacter.abilityByType(skill.abilityType).modifier)
-        if (playerCharacter.proficiencySkill.contains(skill)) {
-            modifiers.add(playerCharacter.proficiencyBonus)
-        }
+        val diceRolls = rollSituation.dice.map { it.roll() }
+        val diceResult =
+            when (rollSituation.condition) {
+                RollCondition.NORMAL -> diceRolls.first()
+                RollCondition.ADVANTAGE -> diceRolls.max()
+                RollCondition.DISADVANTAGE -> diceRolls.min()
+            }
 
-        return modifiers
+        return (diceResult + modifiers.sumOf { it }) >= difficultyClass
     }
 }

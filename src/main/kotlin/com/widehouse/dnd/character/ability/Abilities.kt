@@ -11,12 +11,12 @@ class Abilities(
     companion object {
         fun of(strScore: Int, dexScore: Int, conScore: Int, intScore: Int, wisScore: Int, chaScore: Int): Abilities {
             return Abilities(
-                Strength(strScore),
-                Dexterity(dexScore),
-                Constitution(conScore),
-                Intelligence(intScore),
-                Wisdom(wisScore),
-                Charisma(chaScore)
+                Ability.Strength(strScore),
+                Ability.Dexterity(dexScore),
+                Ability.Constitution(conScore),
+                Ability.Intelligence(intScore),
+                Ability.Wisdom(wisScore),
+                Ability.Charisma(chaScore)
             )
         }
     }

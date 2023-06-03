@@ -1,10 +1,10 @@
 package com.widehouse.dnd.combat
 
-import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollResult
 
 class Combat(
     val playerCharacters: List<PlayerCharacter>,

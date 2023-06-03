@@ -1,6 +1,5 @@
 package com.widehouse.dnd.character.nonplayer
 
-import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.MonsterFixtures
 import com.widehouse.dnd.character.ability.Abilities
@@ -8,6 +7,7 @@ import com.widehouse.dnd.character.action.Action
 import com.widehouse.dnd.character.item.Weapon
 import com.widehouse.dnd.character.nonplayer.MonsterSize.Small
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollResult
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.data.headers
 import io.kotest.data.row

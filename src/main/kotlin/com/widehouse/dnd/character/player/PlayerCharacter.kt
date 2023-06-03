@@ -1,6 +1,5 @@
 package com.widehouse.dnd.character.player
 
-import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.character.ability.Abilities
@@ -21,6 +20,7 @@ import com.widehouse.dnd.character.item.WeaponProperty.Finesse
 import com.widehouse.dnd.character.item.WeaponProperty.Thrown
 import com.widehouse.dnd.character.item.WeaponType
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollResult
 import kotlin.math.min
 
 class PlayerCharacter(

@@ -1,7 +1,7 @@
 package com.widehouse.dnd.combat
 
-import com.widehouse.dnd.character.ability.Dexterity
-import com.widehouse.dnd.character.ability.Strength
+import com.widehouse.dnd.character.ability.Ability.Dexterity
+import com.widehouse.dnd.character.ability.Ability.Strength
 import com.widehouse.dnd.character.nonplayer.Monster
 import com.widehouse.dnd.character.player.PlayerCharacter
 import com.widehouse.dnd.dice.Dice

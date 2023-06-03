@@ -1,7 +1,7 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.character.ability.Dexterity
-import com.widehouse.dnd.character.ability.Strength
+import com.widehouse.dnd.character.ability.Ability.Dexterity
+import com.widehouse.dnd.character.ability.Ability.Strength
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 
