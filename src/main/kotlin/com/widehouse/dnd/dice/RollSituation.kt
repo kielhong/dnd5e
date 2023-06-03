@@ -5,8 +5,8 @@ class RollSituation(
     val condition: RollCondition
 ) {
     companion object {
-        fun of(dice: Dice, condition: RollCondition = RollCondition.NORMAL) =
-            RollSituation(listOf(dice), condition)
+        fun of(dice: Dice) =
+            RollSituation(listOf(dice), RollCondition.NORMAL)
 
         fun of(dice: List<Dice>, condition: RollCondition = RollCondition.NORMAL) =
             RollSituation(dice, condition)

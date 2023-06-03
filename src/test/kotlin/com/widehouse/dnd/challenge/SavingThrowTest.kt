@@ -26,10 +26,10 @@ class SavingThrowTest : FunSpec({
     }
 
     test("Saving Throw - advantage") {
-        val dice1 = mockk<Dice>() {
+        val dice1 = mockk<Dice> {
             every { roll() } returns 14
         }
-        val dice2 = mockk<Dice>() {
+        val dice2 = mockk<Dice> {
             every { roll() } returns 10
         }
         val rollSituation = RollSituation.of(listOf(dice1, dice2), RollCondition.ADVANTAGE)
@@ -39,10 +39,10 @@ class SavingThrowTest : FunSpec({
     }
 
     test("Saving Throw - disadvantage") {
-        val dice1 = mockk<Dice>() {
+        val dice1 = mockk<Dice> {
             every { roll() } returns 14
         }
-        val dice2 = mockk<Dice>() {
+        val dice2 = mockk<Dice> {
             every { roll() } returns 10
         }
         val rollSituation = RollSituation.of(dice1, dice2, condition = RollCondition.DISADVANTAGE)
