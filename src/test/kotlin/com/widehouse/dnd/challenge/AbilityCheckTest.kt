@@ -1,57 +1,52 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.character.Skill
+import com.widehouse.dnd.character.ability.AbilityType
+import com.widehouse.dnd.dice.RollSituation
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
 import io.mockk.clearAllMocks
+import io.mockk.every
 import io.mockk.mockk
 
 class AbilityCheckTest : FunSpec({
-    val dice = mockk<Dice>()
+    val rollSituation = mockk<RollSituation>()
 
-    afterEach {
+    beforeEach {
         clearAllMocks()
     }
 
-//    test("Survival checks") {
-//        every { Dice.D20.roll() }.returns(14)
-//        every { char.wisdom }.returns(Wisdom(16))
-//        val challenge = AbilityCheck(char, Survival, 15)
-//        val f = challenge::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(challenge, dice)
-//
-//        challenge.result() shouldBe true
-//        verify { Dice.D20.roll() }
-//        verify { char.wisdom }
-//    }
-//
-//    test("Athletic checks with proficiency skill") {
-//        every { Dice.D20.roll() }.returns(14)
-//        every { char.strength }.returns(Strength(14))
-//        every { char.proficiencySkill }.returns(listOf(Athletics, History))
-//        val challenge = AbilityCheck(char, Athletics, 10)
-//        val f = challenge::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(challenge, dice)
-//
-//        challenge.result() shouldBe true
-//        verify { Dice.D20.roll() }
-//        verify { char.strength }
-//        verify { char.proficiencyBonus }
-//    }
-//
-//    test("Athletic checks without proficiency skill") {
-//        every { Dice.D20.roll() }.returns(5)
-//        every { char.dexterity }.returns(Dexterity(14))
-//        every { char.proficiencySkill }.returns(listOf(Athletics, History))
-//        val challenge = AbilityCheck(char, Acrobatics, 15)
-//        val f = challenge::class.java.getDeclaredField("dice")
-//        f.isAccessible = true
-//        f.set(challenge, dice)
-//
-//        challenge.result() shouldBe false
-//        verify { Dice.D20.roll() }
-//        verify { char.dexterity }
-//        verify(exactly = 0) { char.proficiencyBonus }
-//    }
+    test("Ability checks") {
+        every { rollSituation.roll() } returns 14
+
+        val check = AbilityCheck(rollSituation, listOf(2, 2), 15)
+
+        check.challenge() shouldBe true
+    }
+
+    test("Skill related Ability") {
+        io.kotest.data.forAll(
+            row(AbilityType.Strength, Skill.Athletics),
+            row(AbilityType.Dexterity, Skill.Acrobatics),
+            row(AbilityType.Dexterity, Skill.SleightOfHand),
+            row(AbilityType.Dexterity, Skill.Stealth),
+            row(AbilityType.Intelligence, Skill.Arcana),
+            row(AbilityType.Intelligence, Skill.History),
+            row(AbilityType.Intelligence, Skill.Investigation),
+            row(AbilityType.Intelligence, Skill.Nature),
+            row(AbilityType.Intelligence, Skill.Religion),
+            row(AbilityType.Wisdom, Skill.AnimalHandling),
+            row(AbilityType.Wisdom, Skill.Insight),
+            row(AbilityType.Wisdom, Skill.Medicine),
+            row(AbilityType.Wisdom, Skill.Perception),
+            row(AbilityType.Wisdom, Skill.Survival),
+            row(AbilityType.Charisma, Skill.Deception),
+            row(AbilityType.Charisma, Skill.Intimidation),
+            row(AbilityType.Charisma, Skill.Performance),
+            row(AbilityType.Charisma, Skill.Persuasion)
+        ) { abilityType, skill ->
+            abilityType shouldBe skill.abilityType
+        }
+    }
 })

@@ -1,18 +1,18 @@
 package com.widehouse.dnd.character.player
 
-import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.Character
 import com.widehouse.dnd.character.PlayerCharacterFixtures
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.character.ability.Ability
-import com.widehouse.dnd.character.ability.Dexterity
-import com.widehouse.dnd.character.ability.Strength
+import com.widehouse.dnd.character.ability.Ability.Dexterity
+import com.widehouse.dnd.character.ability.Ability.Strength
 import com.widehouse.dnd.character.item.Weapon
 import com.widehouse.dnd.character.item.WeaponProperty
 import com.widehouse.dnd.character.item.WeaponType
 import com.widehouse.dnd.character.player.Class.Fighter
 import com.widehouse.dnd.character.player.Race.Human
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollResult
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.headers
 import io.kotest.data.row

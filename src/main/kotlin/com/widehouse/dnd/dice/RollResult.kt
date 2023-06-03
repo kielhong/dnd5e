@@ -1,4 +1,4 @@
-package com.widehouse.dnd.challenge
+package com.widehouse.dnd.dice
 
 sealed class RollResult {
     object CriticalFail : RollResult()

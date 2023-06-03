@@ -1,8 +1,8 @@
 package com.widehouse.dnd.character
 
-import com.widehouse.dnd.challenge.RollResult
 import com.widehouse.dnd.character.ability.Abilities
 import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollResult
 
 abstract class Character(
     open val name: String,
