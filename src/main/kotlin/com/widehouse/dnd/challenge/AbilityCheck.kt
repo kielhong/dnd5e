@@ -1,6 +1,5 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.dice.RollCondition
 import com.widehouse.dnd.dice.RollSituation
 
 class AbilityCheck(
@@ -9,16 +8,6 @@ class AbilityCheck(
     private val difficultyClass: Int
 ) : Challenge {
     override fun challenge(): Boolean {
-        require(rollSituation.dice.isNotEmpty())
-
-        val diceRolls = rollSituation.dice.map { it.roll() }
-        val diceResult =
-            when (rollSituation.condition) {
-                RollCondition.NORMAL -> diceRolls.first()
-                RollCondition.ADVANTAGE -> diceRolls.max()
-                RollCondition.DISADVANTAGE -> diceRolls.min()
-            }
-
-        return (diceResult + modifiers.sumOf { it }) >= difficultyClass
+        return (rollSituation.roll() + modifiers.sumOf { it }) >= difficultyClass
     }
 }

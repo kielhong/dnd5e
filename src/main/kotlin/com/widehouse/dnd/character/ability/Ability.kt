@@ -11,4 +11,3 @@ sealed class Ability(open val score: Int) {
     class Wisdom(override val score: Int) : Ability(score)
     class Charisma(override val score: Int) : Ability(score)
 }
-

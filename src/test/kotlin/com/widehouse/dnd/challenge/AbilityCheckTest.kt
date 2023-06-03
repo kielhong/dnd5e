@@ -2,7 +2,6 @@ package com.widehouse.dnd.challenge
 
 import com.widehouse.dnd.character.Skill
 import com.widehouse.dnd.character.ability.AbilityType
-import com.widehouse.dnd.dice.Dice
 import com.widehouse.dnd.dice.RollSituation
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.data.row
@@ -12,15 +11,14 @@ import io.mockk.every
 import io.mockk.mockk
 
 class AbilityCheckTest : FunSpec({
-    val dice = mockk<Dice>()
+    val rollSituation = mockk<RollSituation>()
 
-    afterEach {
+    beforeEach {
         clearAllMocks()
     }
 
     test("Ability checks") {
-        every { dice.roll() }.returns(14)
-        val rollSituation = RollSituation.of(dice)
+        every { rollSituation.roll() } returns 14
 
         val check = AbilityCheck(rollSituation, listOf(2, 2), 15)
 
