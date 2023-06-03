@@ -3,8 +3,12 @@ package com.widehouse.dnd.challenge
 import com.widehouse.dnd.dice.RollCondition
 import com.widehouse.dnd.dice.RollSituation
 
-class AbilityCheck(private val rollSituation: RollSituation, private val modifiers: List<Int>, private val difficultyClass: Int) {
-    fun result(): Boolean {
+class AbilityCheck(
+    private val rollSituation: RollSituation,
+    private val modifiers: List<Int>,
+    private val difficultyClass: Int
+) : Challenge {
+    override fun challenge(): Boolean {
         require(rollSituation.dice.isNotEmpty())
 
         val diceRolls = rollSituation.dice.map { it.roll() }

@@ -9,8 +9,8 @@ class SavingThrow(
     private val rollSituation: RollSituation,
     private val modifiers: List<Int>,
     private val difficultyClass: Int
-) {
-    fun result(): Boolean {
+) : Challenge {
+    override fun challenge(): Boolean {
         require(rollSituation.dice.isNotEmpty())
 
         val diceRolls = rollSituation.dice.map { it.roll() }

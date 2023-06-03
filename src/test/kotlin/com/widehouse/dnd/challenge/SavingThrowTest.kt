@@ -22,7 +22,7 @@ class SavingThrowTest : FunSpec({
         val rollSituation = RollSituation.of(dice)
         val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
 
-        savingThrow.result() shouldBe true
+        savingThrow.challenge() shouldBe true
     }
 
     test("Saving Throw - advantage") {
@@ -35,7 +35,7 @@ class SavingThrowTest : FunSpec({
         val rollSituation = RollSituation.of(listOf(dice1, dice2), RollCondition.ADVANTAGE)
         val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
 
-        savingThrow.result() shouldBe true
+        savingThrow.challenge() shouldBe true
     }
 
     test("Saving Throw - disadvantage") {
@@ -48,7 +48,7 @@ class SavingThrowTest : FunSpec({
         val rollSituation = RollSituation.of(dice1, dice2, condition = RollCondition.DISADVANTAGE)
         val savingThrow = SavingThrow(rollSituation, listOf(2, 2), 15)
 
-        savingThrow.result() shouldBe false
+        savingThrow.challenge() shouldBe false
     }
 
     test("when roll without dice throw error") {
@@ -56,7 +56,7 @@ class SavingThrowTest : FunSpec({
         val savingThrow = SavingThrow(rollSituation, listOf(), 15)
 
         shouldThrow<IllegalArgumentException> {
-            savingThrow.result()
+            savingThrow.challenge()
         }
     }
 })

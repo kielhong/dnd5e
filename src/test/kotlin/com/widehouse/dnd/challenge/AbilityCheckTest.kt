@@ -24,7 +24,7 @@ class AbilityCheckTest : FunSpec({
 
         val check = AbilityCheck(rollSituation, listOf(2, 2), 15)
 
-        check.result() shouldBe true
+        check.challenge() shouldBe true
     }
 
     test("Skill related Ability") {
