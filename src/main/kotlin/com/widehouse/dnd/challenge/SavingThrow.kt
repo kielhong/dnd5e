@@ -1,21 +1,28 @@
 package com.widehouse.dnd.challenge
 
-import com.widehouse.dnd.character.ability.AbilityType
-import com.widehouse.dnd.character.player.PlayerCharacter
-import com.widehouse.dnd.dice.Dice
+import com.widehouse.dnd.dice.RollCondition.ADVANTAGE
+import com.widehouse.dnd.dice.RollCondition.DISADVANTAGE
+import com.widehouse.dnd.dice.RollCondition.NORMAL
+import com.widehouse.dnd.dice.RollSituation
 
-class SavingThrow(private val playerCharacter: PlayerCharacter, private val abilityType: AbilityType, private val difficultClass: Int) {
+class SavingThrow(
+    private val rollSituation: RollSituation,
+    private val modifiers: List<Int>,
+    private val difficultyClass: Int
+) {
     fun result(): Boolean {
-        return Challenge.challenge(Dice.D20.roll(), modifiers(), difficultClass)
-    }
-
-    private fun modifiers(): List<Int> {
-        val modifiers = mutableListOf<Int>()
-        modifiers.add(playerCharacter.abilityByType(abilityType).modifier)
-        if (playerCharacter.proficiencySavingThrow.contains(abilityType)) {
-            modifiers.add(playerCharacter.proficiencyBonus)
+        if (rollSituation.dice.isEmpty()) {
+            throw IllegalArgumentException()
         }
 
-        return modifiers
+        val diceRolls = rollSituation.dice.map { it.roll() }
+        val diceResult =
+            when (rollSituation.condition) {
+                NORMAL -> diceRolls.first()
+                ADVANTAGE -> diceRolls.max()
+                DISADVANTAGE -> diceRolls.min()
+            }
+
+        return (diceResult + modifiers.sumOf { it }) >= difficultyClass
     }
 }
